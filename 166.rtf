@@ -1,0 +1,130 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.\
+\
+If the fractional part is repeating, enclose the repeating part in parentheses.\
+\
+For example,\
+\
+Given numerator = 1, denominator = 2, return "0.5".\
+Given numerator = 2, denominator = 1, return "2".\
+Given numerator = 2, denominator = 3, return "0.(6)".\
+\
+
+\f1 \'d2\'bb\'b8\'f6\'b3\'fd\'ca\'fd\'ce\'ca\'cc\'e2
+\f0 \
+\
+
+\f1 \'d7\'d4\'bc\'ba\'d0\'b4\'b5\'c4\'c3\'bb\'d3\'d0\'cd\'a8\'b9\'fd\'a3\'ac\'cb\'bc\'c2\'b7\'ba\'cd\'cf\'c2\'c3\'e6\'d5\'e2\'b8\'f6\'d2\'bb\'d1\'f9
+\f0 \
+
+\f1 \'d3\'d0\'cf\'b8\'bd\'da\'ce\'ca\'cc\'e2
+\f0 \
+\
+
+\f1 \'d7\'a2\'d2\'e2\'d2\'bb\'a3\'ba\'bd\'ab
+\f0  int 
+\f1 \'d0\'cd
+\f0  
+\f1 \'b1\'e4\'ce\'aa
+\f0 long long 
+\f1 \'c0\'b4\'b4\'a6\'c0\'ed
+\f0 \
+
+\f1 \'d7\'a2\'d2\'e2\'b6\'fe\'a3\'ba
+\f0 if((num11<0) ^ (num22<0)) 
+\f1 \'b4\'fa\'b1\'ed\'d3\'d0\'d2\'bb\'b8\'f6\'ce\'aa\'b8\'ba
+\f0  
+\f1 \'c7\'c9\'c3\'ee\'ca\'b9\'d3\'c3\'d2\'ec\'bb\'f2
+\f0 \
+
+\f1 \'d7\'a2\'d2\'e2\'c8\'fd\'a3\'ba
+\f0  to_string() 
+\f1 \'ba\'af\'ca\'fd
+\f0  
+\f1 \'bd\'ab\'d5\'fb\'ca\'fd\'b1\'e4\'ce\'aa\'d7\'d6\'b7\'fb\'b4\'ae
+\f0 \
+
+\f1 \'d7\'a2\'d2\'e2\'cb\'c4\'a3\'ba\'b5\'b1\'c3\'bf\'d2\'bb\'b4\'ce\'b6\'bc\'d2\'aa\'b2\'e9\'d5\'d2\'ca\'b1\'a3\'ac\'d2\'bb\'b6\'a8\'d3\'c3
+\f0 map
+\f1 \'c0\'b4\'b4\'e6
+\f0 \
+*/\
+class Solution \{\
+public:\
+    string fractionToDecimal(int num11, int num22) \
+    \{\
+       if(num11==0)\
+         return "0";\
+\
+       int sign=1;\
+       \
+       if((num11<0) ^ (num22<0))\
+         sign=-1;\
+       \
+       long long n=num11;\
+       long long d=num22;\
+       n=abs(n);\
+       d=abs(d);\
+       \
+       string ret=""; \
+       map<long long,int> m;\
+       bool digit=false;\
+       \
+       while(true)\
+       \{\
+           if(n<d)\
+           \{\
+               if(digit==false)\
+               \{\
+                   if(ret=="")\
+                     ret="0.";\
+                   else\
+                     ret+=".";\
+                   digit=true;\
+               \}\
+               n*=10;\
+           \}\
+           \
+           int r=n-n/d*d;\
+           \
+           if(r==0)\
+           \{\
+               ret+=to_string(n/d);\
+               if(sign==-1)\
+                 ret="-"+ret;\
+               return ret;\
+           \}\
+           else\
+           \{\
+               if(digit==true)\
+               \{\
+                   if(m.find(n)==m.end())\
+                   \{\
+                      ret+=to_string(n/d);\
+                      m[n]=ret.size()-1; \
+                   \}\
+                   else\
+                   \{\
+                      int pos=m[n]; \
+                      ret = ret.substr(0, pos) + "(" + ret.substr(pos) + ")";\
+                      if(sign == -1)\
+                        ret = "-" + ret;\
+                      return ret;\
+                   \}\
+               \}\
+               else\
+               \{\
+                   ret+=to_string(n/d);\
+               \}\
+               n=r;\
+           \}\
+       \}\
+    \}\
+\};}
