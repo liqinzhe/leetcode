@@ -1,0 +1,88 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.\
+\
+The Sudoku board could be partially filled, where empty cells are filled with the character '.'.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 屏幕快照 2017-04-08 下午8.12.52.png \width5980 \height5940
+}�}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Note:\
+A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.\
+\
+
+\f1 \'c5\'d0\'b6\'cf\'d2\'bb\'b8\'f6\'ca\'fd\'b6\'c0\'c5\'cc\'b5\'c4\'d2\'d1\'be\'ad\'cc\'ee\'c9\'cf\'b5\'c4\'b2\'bf\'b7\'d6\'ca\'c7\'b2\'bb\'ca\'c7\'d3\'d0\'d0\'a7\'b5\'c4\'ca\'fd\'b6\'c0\'c5\'cc\'a1\'a3\'b2\'bb\'d0\'e8\'d2\'aa\'c5\'d0\'b6\'cf\'c3\'bb\'cc\'ee\'c9\'cf\'b5\'c4\'b2\'bf\'b7\'d6\'a1\'a3\'d2\'b2\'be\'cd\'ca\'c7\'bf\'b4\'d3\'d0\'c3\'bb\'d3\'d0\'d6\'d8\'b8\'b4\'b5\'c4\'a1\'a3
+\f0 \
+\
+*/\
+class Solution \{\
+public:\
+    bool isValidSudoku(vector<vector<char>>& board) \
+    \{\
+        map<char,int> m2;\
+        //
+\f1 \'c5\'d0\'b6\'cf\'c3\'bf\'d2\'bb\'ba\'e1\'c5\'c5
+\f0 \
+        for(int i=0;i<9;i++)\
+        \{   \
+            for(int j=0;j<9;j++)\
+            \{\
+                 if(board[i][j]=='.')\
+                     continue;\
+                 if(m2.find(board[i][j])==m2.end())\
+                     m2[board[i][j]]++;\
+                 else\
+                     return false;\
+            \}\
+            m2.clear();\
+         \}\
+        \
+         \
+         //
+\f1 \'c5\'d0\'b6\'cf\'c3\'bf\'d2\'bb\'ca\'fa\'c5\'c5
+\f0 \
+         for(int i=0;i<9;i++)\
+         \{\
+            for(int j=0;j<9;j++)\
+            \{\
+                 if(board[j][i]=='.')\
+                    continue;\
+                 if(m2.find(board[j][i])==m2.end())\
+                     m2[board[j][i]]++;\
+                 else\
+                     return false;\
+            \}\
+            m2.clear();\
+          \}\
+         //
+\f1 \'c5\'d0\'b6\'cf\'c3\'bf\'d2\'bb\'b8\'f6\'be\'c5\'b9\'ac\'b8\'f1
+\f0 \
+         for(int k=0;k<3;k++) \
+         \{   \
+             for(int h=0;h<3;h++)\
+             \{\
+                    for(int i=k*3;i<k*3+3;i++)\
+                    \{\
+                        for(int j=h*3;j<h*3+3;j++)\
+                        \{\
+                            if(board[i][j]=='.')\
+                                continue;\
+                            if(m2.find(board[i][j])==m2.end())\
+                                 m2[board[i][j]]++;\
+                            else\
+                                 return false;\
+                        \}\
+                    \}\
+                    m2.clear();\
+              \}\
+        \}  \
+        return true;   \
+    \}\
+\};}
