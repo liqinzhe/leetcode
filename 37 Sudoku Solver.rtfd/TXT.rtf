@@ -1,0 +1,101 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Write a program to solve a Sudoku puzzle by filling the empty cells.\
+\
+Empty cells are indicated by the character '.'.\
+\
+You may assume that there will be only one unique solution.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 屏幕快照 2017-04-08 下午8.15.23.png \width6560 \height11940
+}�}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 \cf0 \'cc\'ee\'ca\'fd\'b6\'c0
+\f0 \
+
+\f1 \'d3\'c3\'b5\'dd\'b9\'e9\'b5\'c4\'cb\'bc\'cf\'eb\'a3\'ac\'cf\'c8\'c5\'d0\'b6\'cf\'c3\'bf\'d2\'bb\'b8\'f6\'bf\'d5\'ce\'bb\'bf\'c9\'d2\'d4\'cc\'ee\'c4\'c4\'d0\'a9\'a3\'ac\'c8\'bb\'ba\'f3\'cc\'ee\'bd\'f8\'c8\'a5\'d4\'d9\'b5\'dd\'b9\'e9\'a1\'a3
+\f0 \
+\
+*/\
+class Solution \{\
+public:\
+    int shudu(vector<vector<char>>&board,vector<vector<int>> &mm,int pos,int flag)\
+    \{\
+        if(pos==mm.size())\
+            return 1;\
+        \
+        int a[10]=\{0\};\
+        int x=mm[pos][0];\
+        int y=mm[pos][1];\
+        for(int i=0;i<9;i++)\
+        \{\
+            if(board[x][i]!='.')//
+\f1 \'ba\'e1
+\f0 \
+                a[(int(board[x][i])-48)]=1;\
+            if(board[i][y]!='.')//
+\f1 \'ca\'fa
+\f0 \
+                a[(int(board[i][y])-48)]=1;\
+        \}\
+        //3*3\
+        for(int k=(x/3)*3;k<(x/3)*3+3;k++)\
+        \{\
+            for(int h=(y/3)*3;h<(y/3)*3+3;h++)\
+            \{\
+                if(board[k][h]!='.')\
+                    a[(int(board[k][h])-48)]=1;\
+            \}\
+        \}\
+        //
+\f1 \'b0\'d1\'bf\'c9\'d2\'d4\'bc\'d3\'b5\'c4\'bc\'d3\'bd\'f8\'c8\'a5
+\f0 \
+        for(int i=1;i<=9;i++)\
+        \{\
+            if(a[i]==0)\
+            \{\
+                board[x][y]=char(i+48);\
+                flag=shudu(board,mm,pos+1,flag);\
+                if(flag==0)\
+                    board[x][y]='.';\
+                else\
+                    break;\
+            \}\
+        \}\
+        return flag;\
+    \}\
+    \
+    void solveSudoku(vector<vector<char>>& board)\
+    \{\
+        //
+\f1 \'bd\'ab\'b5\'e3
+\f0 ('.')
+\f1 \'b5\'c4\'ce\'bb\'d6\'c3\'b4\'e6\'c6\'f0\'c0\'b4
+\f0 \
+        vector<vector<int>> mm;\
+        vector<int> m1;\
+        for(int i=0;i<9;i++)\
+        \{\
+            for(int j=0;j<9;j++)\
+            \{\
+                if(board[i][j]=='.')\
+                \{\
+                    m1.push_back(i);\
+                    m1.push_back(j);\
+                    mm.push_back(m1);\
+                    m1.clear();\
+                \}\
+            \}\
+        \}\
+        //
+\f1 \'bf\'aa\'ca\'bc\'b1\'e9\'c0\'fa
+\f0 \
+        int k=shudu(board,mm,0,0);\
+    \}\
+\};}
