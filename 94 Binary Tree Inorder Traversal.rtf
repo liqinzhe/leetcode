@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a binary tree, return the inorder traversal of its nodes' values.\
+\
+For example:\
+Given binary tree [1,null,2,3],\
+   1\
+    \\\
+     2\
+    /\
+   3\
+return [1,3,2].\
+\
+Note: Recursive solution is trivial, could you do it iteratively?\
+\
+
+\f1 \'d6\'d0\'d0\'f2\'b1\'e9\'c0\'fa
+\f0 \
+\
+way-1:
+\f1 \'b5\'dd\'b9\'e9
+\f0 \
+\
+way-2:
+\f1 \'b5\'fc\'b4\'fa
+\f0 \
+\
+*/\
+/**\
+ * Definition for a binary tree node.\
+ * struct TreeNode \{\
+ *     int val;\
+ *     TreeNode *left;\
+ *     TreeNode *right;\
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    void inorder(vector<int> &result,TreeNode *p)  \
+    \{\
+       if(p->left)    \
+          inorder(result,p->left);\
+       result.push_back(p->val);\
+       if(p->right)\
+          inorder(result,p->right); \
+    \}\
+    \
+    vector<int> inorderTraversal(TreeNode* root) \
+    \{\
+       //way-1\
+       /*\
+       vector<int> result;\
+       if(root)\
+           inorder(result,root);\
+       return result;\
+       */\
+       \
+       //way-2\
+       vector<int> ret;\
+       if(!root)\
+           return ret;\
+       stack<TreeNode*> mm;\
+       TreeNode*p=root;\
+       bool search_left=false;\
+       while(1)\
+       \{\
+           if(p->left && !search_left)\
+           \{\
+               mm.push(p);\
+               p=p->left;\
+               continue;\
+           \}\
+           search_left=false;\
+           ret.push_back(p->val);\
+           if(p->right)\
+           \{\
+               p=p->right;\
+               continue;\
+           \}\
+           else//
+\f1 \'d7\'f3\'d3\'d2\'d7\'d3\'ca\'f7\'b6\'bc\'c3\'bb\'d3\'d0
+\f0 \
+           \{\
+               if(!mm.empty())\
+               \{\
+                   p=mm.top();\
+                   mm.pop();\
+                   search_left=true;\
+                   continue;\
+               \}\
+               else\
+                   break;\
+           \}\
+           \
+       \}\
+       return ret;\
+    \}\
+\};}
