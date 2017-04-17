@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.\
+\
+\
+*/\
+/**\
+ * Definition for singly-linked list.\
+ * struct ListNode \{\
+ *     int val;\
+ *     ListNode *next;\
+ *     ListNode(int x) : val(x), next(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    ListNode* mergeTwoLists(ListNode* p1, ListNode* p2) \
+    \{\
+        if(p1==NULL)\
+            return p2;\
+        if(p2==NULL)\
+            return p1;\
+        ListNode *result,*middle,*q,*nex;\
+     \
+        if(p1->val<p2->val)\
+        \{\
+            result=p1;\
+            q=p1;\
+            middle=p2;\
+        \}\
+        else\
+        \{\
+            result=p2; \
+            q=p2;\
+            middle=p1;\
+        \}\
+         \
+        while(q->next)\
+        \{\
+            if(q->next->val<=middle->val)\
+            \{\
+                q=q->next;\
+            \}\
+            else\
+            \{\
+                nex=q->next;\
+                q->next=middle;\
+                q=middle;\
+                middle=nex;\
+            \}\
+        \}\
+        q->next=middle;\
+        return result;\
+    \}\
+\};}
