@@ -1,0 +1,134 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.\
+\
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.\
+\
+You may not alter the values in the nodes, only nodes itself may be changed.\
+\
+Only constant memory is allowed.\
+\
+For example,\
+Given this linked list: 1->2->3->4->5\
+\
+For k = 2, you should return: 2->1->4->3->5\
+\
+For k = 3, you should return: 3->2->1->4->5\
+\
+way-1:\'d7\'a8\'c3\'c5\'d0\'b4\'d2\'bb\'b8\'f6\'bd\'bb\'bb\'bbk\'b8\'f6\'b5\'c4\'ba\'af\'ca\'fd\
+\
+\
+\
+*/\
+/**\
+ * Definition for singly-linked list.\
+ * struct ListNode \{\
+ *     int val;\
+ *     ListNode *next;\
+ *     ListNode(int x) : val(x), next(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    ListNode* reverse(ListNode *k1,ListNode *k2,int k)\
+    \{\
+        int i=1;\
+        ListNode *p;\
+        while(i<k)\
+        \{\
+            p=k1->next;\
+            k1->next=p->next;\
+            p->next=k2->next;\
+            k2->next=p;\
+            i++;\
+        \}\
+        for(i=0;i<k;i++)\
+            k1=k1->next;\
+        return k1;\
+    \}\
+    \
+    ListNode* reverseKGroup(ListNode* head, int k) \
+    \{\
+        //way-1\
+        if(!head)\
+            return head;\
+        ListNode hhead(-1);\
+        hhead.next=head;\
+        \
+        ListNode *k1=&hhead;\
+        ListNode *k2;\
+        while(1)\
+        \{\
+            k2=k1;\
+            int i=1;\
+            while(i<=k)\
+            \{\
+                k2=k2->next;\
+                if(!k2)\
+                    return hhead.next;\
+                i++;\
+            \}\
+            k1=reverse(k1,k2,k);\
+        \}\
+        return hhead.next;   \
+        \
+        //way-2\
+        /*\
+        if(k==1 || head==NULL)\
+        return head;\
+        \
+        //second\'d3\'c3\'c0\'b4\'c5\'d0\'b6\'cf\'d3\'d0\'c3\'bb\'d3\'d0\'cf\'c2k\'b8\'f6\'c0\'b4\'bd\'bb\'bb\'bb\
+        ListNode* second=head;\
+        for(int i=1;i<k;i++)\
+        \{\
+            if(second->next)\
+              second=second->next;\
+            else\
+              return head;  \
+        \}\
+    \
+        //\'bf\'aa\'ca\'bc\
+        ListNode* p=head;\
+        ListNode* q=head->next;\
+        ListNode* temp=p;\
+        head=second;\
+        while(second!=NULL)\
+        \{\
+            //\'bd\'bb\'bb\'bb\
+            for(int i=1;i<k;i++)\
+            \{\
+                temp->next=q->next;\
+                q->next=p;\
+                \
+                p=q; \
+                q=temp->next;\
+            \}\
+            second=temp;\
+            \
+            //\'c5\'d0\'b6\'cf\'ca\'c7\'b2\'bb\'ca\'c7\'d3\'d0k\'b8\'f6\
+            for(int i=0;i<k;i++)\
+           \{\
+            if(second->next)\
+              second=second->next;\
+            else\
+              return head;    \
+           \}\
+           \
+           temp->next=second;\
+           \
+           temp=q;\
+           p=q;\
+           q=q->next;\
+            \
+        \}\
+      return head;\
+        */\
+        \
+    \}\
+\};}

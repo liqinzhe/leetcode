@@ -1,0 +1,89 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a sorted linked list, delete all duplicates such that each element appear only once.\
+\
+For example,\
+Given 1->1->2, return 1->2.\
+Given 1->1->2->3->3, return 1->2->3.\
+\
+way-1:find first unique ,and see next is the same or not\
+\
+way-2: use map\
+\
+*/\
+/**\
+ * Definition for singly-linked list.\
+ * struct ListNode \{\
+ *     int val;\
+ *     ListNode *next;\
+ *     ListNode(int x) : val(x), next(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    ListNode* deleteDuplicates(ListNode* head) \
+    \{  \
+        //way-1\
+        /*\
+        if(!head)\
+            return head;\
+       \
+        //
+\f1 \'cf\'c8\'d5\'d2\'b5\'da\'d2\'bb\'b8\'f6\'b5\'a5\'b8\'f6\'b5\'c4
+\f0     \
+        ListNode *p=head;\
+        ListNode *q=head;\
+       \
+        while(1)\
+        \{\
+            while(q->val==p->val && q->next)\
+                q=q->next;\
+         \
+            if(q->next==NULL && p->val==q->val && p!=q)  \
+            \{\
+                p->next=NULL;\
+                break;\
+            \}\
+            else if(q->next==NULL &&  p==q)\
+            \{\
+                break; \
+            \}\
+            p->next=q;\
+            p=q;\
+        \} \
+        return head; \
+        */\
+        \
+        //way-2\
+        if(!head)\
+            return head;\
+        \
+        map<int,int> mm;\
+        mm[head->val]++;\
+        ListNode *last=head;\
+        ListNode *nex=head->next;\
+        \
+        while(nex)\
+        \{\
+            if(mm.find(nex->val)==mm.end())\
+            \{\
+                mm[nex->val]++;\
+                last->next=nex;\
+                last=nex;\
+                nex=last->next;\
+            \}\
+            else\
+            \{\
+                nex=nex->next;\
+            \}\
+        \}\
+        last->next=NULL;\
+        return head;\
+    \}\
+\};}
