@@ -1,0 +1,75 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Sort a linked list using insertion sort.\
+\
+   
+\f1 \'c1\'b4\'b1\'ed\'b5\'c4\'b2\'e5\'c8\'eb\'c5\'c5\'d0\'f2
+\f0 ,\
+   
+\f1 \'b2\'e5\'c8\'eb\'cb\'e3\'b7\'a8\'b0\'d1\'d2\'aa\'c5\'c5\'d0\'f2\'b5\'c4\'ca\'fd\'d7\'e9\'b7\'d6\'b3\'c9\'c1\'bd\'b2\'bf\'b7\'d6\'a3\'ba\'b5\'da\'d2\'bb\'b2\'bf\'b7\'d6\'b0\'fc\'ba\'ac\'c1\'cb\'d2\'d1\'be\'ad\'c5\'c5\'d0\'f2\'d4\'aa\'cb\'d8\'a3\'ac\'b6\'f8\'b5\'da\'b6\'fe\'b2\'bf\'b7\'d6\'ca\'c7\'ce\'b4\'c5\'c5\'d0\'f2\'d4\'aa\'cb\'d8\'a1\'a3\'bd\'ab\'ce\'b4\'c5\'c5\'d0\'f2\'d4\'aa\'cb\'d8
+\f0 \
+   
+\f1 \'b5\'c4\'b5\'da\'d2\'bb\'b8\'f6\'b0\'a4\'b8\'f6\'ba\'cd\'c5\'c5\'d0\'f2\'b5\'c4\'b1\'c8\'bd\'cf\'a3\'ac\'c8\'bb\'ba\'f3\'b2\'e5\'c8\'eb\'a1\'a3
+\f0 \
+   \
+*/\
+/**\
+ * Definition for singly-linked list.\
+ * struct ListNode \{\
+ *     int val;\
+ *     ListNode *next;\
+ *     ListNode(int x) : val(x), next(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    ListNode* insertionSortList(ListNode* head) \
+    \{\
+        ListNode* begin=head;\
+        ListNode* end=head;\
+        ListNode* next_node=head;\
+        if(!head)\
+            return head;\
+        else if(!next_node->next)\
+            return head;\
+        \
+        next_node=next_node->next;\
+        while(next_node)\
+        \{\
+            ListNode* p=begin; \
+            ListNode* p_last=begin;\
+            while(p->val<next_node->val && p!=end->next)\
+            \{    \
+                p_last=p;\
+                p=p->next;\
+            \}\
+            \
+            if(p==begin)\
+            \{\
+               head=next_node;\
+               end->next=next_node->next;\
+               next_node->next=begin;\
+               begin=next_node;\
+            \}\
+            else if(p==end->next)\
+            \{\
+                end=next_node;\
+            \}\
+            else\
+            \{\
+                end->next=next_node->next;\
+                next_node->next=p;\
+                p_last->next=next_node;\
+            \}\
+            next_node=end->next;\
+        \}\
+        \
+        return head; \
+    \}\
+\};}
