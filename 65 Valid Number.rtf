@@ -1,0 +1,136 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Validate if a given string is numeric.\
+\
+Some examples:\
+"0" => true\
+" 0.1 " => true\
+"abc" => false\
+"1 a" => false\
+"2e10" => true\
+\
+many situation!!\
+\
+*/\
+class Solution \{\
+public:\
+    bool isNumber(string s) \
+    \{\
+        int k=0;\
+        while(true)\
+        \{\
+            if(s[k]==' ')\
+                s=s.substr(1,s.size()-1);\
+            else\
+                break;\
+        \}\
+        if(s.size()==0)\
+            return 0;\
+        \
+        while(true)\
+        \{\
+            k=s.size()-1;\
+            if(s[k]==' ')\
+              s=s.substr(0,s.size()-1);\
+            else\
+              break;\
+        \}\
+    \
+        k=0;   \
+        int flag=0;\
+        int flag2=0;\
+        int flag3=0;\
+        int flag4=0;\
+        while(k<s.size())\
+        \{\
+            if(int(s[k])>=48 && int(s[k])<=57)   \
+            \{\
+                k++;   \
+                continue; \
+            \}\
+            else if(int(s[k])==46 && flag==0 && flag4==0)  //.\
+            \{\
+                flag=1;\
+                if(k==0 && s.size()==1)// "."\
+                    return 0;\
+                else if(k!=0 && k<s.size()-2 && s[k+1]=='e')\
+                \{\
+                    k++;   \
+                    continue;\
+                \}\
+                else if(k!=s.size()-1 && (int(s[k+1])<48 || int(s[k+1])>57))//\
+                    return 0;   \
+                else if(k==s.size()-1 && s[k-1]=='-' && k>0) //"-."\
+                    return 0;\
+                else\
+                \{\
+                    k++;   \
+                    continue;\
+                \}\
+            \}\
+            else if(int(s[k])==101 && k!=0 && k!=s.size()-1 && s[k+1]!='.' && flag4==0)  //e\
+            \{\
+                flag4=1;\
+                if(k==1 && (int(s[k-1])<48 || int(s[k-1])>57))\
+                    return 0;\
+                else\
+                \{\
+                    k++;   \
+                    continue; \
+                \}\
+            \}\
+            else if(int(s[k])==45)  //-\
+            \{ \
+                if(flag3==0 || (k>0 && s[k-1]=='e'))\
+                \{  \
+                    flag2=1; \
+                    flag3=1;\
+                    if((s[k-1]=='e' && k!=s.size()-1) || (k==0 && s.size()!=1))\
+                    \{ \
+                        k++;   \
+                        continue;\
+                    \}\
+                    else\
+                        return 0;\
+                \}\
+                else\
+                    return 0;\
+            \}\
+            else if(int(s[k])==43 && k!=s.size()-1)//+\
+            \{\
+                if(flag3==0 || (k>0 && s[k-1]=='e')) \
+                \{\
+                    flag3=1;\
+                    if(s[k+1]=='.' && k+1!=s.size()-1)        \
+                    \{\
+                        k++;   \
+                        continue;  \
+                    \}\
+                    else if(k==0)\
+                    \{\
+                        k++;   \
+                        continue;  \
+                    \}\
+                    else if(k!=0 && s[k-1]=='e' && k!=s.size()-1)\
+                    \{\
+                        k++;   \
+                        continue;  \
+                    \}\
+                    else\
+                        return 0;\
+                \}\
+                else\
+                    return 0;\
+            \}\
+            else\
+                return 0;\
+        \}\
+        return 1;\
+    \}\
+\};}
