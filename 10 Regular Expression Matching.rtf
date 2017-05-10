@@ -1,0 +1,128 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Implement regular expression matching with support for '.' and '*'.\
+\
+'.' Matches any single character.\
+'*' Matches zero or more of the preceding element.\
+\
+The matching should cover the entire input string (not partial).\
+\
+The function prototype should be:\
+bool isMatch(const char *s, const char *p)\
+\
+Some examples:\
+isMatch("aa","a") 
+\f1 \uc0\u8594 
+\f0  false\
+isMatch("aa","aa") 
+\f1 \uc0\u8594 
+\f0  true\
+isMatch("aaa","aa") 
+\f1 \uc0\u8594 
+\f0  false\
+isMatch("aa", "a*") 
+\f1 \uc0\u8594 
+\f0  true\
+isMatch("aa", ".*") 
+\f1 \uc0\u8594 
+\f0  true\
+isMatch("ab", ".*") 
+\f1 \uc0\u8594 
+\f0  true\
+isMatch("aab", "c*a*b") 
+\f1 \uc0\u8594 
+\f0  true\
+\
+
+\f2 \'b9\'d8\'bc\'fc\'d4\'da\'d3\'da
+\f0  .* 
+\f2 \'b5\'c4\'b4\'a6\'c0\'ed
+\f0 \
+\
+\
+*/\
+\
+class Solution \{\
+public:\
+    bool isMatch(string s, string p) \
+    \{\
+        if(s=="")\
+        \{\
+            if(p=="")\
+                return true;\
+            else if(p.size()>1 && p[1]=='*')\
+            \{\
+                if(isMatch(s,p.substr(2,p.size()-2)) ) \
+                    return true;\
+                else\
+                    return false;\
+            \} \
+            else\
+                return false;\
+        \}  \
+        else if(p=="")\
+            return false;\
+       \
+        if(p.size()<2)//
+\f2 \'b5\'b1
+\f0 p
+\f2 \'d6\'bb\'d3\'d0\'d2\'bb\'ce\'bb
+\f0 \
+        \{\
+            if(s.size()>1)\
+                return false;\
+            else \
+            \{\
+                if(p[0]==s[0] || p[0]=='.')\
+                    return true;\
+                else\
+                    return false;\
+            \}\
+        \}\
+      \
+        if(p[1]!='*')//p
+\f2 \'b4\'f3\'d3\'da\'b5\'c8\'d3\'da
+\f0 2
+\f2 \'ce\'bb\'a3\'ac\'b5\'da\'b6\'fe\'ce\'bb\'b2\'bb\'ca\'c7
+\f0 *\
+        \{\
+            if(p[0]=='.' || p[0]==s[0])\
+                return isMatch(s.substr(1,s.size()-1),p.substr(1,p.size()-1));\
+            else\
+                return false;\
+        \}\
+        else//
+\f2 \'b5\'da\'b6\'fe\'ce\'bb\'ca\'c7
+\f0 *\
+        \{\
+            if(p[0]!=s[0] && p[0]!='.')\
+                return isMatch(s,p.substr(2,p.size()-2));\
+            else//
+\f2 \'c7\'b0\'c1\'bd\'ce\'bb\'c4\'dc\'c6\'a5\'c5\'e4\'c9\'cf
+\f0 \
+            \{\
+                if(isMatch(s,p.substr(2,p.size()-2)))\
+                    return true;\
+               \
+                int i=0;\
+                while(s[i]==p[0] || p[0]=='.')\
+                \{   \
+                    if(isMatch(s.substr(i+1,s.size()-i-1),p.substr(2,p.size()-2)))\
+                        return true;\
+                    if(s.substr(i+1,s.size()-i-1)=="")\
+                        break;   \
+                    i++;\
+                \}\
+                return false;\
+            \}\
+        \}\
+        return false;\
+    \}\
+\};}
