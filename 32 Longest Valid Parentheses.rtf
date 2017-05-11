@@ -1,0 +1,59 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.\
+\
+For "(()", the longest valid parentheses substring is "()", which has length = 2.\
+\
+Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.\
+\
+\
+\
+*/\
+class Solution \{\
+public:\
+    int longestValidParentheses(string s)\
+    \{\
+        if(s.size()<=1)\
+            return 0;\
+        vector<int> pos;  //pos
+\f1 \'d6\'bb\'b4\'e6\'a3\'a8 \'b5\'c4\'b6\'a8\'ce\'bb
+\f0 \
+        int last=-1;\
+        int Max=0;\
+        int k;\
+        for(int i=0;i<s.size();i++)\
+        \{\
+            if(s[i]=='(')\
+                pos.push_back(i);\
+            else\
+            \{\
+                if(pos.size()==0)   
+\f1 //\'cb\'b5\'c3\'f7\'b5\'bd\'d5\'e2\'be\'cd\'b2\'bb\'b7\'fb\'ba\'cf\'c1\'cb\'a3\'ac\'d0\'e8\'d2\'aa\'d6\'d8\'d0\'c2\'b8\'b3\'d6\'b5last
+\f0 \
+                    last=i;\
+                else\
+                \{\
+                    pos.pop_back();   \
+                    if(pos.size()==0)   //last 
+\f1 \'ca\'c7\'b1\'be\'b4\'ce\'b7\'fb\'ba\'cf\'b5\'c4\'bf\'aa\'ca\'bc\'ce\'bb\'d6\'c3
+\f0 \
+                        Max = max(Max,i-last);\
+                    else   
+\f1 // \'d5\'e2\'d6\'d6\'c7\'e9\'bf\'f6 ((()))
+\f0 \
+                    \{\
+                        k=pos[pos.size()-1];   \
+                        Max = max(Max,i-k);\
+                    \} \
+                \}\
+            \}\
+        \}\
+        return Max;\
+    \}\
+\};}

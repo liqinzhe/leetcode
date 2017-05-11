@@ -1,0 +1,197 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a digit string, return all possible letter combinations that the number could represent.\
+\
+A mapping of digit to letters (just like on the telephone buttons) is given below.\
+\
+\
+\
+Input:Digit string "23"\
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].\
+Note:\
+Although the above answer is in lexicographical order, your answer could be in any order you want.\
+\
+
+\f1 \'b0\'a4\'b8\'f6\'b0\'b4\'bc\'fc\'b4\'fa\'b1\'ed\'b5\'c4\'d6\'b5\'cd\'f9\'c0\'ef\'c3\'e6\'b7\'c5
+\f0 \
+\
+*/\
+class Solution \{\
+public:\
+    vector<string> letterCombinations(string digits) \
+    \{   \
+        vector<string> str;\
+        if(digits.size()==0)\
+            return str;\
+            \
+        if(find(digits.begin(),digits.end(),'0')!=digits.end() || find(digits.begin(),digits.end(),'1')!=digits.end())\
+            return str;\
+            \
+        int count=1;\
+        for(int i=0;i<digits.size();i++)\
+        \{\
+            if(int(digits[i])==57 || int(digits[i])==55)\
+                count=count*4;\
+            else if(int(digits[i])==42 || int(digits[i])==35)\
+                count=count*2;\
+            else\
+                count=count*3;\
+        \}\
+        for(int i=0;i<count;i++)\
+        \{\
+            str.push_back("");\
+        \}\
+        \
+        //
+\f1 \'cd\'f9\'c0\'ef\'c3\'e6\'cc\'ed\'bc\'d3\'d7\'d6\'b7\'fb
+\f0 \
+        for(int i=0;i<digits.size();i++)\
+        \{\
+            if(digits[i]=='*')\
+            \{\
+                count=count/2;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if( (j/count)%2==0 )\
+                        str[j]=str[j]+'h';\
+                    else\
+                        str[j]=str[j]+'g';\
+                \}\
+            \}\
+            else if(digits[i]=='#')\
+            \{\
+                count=count/2;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%2==0)\
+                        str[j]=str[j]+'h';\
+                    else\
+                        str[j]=str[j]+'`';\
+                \}\
+            \}\
+            else if(digits[i]=='2')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'a';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'b';\
+                    else\
+                        str[j]=str[j]+'c';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='3')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'d';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'e';\
+                    else\
+                        str[j]=str[j]+'f';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='4')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'g';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'h';\
+                    else\
+                        str[j]=str[j]+'i';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='5')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'j';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'k';\
+                    else\
+                        str[j]=str[j]+'l';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='6')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'m';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'o';\
+                    else\
+                        str[j]=str[j]+'n';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='8')\
+            \{\
+                count=count/3;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%3==0)\
+                        str[j]=str[j]+'t';\
+                    else if((j/count)%3==1)\
+                        str[j]=str[j]+'u';\
+                    else\
+                        str[j]=str[j]+'v';    \
+                        \
+                \}\
+            \}\
+            else if(digits[i]=='7')\
+            \{\
+                count=count/4;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%4==0)\
+                        str[j]=str[j]+'p';\
+                    else if((j/count)%4==1)\
+                        str[j]=str[j]+'q';\
+                    else if((j/count)%4==2)\
+                        str[j]=str[j]+'r';\
+                    else\
+                        str[j]=str[j]+'s';    \
+                        \
+                \}\
+            \}\
+            else//9\
+            \{\
+                count=count/4;\
+                for(int j=0;j<str.size();j++)\
+                \{\
+                    if((j/count)%4==0)\
+                        str[j]=str[j]+'w';\
+                    else if((j/count)%4==1)\
+                        str[j]=str[j]+'x';\
+                    else if((j/count)%4==2)\
+                        str[j]=str[j]+'y';\
+                    else\
+                        str[j]=str[j]+'z';    \
+                        \
+                \}\
+            \}\
+        \}\
+        return str;\
+    \}\
+\};}
