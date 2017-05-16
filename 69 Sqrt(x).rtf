@@ -10,15 +10,14 @@ Implement int sqrt(int x).\
 \
 Compute and return the square root of x.\
 \
-
-\f1 \'cf\'c8\'b7\'d6\'b2\'e3\'a3\'ac\'b2\'bb\'c8\'bb\'bb\'e1\'b3\'ac\'ca\'b1\'a3\'a1
-\f0 \
 \
 */\
 class Solution \{\
 public:\
     int mySqrt(int x) \
     \{\
+        //way-1\
+        /*\
         int a1,a2;\
         for(int i=1;i<=5;i++)\
         \{\
@@ -37,7 +36,6 @@ public:\
                 break;\
             \}\
         \}\
-\
         for(int i=a1;i<=a2;i++)\
         \{\
             if(i*i>x)\
@@ -45,6 +43,25 @@ public:\
             else if(i*i==x)\
                 return i;\
         \}\
-        return 46340;   \
+        return 46340;  \
+        */\
+        \
+        //way-2\
+        double begin = 0;  \
+        double end = x;  \
+        double result = 1;  \
+        double mid = 1;  \
+        while(abs(result-x) > 0.000001)\
+        \{  \
+            mid = (begin+end)/2;  \
+            result = mid*mid;  \
+            if(result > x)   // 
+\f1 \'b6\'fe\'b7\'d6\'b5\'c4\'b7\'b6\'ce\'a7
+\f0   \
+                end = mid;  \
+            else \
+                begin = mid;  \
+        \}  \
+        return (int)mid;  \
     \}\
 \};}

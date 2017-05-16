@@ -1,5 +1,5 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\fnil\fcharset134 PingFangSC-Regular;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 HelveticaNeue;
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;\f2\fnil\fcharset0 HelveticaNeue;
 \f3\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red184\green14\blue61;\red247\green238\blue241;
 }
@@ -7,11 +7,12 @@
 }
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww14580\viewh15520\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*
-\f1 \
+\f0\fs24 \cf0  
+\f1 /*
+\f0 \
 \pard\pardeftab720\partightenfactor0
 
 \f2\fs28 \cf2 \expnd0\expndtw0\kerning0
@@ -41,8 +42,9 @@ For example, given the dungeon below, the initial health of the knight must be a
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f1\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic 屏幕快照 2017-03-16 下午9.25.49.png \width4680 \height4560
-}�}
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic 屏幕快照 2017-03-16 下午9.25.49.png \width4680 \height4560
+}�}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
 \f2\fs28 \cf2 \expnd0\expndtw0\kerning0
 \
 \pard\pardeftab720\partightenfactor0
@@ -56,53 +58,53 @@ For example, given the dungeon below, the initial health of the knight must be a
 The knight's health has no upper bound.\
 \ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
 Any room can contain threats or power-ups, even the first room the knight enters and the bottom-right room where the princess is imprisoned.
-\f1\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 
-\f0 \'cb\'bc\'c2\'b7\'a3\'ba\'b1\'ea\'d7\'bc\'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae
-\f1 \
+\f1 \'cb\'bc\'c2\'b7\'a3\'ba\'b1\'ea\'d7\'bc\'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae
+\f0 \
 \
 \
 */\
-class Solution \{\
-public:\
-    int calculateMinimumHP(vector<vector<int>>& dungeon) \
-    \{\
-         int row=dungeon.size();\
-         if(row==0)\
-             return 1;\
-         int col=dungeon[0].size();\
+class Solution \{\
+public:\
+    int calculateMinimumHP(vector<vector<int>>& dungeon) \
+    \{\
+         int row=dungeon.size();\
+         if(row==0)\
+             return 1;\
+         int col=dungeon[0].size();\
          //
-\f0 \'b4\'a6\'c0\'ed\'d7\'ee\'ba\'f3\'d2\'bb\'c5\'c5
-\f1 \
-         \
-         dungeon[row-1][col-1]=(dungeon[row-1][col-1]<0)?(1-dungeon[row-1][col-1]):1;\
-         for(int i=col-2;i>=0;i--)\
-         \{\
-             if(dungeon[row-1][i]<dungeon[row-1][i+1])\
-                 dungeon[row-1][i]=dungeon[row-1][i+1]-dungeon[row-1][i];\
-             else\
-                 dungeon[row-1][i]=1;\
-         \}\
-         for(int i=row-2;i>=0;i--)\
-         \{\
-             if(dungeon[i][col-1]<dungeon[i+1][col-1])\
-                 dungeon[i][col-1]=dungeon[i+1][col-1]-dungeon[i][col-1];\
-             else\
-                 dungeon[i][col-1]=1;\
-         \}\
-         \
-         for(int i=row-2;i>=0;i--)\
-         \{\
-             for(int j=col-2;j>=0;j--)\
-             \{\
-                 if(dungeon[i][j]<dungeon[i+1][j] && dungeon[i][j]<dungeon[i][j+1])\
-                     dungeon[i][j]=(dungeon[i+1][j]<dungeon[i][j+1])?(dungeon[i+1][j]-dungeon[i][j]):(dungeon[i][j+1]-dungeon[i][j]);\
-                 else\
-                     dungeon[i][j]=1;\
-             \}\
-         \}\
-         return dungeon[0][0];\
-    \}\
+\f1 \'b4\'a6\'c0\'ed\'d7\'ee\'ba\'f3\'d2\'bb\'c5\'c5
+\f0 \
+         \
+         dungeon[row-1][col-1]=(dungeon[row-1][col-1]<0)?(1-dungeon[row-1][col-1]):1;\
+         for(int i=col-2;i>=0;i--)\
+         \{\
+             if(dungeon[row-1][i]<dungeon[row-1][i+1])\
+                 dungeon[row-1][i]=dungeon[row-1][i+1]-dungeon[row-1][i];\
+             else\
+                 dungeon[row-1][i]=1;\
+         \}\
+         for(int i=row-2;i>=0;i--)\
+         \{\
+             if(dungeon[i][col-1]<dungeon[i+1][col-1])\
+                 dungeon[i][col-1]=dungeon[i+1][col-1]-dungeon[i][col-1];\
+             else\
+                 dungeon[i][col-1]=1;\
+         \}\
+         \
+         for(int i=row-2;i>=0;i--)\
+         \{\
+             for(int j=col-2;j>=0;j--)\
+             \{\
+                 if(dungeon[i][j]<dungeon[i+1][j] && dungeon[i][j]<dungeon[i][j+1])\
+                     dungeon[i][j]=(dungeon[i+1][j]<dungeon[i][j+1])?(dungeon[i+1][j]-dungeon[i][j]):(dungeon[i][j+1]-dungeon[i][j]);\
+                 else\
+                     dungeon[i][j]=1;\
+             \}\
+         \}\
+         return dungeon[0][0];\
+    \}\
 \};}
