@@ -25,7 +25,22 @@ way-1
 \f1 \'a3\'ba\'b9\'e9\'b2\'a2\'c5\'c5\'d0\'f2
 \f0  O(m+n)\
 \
-way-2:\
+way-2:\
+
+\f1 \'b7\'d6\'b6\'f8\'d6\'ce\'d6\'ae\'b5\'c4\'d2\'e2\'cb\'bc
+\f0 ,
+\f1 \'d6\'b8\'b5\'c4\'ca\'c7\'b7\'d6\'d6\'ce\'cb\'e3\'b7\'a8
+\f0 .
+\f1 \'b7\'d6\'d6\'ce\'cb\'e3\'b7\'a8\'ca\'c7\'bb\'f9\'d3\'da\'b6\'e0\'b7\'d6\'d6\'a6\'b5\'dd\'b9\'e9\'b5\'c4\'d2\'bb\'d6\'d6\'cb\'e3\'b7\'a8\'c9\'e8\'bc\'c6\'c4\'a3\'ca\'bd
+\f0 .
+\f1 \'b7\'d6\'d6\'ce\'cb\'e3\'b7\'a8\'b5\'dd\'b9\'e9\'b5\'d8\'b0\'d1\'d2\'bb\'b8\'f6\'b4\'f3\'ce\'ca\'cc\'e2\'b7\'d6\'bd\'e2\'ce\'aa\'b6\'e0\'b8\'f6\'c0\'e0\'d0\'cd\'cf\'e0\'cd\'ac\'b5\'c4\'d7\'d3\'ce\'ca\'cc\'e2
+\f0 ,
+\f1 \'d6\'b1\'b5\'bd\'d5\'e2\'d0\'a9\'d7\'d3\'ce\'ca\'cc\'e2\'d7\'e3\'b9\'bb\'b5\'c4\'bc\'f2\'b5\'a5\'c4\'dc\'b1\'bb\'d6\'b1\'bd\'d3\'bd\'e2\'be\'f6
+\f0 .
+\f1 \'d7\'ee\'ba\'f3\'b0\'d1\'d5\'e2\'d0\'a9\'d7\'d3\'ce\'ca\'cc\'e2\'b5\'c4\'bd\'e2\'bd\'e1\'ba\'cf\'c6\'f0\'c0\'b4\'be\'cd\'c4\'dc\'b5\'c3\'b5\'bd\'d4\'ad\'ca\'bc\'ce\'ca\'cc\'e2\'b5\'c4\'bd\'e2
+\f0 .\
+\
+\
 Assume that the number of elements in A and B are both larger than k/2, and if we compare the k/2-th smallest element in A(i.e. A[k/2-1]) and the k-th smallest element in B(i.e. B[k/2 - 1]), there are three results:\
 (Becasue k can be odd or even number, so we assume k is even number here for simplicy. The following is also true when k is an odd number.)\
 A[k/2-1] = B[k/2-1]\
@@ -44,6 +59,7 @@ We should also consider the edge case, that is, when should we stop?\
 1. When A or B is empty, we return B[k-1]( or A[k-1]), respectively;\
 2. When k is 1(when A and B are both not empty), we return the smaller one of A[0] and B[0]\
 3. When A[k/2-1] = B[k/2-1], we should return one of them\
+\
 \
 \
 */\
