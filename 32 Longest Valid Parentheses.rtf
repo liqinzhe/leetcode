@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww17080\viewh17260\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 /*\
@@ -12,48 +12,109 @@ For "(()", the longest valid parentheses substring is "()", which has length = 2
 \
 Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.\
 \
-\
+
+\f1 \'ca\'d7\'cf\'c8\'a3\'ac\'cf\'eb\'b5\'bd\'d3\'c3\'d5\'bb\'b2\'a2\'b2\'bb\'cc\'ab\'c4\'d1\'a1\'a3\'d7\'ee\'c4\'d1\'b5\'c4\'ca\'c7\'cf\'eb\'b5\'bd\'cd\'f9\'d5\'bb\'c0\'ef\'c3\'e6\'b4\'e6\'b4\'a2\'ca\'b2\'c3\'b4\'a3\'ac\'bd\'e8\'d6\'fa\'c9\'cf\'d2\'bb\'cc\'e2\'b5\'c4\'cb\'bc\'c2\'b7\'a3\'ac\'d7\'ee\'d6\'b1\'b0\'d7\'b5\'c4\'cf\'eb\'b7\'a8\'ca\'c7\'b4\'e6\'b4\'a2\'d7\'f3\'c0\'a8\'ba\'c5
+\f0 '('
+\f1 \'a3\'ac\'b5\'ab\'ca\'c7\'d5\'e2\'d1\'f9\'d7\'f6\'b5\'c4\'bb\'b0\'a3\'ac\'c3\'bb\'b7\'a8\'bd\'e2\'be\'f6\'c9\'cf\'c3\'e6\'b5\'c4\'ce\'ca\'cc\'e2\'a1\'a3\'d4\'da\'cd\'f8\'c9\'cf\'cb\'d1\'c1\'cb\'cb\'d1\'a3\'ac\'bf\'b4\'b5\'bd\'c1\'cb\'b1\'c8\'bd\'cf\'c7\'c9\'c3\'ee\'b5\'c4\'b0\'ec\'b7\'a8\'a1\'a3\'bc\'b4\'d4\'da\'d5\'bb\'c0\'ef\'b4\'e6\'b4\'a2\'d7\'f3\'c0\'a8\'ba\'c5
+\f0 '('
+\f1 \'b5\'c4\'cf\'c2\'b1\'ea
+\f0 index
+\f1 \'a1\'a3\'d5\'e2\'d1\'f9\'b2\'c5\'c4\'dc\'d5\'fd\'c8\'b7\'b5\'d8\'bc\'c6\'cb\'e3\'bf\'c9\'c4\'dc\'b5\'c4\'d7\'ee\'b3\'a4\'be\'e0\'c0\'eb\'a1\'a3
+\f0 \
+      
+\f1 \'c6\'e4\'b4\'ce\'a3\'ac\'b0\'d1\'ce\'ca\'cc\'e2\'bc\'f2\'bb\'af\'d2\'bb\'cf\'c2\'a3\'ac\'cf\'c8\'b2\'bb\'d5\'d2\'d7\'ee\'b3\'a4\'b5\'c4\'c0\'a8\'ba\'c5\'b4\'ae\'a3\'ac\'cf\'c8\'d5\'d2\'ba\'f2\'d1\'a1\'c0\'a8\'ba\'c5\'b4\'ae\'a1\'a3\'ca\'b2\'c3\'b4\'ca\'c7\'ba\'f2\'d1\'a1\'c0\'a8\'ba\'c5\'b4\'ae\'c4\'d8\'a3\'bf\'d0\'e8\'d2\'aa\'c2\'fa\'d7\'e3\'b5\'c4\'b5\'da\'d2\'bb\'b8\'f6\'cc\'f5\'bc\'fe\'ca\'c7
+\f0 '('
+\f1 \'ba\'cd
+\f0 ')'
+\f1 \'b5\'c4\'ca\'fd\'c1\'bf\'cf\'e0\'b5\'c8
+\f0 (
+\f1 \'cb\'f9\'d2\'d4\'a3\'ac\'c9\'cf\'c3\'e6\'cc\'e1\'b5\'bd\'c1\'cb\'ca\'b9\'d3\'c3\'c1\'cb\'d5\'bb\'c0\'b4\'bd\'f8\'d0\'d0\'d7\'f3\'d3\'d2\'c0\'a8\'ba\'c5\'ca\'c7\'b7\'f1\'c6\'a5\'c5\'e4\'b5\'c4\'bc\'ec\'b2\'e9
+\f0 )
+\f1 \'a3\'ac\'d0\'e8\'d2\'aa\'c2\'fa\'d7\'e3\'b5\'c4\'b5\'da\'b6\'fe\'b8\'f6\'cc\'f5\'bc\'fe\'ca\'c7\'a3\'ac\'c6\'a5\'c5\'e4\'b5\'c4\'b9\'fd\'b3\'cc\'d6\'d0\'b2\'bb\'c4\'dc\'b3\'f6\'cf\'d6
+\f0 ')('
+\f1 \'b5\'c4\'c7\'e9\'bf\'f6\'a1\'a3\'d2\'b2\'be\'cd\'ca\'c7\'cb\'b5\'a3\'ac\'c4\'b3\'b8\'f6\'ca\'b1\'bf\'cc\'a3\'ac\'b7\'a2\'cf\'d6\'d3\'d0\'b5\'a5\'b6\'c0\'b5\'c4
+\f0 '('
+\f1 \'b3\'f6\'cf\'d6\'c1\'cb\'a3\'ac\'be\'cd\'cb\'b5\'c3\'f7\'b4\'cb\'ca\'b1\'b4\'cb\'bf\'cc\'b5\'c4\'ba\'f2\'d1\'a1\'b4\'ae\'bd\'e1\'ca\'f8\'c1\'cb\'a3\'ac\'bd\'ab\'bf\'aa\'ca\'bc\'b6\'d4\'d0\'c2\'b5\'c4\'ba\'f2\'d1\'a1\'b4\'ae\'b5\'c4\'bc\'ec\'b2\'e9\'c1\'cb\'a1\'a3
+\f0 \
 \
 */\
 class Solution \{\
 public:\
     int longestValidParentheses(string s)\
     \{\
-        if(s.size()<=1)\
-            return 0;\
-        vector<int> pos;  //pos
-\f1 \'d6\'bb\'b4\'e6\'a3\'a8 \'b5\'c4\'b6\'a8\'ce\'bb
-\f0 \
-        int last=-1;\
-        int Max=0;\
-        int k;\
-        for(int i=0;i<s.size();i++)\
-        \{\
-            if(s[i]=='(')\
-                pos.push_back(i);\
-            else\
-            \{\
-                if(pos.size()==0)   
-\f1 //\'cb\'b5\'c3\'f7\'b5\'bd\'d5\'e2\'be\'cd\'b2\'bb\'b7\'fb\'ba\'cf\'c1\'cb\'a3\'ac\'d0\'e8\'d2\'aa\'d6\'d8\'d0\'c2\'b8\'b3\'d6\'b5last
-\f0 \
-                    last=i;\
-                else\
-                \{\
-                    pos.pop_back();   \
-                    if(pos.size()==0)   //last 
-\f1 \'ca\'c7\'b1\'be\'b4\'ce\'b7\'fb\'ba\'cf\'b5\'c4\'bf\'aa\'ca\'bc\'ce\'bb\'d6\'c3
-\f0 \
-                        Max = max(Max,i-last);\
-                    else   
-\f1 // \'d5\'e2\'d6\'d6\'c7\'e9\'bf\'f6 ((()))
-\f0 \
-                    \{\
-                        k=pos[pos.size()-1];   \
-                        Max = max(Max,i-k);\
-                    \} \
-                \}\
-            \}\
-        \}\
-        return Max;\
+        stack<int> paranStack;  \
+        int maxLength=0;  \
+        int lastValidIndx=0;  \
+        for (int indx=0; indx<s.length(); indx++) \
+        \{  \
+            if (s[indx]=='(') //
+\f1 \'d3\'f6\'b5\'bd\'d7\'f3\'c0\'a8\'ba\'c5\'a3\'ac\'d6\'b1\'bd\'d3\'b4\'e6\'c8\'eb\'a1\'a3
+\f0   \
+                paranStack.push(indx);  \
+            else \
+            \{ //
+\f1 \'d3\'f6\'b5\'bd\'d3\'d2\'c0\'a8\'ba\'c5\'a3\'ac\'b7\'d6\'c7\'e9\'bf\'f6\'cc\'d6\'c2\'db
+\f0   \
+                if (paranStack.empty()) //
+\f1 \'c8\'e7\'b9\'fb\'b4\'cb\'ca\'b1\'d5\'bb\'c0\'ef\'d7\'f3\'c0\'a8\'ba\'c5\'d2\'d1\'be\'ad\'b1\'bb\'cf\'fb\'ba\'c4\'cd\'ea\'c1\'cb\'a3\'ac\'c3\'bb\'d3\'d0\'b6\'ee\'cd\'e2\'b5\'c4\'d7\'f3\'c0\'a8\'ba\'c5\'d3\'c3\'c0\'b4\'c5\'e4\'b6\'d4\'b5\'b1\'c7\'b0\'b5\'c4\'d3\'d2\'c0\'a8\'ba\'c5\'c1\'cb\'a3\'ac\'c4\'c7\'c3\'b4\'b5\'b1\'c7\'b0\'b5\'c4\'d3\'d2\'c0\'a8\'ba\'c5\'be\'cd\'b1\'bb\'b5\'a5\'b3\'f6\'c0\'b4\'c1\'cb\'a3\'ac\'b1\'ed\'c3\'f7\'b5\'b1\'c7\'b0\'d7\'d3\'b4\'ae\'bf\'c9\'d2\'d4\'bd\'e1\'ca\'f8\'c1\'cb\'a3\'ac\'b4\'cb\'ca\'b1\'b5\'c4\'d3\'d2\'c0\'a8\'ba\'c5\'d2\'b2\'b3\'c9\'ce\'aa\'c1\'cb\'cf\'c2\'d2\'bb\'b8\'f6
+\f0 group
+\f1 \'b5\'c4\'b7\'d6\'bd\'e7\'b5\'e3\'a3\'ac\'b4\'cb\'ca\'b1\'d3\'d2\'c0\'a8\'ba\'c5\'cf\'c2\'b1\'ea\'ce\'aa
+\f0 index
+\f1 \'a3\'ac\'cb\'f9\'d2\'d4\'cf\'c2\'d2\'bb\'b8\'f6
+\f0 group
+\f1 \'b5\'c4\'c6\'f0\'ca\'bc\'b5\'e3\'ce\'aa
+\f0 index+1,
+\f1 \'cf\'e0\'b5\'b1\'d3\'da
+\f0 skip
+\f1 \'b5\'f4\'b5\'b1\'c7\'b0\'b5\'c4\'d3\'d2\'c0\'a8\'ba\'c5\'a1\'a3
+\f0   \
+                    lastValidIndx=indx+1;  \
+                else \
+                \{ //
+\f1 \'c8\'e7\'b9\'fb\'b4\'cb\'ca\'b1\'d5\'bb\'b2\'bb\'bf\'d5\'a3\'ac\'bf\'c9\'c4\'dc\'d3\'d0\'c1\'bd\'d6\'d6\'c7\'e9\'bf\'f6\'a3\'ac
+\f0 1
+\f1 \'a3\'a9\'d5\'bb\'d5\'fd\'ba\'c3\'ca\'a3\'cf\'c2
+\f0 1
+\f1 \'b8\'f6\'d7\'f3\'c0\'a8\'ba\'c5\'ba\'cd\'b5\'b1\'c7\'b0\'d3\'d2\'c0\'a8\'ba\'c5\'c5\'e4\'b6\'d4
+\f0  2)
+\f1 \'d5\'bb\'ca\'a3\'cf\'c2\'b2\'bb\'d6\'b9
+\f0 1
+\f1 \'b8\'f6\'d7\'f3\'c0\'a8\'ba\'c5\'a3\'ac
+\f0   \
+                    paranStack.pop();  \
+                    if (paranStack.empty())  //
+\f1 \'d5\'bb
+\f0 pop()
+\f1 \'d6\'ae\'c7\'b0\'d5\'fd\'ba\'c3\'ca\'a3\'cf\'c2
+\f0 1
+\f1 \'b8\'f6\'d7\'f3\'c0\'a8\'ba\'c5\'a3\'ac
+\f0 pop()
+\f1 \'d6\'ae\'ba\'f3\'a3\'ac\'d5\'bb\'bf\'d5\'c1\'cb\'a3\'ac\'b4\'cb\'ca\'b1
+\f0 group
+\f1 \'b3\'a4\'b6\'c8\'ce\'aa
+\f0 indx-lastValidIndx  \
+                        maxLength=max(maxLength, indx-lastValidIndx+1);  \
+                    else  //
+\f1 \'d5\'bb\'d3\'d0
+\f0 pop()
+\f1 \'d6\'ae\'c7\'b0\'ca\'a3\'cf\'c2\'b2\'bb\'d6\'b9
+\f0 1
+\f1 \'b8\'f6\'d7\'f3\'c0\'a8\'ba\'c5\'a3\'ac\'b4\'cb\'ca\'b1\'b6\'ee\'cd\'e2\'b6\'e0\'b3\'f6\'b5\'c4\'d7\'f3\'c0\'a8\'ba\'c5\'ca\'b9\'b5\'c3\'d0\'c2\'b5\'c4
+\f0 group
+\f1 \'d0\'ce\'b3\'c9\'a1\'a3\'c8\'e7
+\f0 ()(()())
+\f1 \'d6\'d0
+\f0 index=4
+\f1 \'ca\'b1\'a3\'ac
+\f0 stack
+\f1 \'d6\'d0\'d3\'d0
+\f0 2
+\f1 \'b8\'f6\'d7\'f3\'c0\'a8\'ba\'c5
+\f0   \
+                        maxLength=max(maxLength, indx-paranStack.top());  \
+                \}  \
+            \}  \
+        \}  \
+        return maxLength;\
     \}\
 \};}
