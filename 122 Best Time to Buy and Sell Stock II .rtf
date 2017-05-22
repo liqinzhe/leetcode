@@ -1,0 +1,192 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25400\viewh16000\viewkind0
+\deftab420
+\pard\pardeftab420\ri0\qj\partightenfactor0
+
+\f0\fs24 \cf0 /*
+\f1 \
+
+\f0 Say you have an array for which the ith element is the price of a given stock on day i.
+\f1 \
+\
+
+\f0 Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+\f1 \
+\
+
+\f2 \'d4\'da\'cd\'ac\'d2\'bb\'cc\'ec\'a3\'ac\'bf\'c9\'d2\'d4\'cf\'c8\'c2\'f4\'b3\'f6\'a3\'ac\'c8\'bb\'ba\'f3\'c2\'f2\'c8\'eb
+\f1 \
+\
+
+\f0 way-1:
+\f1 \
+
+\f2 \'c8\'fd\'d6\'d6\'c7\'e9\'bf\'f6\'a3\'ba
+\f1 \
+
+\f2 \'c8\'f4\'bd\'f1\'cc\'ec\'ca\'c7\'d7\'ee\'ba\'f3\'d2\'bb\'cc\'ec\'a3\'ac\'d6\'bb\'c4\'dc\'c2\'f4
+\f1 \
+
+\f2 \'c8\'f4\'bd\'f1\'cc\'ec\'b1\'c8\'d7\'f2\'cc\'ec\'bc\'db\'b8\'f1\'b5\'cd\'a3\'ac\'b6\'f8\'c7\'d2\'b2\'bb\'ca\'c7\'d7\'f2\'cc\'ec\'c2\'f2\'b5\'c4\'a1\'a3\'c4\'c7\'c3\'b4\'be\'cd\'d7\'f2\'cc\'ec\'c2\'f4\'a3\'ac\'bd\'f1\'cc\'ec\'c2\'f2\'c8\'eb\'a1\'a3
+\f1 \
+
+\f2 \'c8\'f4\'bd\'f1\'cc\'ec\'b1\'c8\'d7\'f2\'cc\'ec\'bc\'db\'b8\'f1\'b5\'cd\'a3\'ac\'ca\'c7\'d7\'f2\'cc\'ec\'c2\'f2\'b5\'c4\'a3\'ac\'be\'cd\'b8\'c4\'ce\'aa\'bd\'f1\'cc\'ec\'c2\'f2\'c8\'eb\'a1\'a3
+\f1 \
+\
+
+\f0 way-2:
+\f2 \'cc\'b0\'d0\'c4\'cb\'e3\'b7\'a8\'a3\'ac\'d6\'bb\'d2\'aa\'ba\'f3\'d2\'bb\'cf\'ee\'b1\'c8\'c7\'b0\'d2\'bb\'cf\'ee\'b4\'f3\'a3\'ac\'be\'cd\'c2\'f2\'c8\'eb\'b2\'a2\'d3\'da\'ba\'f3\'d2\'bb\'cf\'ee\'c2\'f4\'b3\'f6\'a1\'a3
+\f1 \
+\
+
+\f0 */
+\f1 \
+
+\f0 class Solution \{
+\f1 \
+
+\f0 public:
+\f1 \
+
+\f0     int maxProfit(vector<int>& price) 
+\f1 \
+
+\f0     \{
+\f1 \
+
+\f0           //way-1
+\f1 \
+
+\f0           /*
+\f1 \
+
+\f0           int buy=0;
+\f1 \
+
+\f0           int yesterday=0;
+\f1 \
+
+\f0           int max=0;
+\f1 \
+
+\f0       
+\f1 \
+
+\f0           for(int i=1;i<price.size();i++)
+\f1 \
+
+\f0           \{
+\f1 \
+
+\f0               if(price[i]>=price[yesterday] && i==price.size()-1)
+\f1 \
+
+\f0               \{
+\f1 \
+
+\f0                     max+=price[i]-price[buy];
+\f1 \
+
+\f0               \}
+\f1 \
+
+\f0               else if(price[i]<price[yesterday] && yesterday!=buy)
+\f1 \
+
+\f0               \{
+\f1 \
+
+\f0                   max+=price[yesterday]-price[buy];
+\f1 \
+
+\f0                   buy=i;
+\f1 \
+
+\f0               \}
+\f1 \
+
+\f0               else if((price[i]<price[yesterday] && yesterday==buy))
+\f1 \
+
+\f0               \{
+\f1 \
+
+\f0                   buy=i;
+\f1 \
+
+\f0               \}
+\f1 \
+
+\f0               yesterday=i;
+\f1 \
+
+\f0           \}
+\f1 \
+
+\f0           return max;   
+\f1 \
+
+\f0           */
+\f1 \
+
+\f0           
+\f1 \
+
+\f0           //way-2
+\f1 \
+
+\f0           if(price.size()<2)  
+\f1 \
+
+\f0              return 0;  
+\f1 \
+
+\f0    
+\f1 \
+
+\f0           int temp=price[0];  
+\f1 \
+
+\f0           int pre;  
+\f1 \
+
+\f0           int sum=0;  
+\f1 \
+
+\f0           for(int i=0;i<price.size()-1;i++)
+\f1 \
+
+\f0           \{  
+\f1 \
+
+\f0             pre=price[i+1];  
+\f1 \
+
+\f0             if(pre>temp)
+\f1 \
+
+\f0                 sum+=(pre-temp);  
+\f1 \
+
+\f0             temp=pre;  
+\f1 \
+
+\f0           \}  
+\f1 \
+
+\f0           return sum;  
+\f1 \
+
+\f0     
+\f1 \
+
+\f0     \}
+\f1 \
+
+\f0 \};
+\f1 \
+}

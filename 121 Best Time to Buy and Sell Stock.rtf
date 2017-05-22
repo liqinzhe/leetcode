@@ -1,0 +1,110 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16440\viewh13220\viewkind0
+\deftab420
+\pard\pardeftab420\ri0\qj\partightenfactor0
+
+\f0\fs24 \cf0 /*
+\f1 \
+
+\f0 Say you have an array for which the ith element is the price of a given stock on day i.
+\f1 \
+\
+
+\f0 If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+\f1 \
+\
+
+\f0 Example 1:
+\f1 \
+
+\f0 Input: [7, 1, 5, 3, 6, 4]
+\f1 \
+
+\f0 Output: 5
+\f1 \
+\
+
+\f0 max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+\f1 \
+
+\f0 Example 2:
+\f1 \
+
+\f0 Input: [7, 6, 4, 3, 1]
+\f1 \
+
+\f0 Output: 0
+\f1 \
+\
+
+\f0 In this case, no transaction is done, i.e. max profit = 0.
+\f1 \
+\
+
+\f0 way-1:
+\f2 \'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae
+\f0 \
+
+\f2 \'d3\'f6\'b5\'bd\'c1\'d9\'ca\'b1\'d7\'ee\'d0\'a1\'b5\'c4\'a3\'ac\'be\'cd\'b1\'a3\'b4\'e6\'a3\'ac\'bc\'c6\'cb\'e3\'ba\'f3\'c3\'e6\'b1\'c8\'cb\'fc\'b4\'f3\'b5\'c4\'b2\'ee\'a3\'ac\'b1\'a3\'c1\'f4\'d7\'ee\'b4\'f3\'a3\'ac\'d3\'f6\'b5\'bd\'ba\'f3\'c3\'e6\'c8\'e7\'b9\'fb\'d3\'d0\'b8\'fc\'d0\'a1\'b5\'c4\'a3\'ac\'be\'cd\'b1\'a3\'b4\'e6\
+\'d6\'d8\'b8\'b4\'c9\'cf\'c3\'e6\'b9\'a4\'d7\'f7\'bc\'b4\'bf\'c9\'a1\'a3
+\f1 \
+\
+
+\f0 */
+\f1 \
+
+\f0 class Solution \{
+\f1 \
+
+\f0 public:
+\f1 \
+
+\f0     int maxProfit(vector<int>& prices) 
+\f1 \
+
+\f0     \{
+\f1 \
+
+\f0            //way-1
+\f1 \
+
+\f0            if(prices.size()==0)
+\f1 \
+
+\f0               return 0;
+\f1 \
+
+\f0            int minm=prices[0];
+\f1 \
+
+\f0            int maxa=0;
+\f1 \
+
+\f0            for(int i=1;i<prices.size();i++)
+\f1 \
+
+\f0            \{
+\f1 \
+
+\f0                 minm=min(minm,prices[i]);
+\f1 \
+
+\f0                 maxa=max(maxa,prices[i]-minm);
+\f1 \
+
+\f0            \}
+\f1 \
+
+\f0            return maxa; 
+\f1 \
+
+\f0     \}
+\f1 \
+
+\f0 \};
+\f1 \
+}

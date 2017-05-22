@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue51;}
+{\*\expandedcolortbl;;\csgenericrgb\c100000\c100000\c20000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Say you have an array for which the ith element is the price of a given stock on day i.\
+\
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:\
+\
+You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).\
+After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)\
+Example:\
+\
+prices = [1, 2, 3, 0, 2]\
+maxProfit = 3\
+transactions = [buy, sell, cooldown, buy, sell]\
+\
+
+\f1 \'b9\'c9\'c6\'b1\'c2\'f2\'c2\'f4\'d2\'aa\'c7\'f3\'c3\'bf\'b4\'ce\'bd\'bb\'d2\'d7\'bc\'e4\'b8\'f4\'d2\'bb\'cc\'ec\'a3\'ac\'ba\'cd\'b9\'c9\'c6\'b1\'c2\'f2\'c2\'f4
+\f0 4
+\f1 \'d2\'bb\'d1\'f9\'a3\'ac\'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae\'d5\'d2\'c1\'bd\'b8\'f6\'b9\'d8\'cf\'b5\'a1\'a3
+\f0 \
+local[i]=max(global[i-3]+max(diff,0),local[i-1]+diff);\
+global[i]=max(global[i-1],local[i]);\
+\
+\
+\cb2 local global
+\f1 \'d5\'e2\'b8\'f6\'cb\'bc\'cf\'eb\'d2\'bb\'b6\'a8\'d2\'aa\'bc\'c7\'d7\'a1\'a3\'a1\'a3\'a1
+\f0 \cb1 \
+\
+*/\
+class Solution \{\
+public:\
+    int maxProfit(vector<int>& prices) \
+    \{ \
+          int n=prices.size();\
+          if(n<2)\
+              return 0;\
+          vector<int> global(n,0);\
+          vector<int> local(n,0);\
+          for(int i=1;i<n;i++)\
+          \{\
+              int diff=prices[i]-prices[i-1];\
+              if(i>3)\
+                  local[i]=max(global[i-3]+max(diff,0),local[i-1]+diff);\
+              else\
+                  local[i]=max(max(diff,0),local[i-1]+diff);\
+              global[i]=max(global[i-1],local[i]);\
+          \}\
+          return global[n-1];\
+    \}\
+\};}

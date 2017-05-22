@@ -1,0 +1,89 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17900\viewh12240\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.\
+\
+For example, given the following matrix:\
+\
+1 0 1 0 0\
+1 0 1 1 1\
+1 1 1 1 1\
+1 0 0 1 0\
+Return 4.\
+\
+\
+A[i][j]
+\f1 \'b1\'ed\'ca\'be\'b5\'c4\'be\'cd\'ca\'c7\'d2\'d4
+\f0 (i,j)
+\f1 \'ce\'aa\'d3\'d2\'cf\'c2\'bd\'c7\'b5\'c4\'d7\'ee\'b4\'f3\'b5\'c4\'d5\'fd\'b7\'bd\'d0\'ce\'b5\'c4\'b1\'df\'b3\'a4\'a3\'ac\'cb\'f9\'d2\'d4\'b2\'bb\'d0\'e8\'d2\'aa\'ca\'b9\'d3\'c3
+\f0 for
+\f1 \'d1\'ad\'bb\'b7\'a3\'ac\'b4\'cb\'ca\'b1\'d7\'b4\'cc\'ac\'d7\'aa\'d2\'c6\'b7\'bd\'b3\'cc\'be\'cd\'c3\'f7\'cf\'d4\'ba\'dc\'b6\'e0\'c1\'cb\'a3\'ac\'b2\'bb\'cf\'f1\'bd\'e2\'b7\'a8
+\f0 1
+\f1 \'bb\'b9\'d3\'d0\'b5\'e3\'c4\'a3\'ba\'fd\'a3\'ac\'c9\'f5\'d6\'c1\'d6\'bb\'c4\'dc\'d3\'c3\'ce\'c4\'d7\'d6\'c3\'e8\'ca\'f6\'a1\'a3
+\f0 \
+
+\f1 \'c8\'e7\'b9\'fb
+\f0 matrix[i][j]
+\f1 \'ce\'aa
+\f0 1
+\f1 \'a3\'ac\'c4\'c7\'c3\'b4
+\f0 A[i][j]=min(A[i-1][j-1],A[i-1][j],A[i][j-1])+1
+\f1 \'a3\'bb\'c8\'e7\'b9\'fb
+\f0 matrix[i][j]
+\f1 \'ce\'aa
+\f0 0
+\f1 \'a3\'ac\'c4\'c7\'c3\'b4
+\f0 A[i][j]
+\f1 \'ce\'aa
+\f0 0
+\f1 \'a1\'a3
+\f0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 屏幕快照 2017-05-22 上午10.04.22.png \width13360 \height8120
+}�}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+
+\f1 \'d7\'ee\'b4\'f3\'b5\'c4\'d5\'fd\'b7\'bd\'d0\'ce\'b1\'df\'b3\'a4\'ce\'aa
+\f0 max\{A[i][j]\}
+\f1 \'a1\'a3
+\f0 \
+
+\f1 \'b4\'cb\'ca\'b1\'ca\'b1\'bc\'e4\'b8\'b4\'d4\'d3\'b3\'cc\'b6\'c8\'ca\'c7
+\f0 O(M*N)
+\f1 \'a3\'ac\'bf\'d5\'bc\'e4\'b8\'b4\'d4\'d3\'b3\'cc\'b6\'c8\'ca\'c7
+\f0 O(M*N)
+\f1 \'a1\'a3
+\f0 \
+*/\
+class Solution \{\
+public:\
+    int maximalSquare(vector<vector<char>>& matrix) \
+    \{\
+        int height=matrix.size();  \
+        if(height==0)  \
+            return 0;  \
+        int width=matrix[0].size();  \
+        vector<vector<int>>  vec(height,vector<int>(width,0));  \
+        int result=0;  \
+        for(int i=0;i<height;i++)  \
+        \{     \
+            for(int j=0;j<width;j++)  \
+            \{  \
+                if(matrix[i][j]=='1')  \
+                \{  \
+                    vec[i][j]=1;  \
+                    if( i>0 && j>0 )  \
+                        vec[i][j]+=min(min(vec[i-1][j],vec[i][j-1]),vec[i-1][j-1]);  \
+                \}  \
+                result=max(result,vec[i][j]);  \
+            \}  \
+        \}  \
+        return result*result;     \
+    \}\
+\};}
