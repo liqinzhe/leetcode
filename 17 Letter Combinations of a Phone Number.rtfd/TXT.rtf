@@ -2,30 +2,43 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww17820\viewh14180\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a digit string, return all possible letter combinations that the number could represent.\
-\
-A mapping of digit to letters (just like on the telephone buttons) is given below.\
-\
-\
-\
-Input:Digit string "23"\
-Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].\
-Note:\
-Although the above answer is in lexicographical order, your answer could be in any order you want.\
-\
+\f0\fs24 \cf0 /*\
+Given a digit string, return all possible letter combinations that the number could represent.\
+\
+A mapping of digit to letters (just like on the telephone buttons) is given below.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 屏幕快照 2017-05-23 上午9.39.21.png \width4400 \height3600
+}�}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+Input:Digit string "23"\
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].\
+Note:\
+Although the above answer is in lexicographical order, your answer could be in any order you want.\
+\
 
-\f1 \'b0\'a4\'b8\'f6\'b0\'b4\'bc\'fc\'b4\'fa\'b1\'ed\'b5\'c4\'d6\'b5\'cd\'f9\'c0\'ef\'c3\'e6\'b7\'c5
-\f0 \
-\
-*/\
+\f1 way-1:\'b0\'a4\'b8\'f6\'b0\'b4\'bc\'fc\'b4\'fa\'b1\'ed\'b5\'c4\'d6\'b5\'cd\'f9\'c0\'ef\'c3\'e6\'b7\'c5
+\f0 \
+\
+way-2:
+\f1 \'c6\'e4\'ca\'b5\'d4\'ad\'c0\'ed\'d2\'b2\'ca\'c7\'b0\'a4\'b8\'f6\'b0\'b4\'bc\'fc\'b4\'fa\'b1\'ed\'b5\'c4\'d6\'b5\'cd\'f9\'c0\'ef\'c3\'e6\'b7\'c5
+\f0 \
+
+\f1 \'a3\'ac\'b5\'fc\'b4\'fa\'a3\'a8\'c8\'e7\'b9\'fb\'b8\'c4\'b3\'c9\'b5\'dd\'b9\'e9\'bf\'c9\'c4\'dc\'bb\'e1\'b8\'fc\'d2\'d7\'b6\'ae\'a3\'a9\
+
+\f0 \
+*/\
 class Solution \{\
 public:\
     vector<string> letterCombinations(string digits) \
     \{   \
+        \
+        //way-1\
+        /*\
         vector<string> str;\
         if(digits.size()==0)\
             return str;\
@@ -193,5 +206,38 @@ public:\
             \}\
         \}\
         return str;\
+        */\
+        \
+        //way-2\
+        vector<string> ret;\
+        if(digits == "")\
+            return ret;\
+            \
+        ret.push_back("");\
+        \
+        vector<string> dict(10); //0~9\
+        dict[2] = "abc";\
+        dict[3] = "def";\
+        dict[4] = "ghi";\
+        dict[5] = "jkl";\
+        dict[6] = "mno";\
+        dict[7] = "pqrs";\
+        dict[8] = "tuv";\
+        dict[9] = "wxyz";\
+        \
+        for(int i = 0; i < digits.size(); i++)\
+        \{\
+            int size = ret.size();\
+            for(int j = 0; j < size; j++)\
+            \{\
+                string cur = ret[0];\
+                ret.erase(ret.begin());\
+                for(int k = 0; k < dict[digits[i]-'0'].size(); k++)\
+                \{\
+                    ret.push_back(cur + dict[digits[i]-'0'][k]);\
+                \}\
+            \}\
+        \}\
+        return ret;\
     \}\
 \};}

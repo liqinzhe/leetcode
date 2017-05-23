@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -13,10 +13,13 @@ Empty cells are indicated by the character '.'.\
 You may assume that there will be only one unique solution.\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 {{\NeXTGraphic 屏幕快照 2017-04-08 下午8.15.23.png \width6560 \height11940
-}�}\
+}�}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f1 \cf0 \'cc\'ee\'ca\'fd\'b6\'c0
+\f1 \cf0 \
+backtracking\'a3\'a1\
+\'cc\'ee\'ca\'fd\'b6\'c0
 \f0 \
 
 \f1 \'d3\'c3\'b5\'dd\'b9\'e9\'b5\'c4\'cb\'bc\'cf\'eb\'a3\'ac\'cf\'c8\'c5\'d0\'b6\'cf\'c3\'bf\'d2\'bb\'b8\'f6\'bf\'d5\'ce\'bb\'bf\'c9\'d2\'d4\'cc\'ee\'c4\'c4\'d0\'a9\'a3\'ac\'c8\'bb\'ba\'f3\'cc\'ee\'bd\'f8\'c8\'a5\'d4\'d9\'b5\'dd\'b9\'e9\'a1\'a3
@@ -62,7 +65,11 @@ public:\
             \{\
                 board[x][y]=char(i+48);\
                 flag=shudu(board,mm,pos+1,flag);\
-                if(flag==0)\
+                if(flag==0)   //
+\f1 \'d5\'e2\'b8\'f6\'b5\'d8\'b7\'bd\'b1\'d8\'d0\'eb\'d3\'d0\'b8\'f6
+\f0 flag
+\f1 \'a3\'ac\'ce\'d2\'c3\'c7\'b2\'c5\'d6\'aa\'b5\'c0\'d4\'da\'ca\'b2\'c3\'b4\'b5\'d8\'b7\'bd\'cd\'a3\'cf\'c2\'c0\'b4
+\f0 \
                     board[x][y]='.';\
                 else\
                     break;\

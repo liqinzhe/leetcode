@@ -1,51 +1,53 @@
 {\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset134 PingFangSC-Regular;
 }
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\colortbl;\red255\green255\blue255;\red255\green39\blue18;\red194\green229\blue166;\red239\green247\blue169;
+}
+{\*\expandedcolortbl;;\csgenericrgb\c100000\c15294\c7059;\csgenericrgb\c76078\c89804\c65098;\csgenericrgb\c93725\c96863\c66275;
+}
 \paperw11900\paperh16840\margl1440\margr1440\vieww16620\viewh12860\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Implement wildcard pattern matching with support for '?' and '*'.\
-\
-'?' Matches any single character.\
-'*' Matches any sequence of characters (including the empty sequence).\
-\
-The matching should cover the entire input string (not partial).\
-\
-The function prototype should be:\
-bool isMatch(const char *s, const char *p)\
-\
-Some examples:\
+\f0\fs24 \cf0 /*\
+Implement wildcard pattern matching with support for '?' and '*'.\
+\
+'?' Matches any single character.\
+'*' Matches any sequence of characters (including the empty sequence).\
+\
+The matching should cover the entire input string (not partial).\
+\
+The function prototype should be:\
+bool isMatch(const char *s, const char *p)\
+\
+Some examples:\
 isMatch("aa","a") 
 \f1 \uc0\u8594 
-\f0  false\
+\f0  false\
 isMatch("aa","aa") 
 \f1 \uc0\u8594 
-\f0  true\
+\f0  true\
 isMatch("aaa","aa") 
 \f1 \uc0\u8594 
-\f0  false\
+\f0  false\
 isMatch("aa", "*") 
 \f1 \uc0\u8594 
-\f0  true\
+\f0  true\
 isMatch("aa", "a*") 
 \f1 \uc0\u8594 
-\f0  true\
+\f0  true\
 isMatch("ab", "?*") 
 \f1 \uc0\u8594 
-\f0  true\
+\f0  true\
 isMatch("aab", "c*a*b") 
 \f1 \uc0\u8594 
-\f0  false\
-\
+\f0  false\
+\
 way-1:
 \f2 \'b5\'dd\'b9\'e9\'bb\'d8\'cb\'dd
-\f0  TLE\
-\
-\
-way-2:\
+\f0  TLE\
+\
+\
+way-2:\
 
 \f2 \'d2\'f2\'ce\'aa
 \f0 p
@@ -58,7 +60,7 @@ way-2:\
 \f2 \'b8\'f6\'bb\'f2\'d2\'bb\'b8\'f6\'bb\'f2\'b6\'e0\'b8\'f6\'a3\'ac\'b5\'bd\'b5\'d7\'c6\'a5\'c5\'e4\'bc\'b8\'b8\'f6\'c4\'d8\'a3\'bf\'d5\'e2\'c8\'a1\'be\'f6\'d3\'da
 \f0 *
 \f2 \'b5\'c4\'cf\'c2\'d2\'bb\'ce\'bb\'a1\'a3
-\f0 \
+\f0 \
 
 \f2 \'b1\'c8\'c8\'e7\'bf\'b4
 \f0  s = abbb;      p = a*b 
@@ -93,7 +95,7 @@ way-2:\
 \f2 \'ba\'cd
 \f0 p
 \f2 \'c6\'a5\'c5\'e4\'a1\'a3
-\f0 \
+\f0 \
 
 \f2 \'d5\'e2\'cb\'b5\'c3\'f7\'a3\'ac\'d5\'e2\'b5\'c0\'cc\'e2\'c4\'bf\'b5\'c4\'b9\'d8\'bc\'fc\'be\'cd\'ca\'c7\'d4\'da\'d3\'f6\'b5\'bd
 \f0 p
@@ -106,7 +108,7 @@ way-2:\
 \f2 \'ba\'cd
 \f0 s
 \f2 \'d6\'d0\'b5\'c4\'d7\'d6\'b7\'fb\'b5\'c4\'c6\'a5\'c5\'e4\'b7\'bd\'ca\'bd\'a1\'a3
-\f0 \
+\f0 \
 
 \f2 \'ce\'aa\'c1\'cb\'ca\'b5\'cf\'d6\'d5\'e2\'d2\'bb\'b5\'e3\'a3\'ac\'d4\'da\'b3\'f6\'cf\'d6
 \f0 *
@@ -115,69 +117,69 @@ way-2:\
 \f2 \'b5\'c4\'ce\'bb\'d6\'c3\'ba\'cd
 \f0 s
 \f2 \'d6\'d0\'b5\'c4\'b6\'d4\'d3\'a6\'ce\'bb\'d6\'c3\'a1\'a3
-\f0 \
+\f0 \
 
 \f2 \'bf\'c9\'d2\'d4\'b6\'d4\'d5\'d5\'b4\'fa\'c2\'eb\'bf\'b4\'bf\'b4\'cf\'c2\'c3\'e6\'bc\'b8\'b8\'f6\'c0\'fd\'d7\'d3\'a3\'ac\'cc\'e5\'bb\'e1
 \f0 *
 \f2 \'b5\'c4\'d3\'c3\'cd\'be\'a1\'a3
-\f0 \
- s = "aab"        p = "a*a*b"; // true\
- s = "abbb";      p = "a*b"; //true\
- s = "abb";       p = "a*bb";//true\
- s = "abddbbb";   p = "a*d*b";//true\
- s = "abdb";      p = "a**";//true\
- s = "a";         p = "a**";//true\
+\f0 \
+ s = "aab"        p = "a*a*b"; // true\
+ s = "abbb";      p = "a*b"; //true\
+ s = "abb";       p = "a*bb";//true\
+ s = "abddbbb";   p = "a*d*b";//true\
+ s = "abdb";      p = "a**";//true\
+ s = "a";         p = "a**";//true\
 
 \f2 \'d7\'ee\'ba\'f3\'a3\'ac\'b3\'fd\'c1\'cb
 \f0 *
 \f2 \'d5\'e2\'d2\'bb\'b8\'f6\'c4\'d1\'b5\'e3\'d6\'ae\'cd\'e2\'a3\'ac\'cc\'e2\'c4\'bf\'d6\'d0\'b5\'c4
 \f0 edge case
 \f2 \'d2\'b2\'b2\'bb\'c9\'d9\'a1\'a3
-\f0 \
-\
-way-3: DP MLE\
-\
-\
-*/\
-class Solution \{\
-public:\
-    bool isMatch(string s, string p)\
-    \{\
-        //way-2\
-        int ss ;  \
-        int pp ;  \
-        bool has_star = false; \
-        int s_index=0;\
-        int p_index=0;\
-        while (s_index<s.size() && (has_star || p_index<p.size())) \
-        \{  \
-            if (s[s_index] == p[p_index] || p[p_index] == '?') \
-            \{  \
-                ++s_index;  \
-                ++p_index;  \
-            \}\
-            else if (p[p_index] == '*') \
-            \{  \
-                has_star = true;  \
-                if ((p_index+1) == p.size())   \
-                    return true;  \
-                ss = s_index;  \
-                pp = ++p_index;  \
-            \} \
-            else \
-            \{  \
-                if (!has_star)   \
-                    return false;  \
-                s_index = ++ss; //important!! \
-                p_index = pp;  \
-            \}  \
-        \}  \
-        \
-        while (p_index<p.size() && p[p_index] == '*')\
-            ++p_index;  \
-\
-        if (s_index==s.size() && p_index==p.size())   \
-            return true;  \
-        return false;  \
-    \}\
+\f0 \
+\
+way-3: DP MLE\
+\
+\
+*/\
+class Solution \{\
+public:\
+    bool isMatch(string s, string p)\
+    \{\
+        //way-2\
+        int ss ;  \
+        int pp ;  \
+        bool has_star = false; \
+        int s_index=0;\
+        int p_index=0;\
+        while (s_index<s.size() && \cb2 (has_star || p_index<p.size())\cb1 ) \
+        \{  \
+            if (s[s_index] == p[p_index] || p[p_index] == '?') \
+            \{  \
+                ++s_index;  \
+                ++p_index;  \
+            \}\
+            else if (p[p_index] == '*') \
+            \{  \
+                has_star = true;  \
+                if ((p_index+1) == p.size())   \
+                    return true;  \
+                ss = s_index;  \
+                pp = ++p_index;  \
+            \} \
+            else \
+            \{  \
+                if (!has_star)   \
+                    return false;  \
+                \cb3 s_index = ++ss; //important!! \
+\cb1                 p_index = pp;  \
+            \}  \
+        \}  \
+        \
+       \cb4  while (p_index<p.size() && p[p_index] == '*')\
+            ++p_index; \cb1  \
+\
+        if (s_index==s.size() && p_index==p.size())   \
+            return true;  \
+        return false;  \
+    \}\
 \};}
