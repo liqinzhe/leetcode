@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15520\viewh15540\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+The n-queens puzzle is the problem of placing n queens on an n\'d7n chessboard such that no two queens attack each other.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 屏幕快照 2017-05-24 上午10.04.37.png \width5520 \height5580
+}�}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Given an integer n, return all distinct solutions to the n-queens puzzle.\
+\
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.\
+\
+For example,\
+There exist two distinct solutions to the 4-queens puzzle:\
+\
+[\
+ [".Q..",  // Solution 1\
+  "...Q",\
+  "Q...",\
+  "..Q."],\
+\
+ ["..Q.",  // Solution 2\
+  "Q...",\
+  "...Q",\
+  ".Q.."]\
+]\
+\
+\
+*/\
+class Solution \{\
+public:\
+    string getstring(int n,int i)\
+    \{\
+        string m1="";\
+        n=n-i-1;\
+        while(i>0)\
+        \{\
+            m1=m1+".";\
+            i--;\
+        \}\
+        m1=m1+"Q";\
+        while(n>0)\
+        \{\
+            m1=m1+".";\
+            n--;\
+        \}\
+        return m1;\
+    \}\
+    \
+    void solve(int n, int pos, vector<vector<string>> &result, vector<string> guocheng, vector<int> count)\
+    \{\
+        if(pos==n)//
+\f1 \'d2\'d1\'be\'ad\'b1\'bb\'cc\'ee\'c2\'fa\'c1\'cb
+\f0 \
+        \{\
+            result.push_back(guocheng);\
+            /*\
+            cout<<guocheng.size()<<endl;\
+            for(int i=0;i<guocheng.size();i++)\
+              cout<<guocheng[i]<<endl;\
+            cout<<endl;\
+            */\
+            return;\
+        \}\
+        \
+        string m1;\
+        int flag;\
+        for(int i=0;i<n;i++)\
+        \{\
+            m1=getstring(n,i);\
+           \
+            if(pos==0)//
+\f1 \'c8\'e7\'b9\'fb\'ca\'c7\'b5\'da\'d2\'bb\'d0\'d0
+\f0 \
+            \{\
+               guocheng.push_back(m1);\
+               count[i]=1;\
+               solve(n, pos+1, result, guocheng, count);\
+               count[i]=0;\
+               guocheng.pop_back();\
+            \}\
+            else//
+\f1 \'b2\'bb\'ca\'c7\'b5\'da\'d2\'bb\'d0\'d0
+\f0 \
+            \{\
+                if(count[i]==1)//
+\f1 \'d5\'e2\'c1\'d0\'b1\'bb\'d5\'bc\'c1\'cb
+\f0 \
+                    continue;\
+                else\
+                \{\
+                    flag=0;\
+                    for(int k=1;k<=pos;k++)
+\f1 //\'bc\'ec\'b2\'e9\'d0\'b1\'d0\'d0\'bb\'f2\'d0\'b1\'c1\'d0
+\f0 \
+                    \{\
+                        if((guocheng[pos-k][i-k]=='Q' && i-k>=0) ||  (guocheng[pos-k][i+k]=='Q' && i+k<9))\
+                        \{\
+                            flag=1;\
+                            break;\
+                        \} \
+                    \}\
+                    if(flag==1)//flag==1
+\f1 \'cb\'b5\'c3\'f7\'d5\'e2\'d2\'bb\'b8\'f6\'d0\'b1\'d0\'d0\'bb\'f2\'d0\'b1\'c1\'d0\'d2\'d1\'be\'ad\'d3\'d0\'c1\'cb
+\f0 \
+                        continue;\
+                    guocheng.push_back(m1);\
+                    count[i]=1;\
+                    solve(n,pos+1,result,guocheng,count);\
+                    count[i]=0;\
+                    guocheng.pop_back();\
+                \}\
+            \}\
+        \}\
+    \}\
+    \
+    vector<vector<string>> solveNQueens(int n) \
+    \{\
+        vector<vector<string>> result;\
+        vector<string> guocheng;\
+        \
+        if(n==1)\
+        \{\
+            guocheng.push_back("Q");\
+            result.push_back(guocheng);\
+            return result;\
+        \}\
+        else if(n<4)\
+            return result;\
+         \
+        vector<int> count(n,0);\
+\
+        solve(n,0,result,guocheng,count);\
+       \
+        return result;\
+    \}\
+\};}
