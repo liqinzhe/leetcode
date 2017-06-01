@@ -1,0 +1,78 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\
+\
+push(x) -- Push element x onto stack.\
+pop() -- Removes the element on top of the stack.\
+top() -- Get the top element.\
+getMin() -- Retrieve the minimum element in the stack.\
+Example:\
+MinStack minStack = new MinStack();\
+minStack.push(-2);\
+minStack.push(0);\
+minStack.push(-3);\
+minStack.getMin();   --> Returns -3.\
+minStack.pop();\
+minStack.top();      --> Returns 0.\
+minStack.getMin();   --> Returns -2.\
+\
+
+\f1 \'c9\'e8\'bc\'c6\'c0\'e0\'b5\'c4\'cc\'e2\'bb\'b9\'ca\'c7\'d0\'e8\'d2\'aa\'b6\'e0\'d7\'f6\'a3\'a1
+\f0 \
+\
+*/\
+class MinStack \{\
+public:\
+    /** initialize your data structure here. */\
+    MinStack()\{\}\
+    ~MinStack()\{\}\
+    \
+    void push(int x) \
+    \{\
+        element.push(x);\
+        if(min_element.empty() || (x <= min_element.top()) )\
+            min_element.push(x);\
+    \}\
+    \
+    void pop() \
+    \{   \
+        if(!element.empty())\
+        \{\
+            if(element.top() == min_element.top())\
+                min_element.pop();\
+            element.pop();\
+        \}\
+    \}\
+    \
+    int top() \
+    \{\
+        if(!element.empty())\
+            return element.top();    \
+    \}\
+    \
+    int getMin() \
+    \{\
+        if(!min_element.empty())\
+            return min_element.top();    \
+    \}\
+    \
+private:\
+    \
+    stack<int> element;\
+    stack<int> min_element;\
+\};\
+\
+/**\
+ * Your MinStack object will be instantiated and called as such:\
+ * MinStack obj = new MinStack();\
+ * obj.push(x);\
+ * obj.pop();\
+ * int param_3 = obj.top();\
+ * int param_4 = obj.getMin();\
+ */}

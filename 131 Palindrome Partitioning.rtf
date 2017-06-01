@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a string s, partition s such that every substring of the partition is a palindrome.\
+\
+Return all possible palindrome partitioning of s.\
+\
+For example, given s = "aab",\
+Return\
+\
+[\
+  ["aa","b"],\
+  ["a","a","b"]\
+]\
+\
+backtracking!\
+\
+*/\
+class Solution \{\
+public:\
+    bool ispalin(string s,int i,int j)\
+    \{\
+        while(i<j)\
+        \{\
+            if(s[i]==s[j])\
+            \{\
+                i++;\
+                j--;\
+            \}\
+            else\
+             return 0;\
+        \}\
+        return 1;\
+    \}\
+    \
+    void makeret(string s,int startpos,vector<string> m1,vector<vector<string>> &ret)\
+    \{\
+        if(startpos>=s.size())\
+        \{\
+            ret.push_back(m1); \
+            return;\
+        \}\
+        \
+        for(int i=startpos;i<s.size();i++)\
+        \{\
+            if(ispalin(s,startpos,i))\
+            \{\
+                m1.push_back(s.substr(startpos,i-startpos+1));\
+                makeret(s,i+1,m1,ret);\
+                m1.pop_back();\
+            \}    \
+        \}\
+    \}\
+    \
+    \
+    vector<vector<string>> partition(string s) \
+    \{\
+        vector<vector<string>> ret;\
+        vector<string> m1;\
+        makeret(s, 0, m1, ret);\
+        return ret;\
+    \}\
+\};}

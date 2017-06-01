@@ -1,0 +1,198 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.\
+\
+get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.\
+put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.\
+\
+Follow up:\
+Could you do both operations in O(1) time complexity?\
+\
+Example:\
+\
+LRUCache cache = new LRUCache( 2 );\
+\
+cache.put(1, 1);\
+cache.put(2, 2);\
+cache.get(1);       // returns 1\
+cache.put(3, 3);    // evicts key 2\
+cache.get(2);       // returns -1 (not found)\
+cache.put(4, 4);    // evicts key 1\
+cache.get(1);       // returns -1 (not found)\
+cache.get(3);       // returns 3\
+cache.get(4);       // returns 4\
+\
+get
+\f1 \'b2\'d9\'d7\'f7\'ca\'b1\'a3\'ac\'d0\'e8\'d2\'aa\'d6\'b4\'d0\'d0\'cf\'c2\'c3\'e6\'c1\'bd\'b2\'bd\'b2\'d9\'d7\'f7\'a3\'ba
+\f0 \
+1/
+\f1 \'b7\'b5\'bb\'d8
+\f0 map
+\f1 \'d6\'d0
+\f0 key
+\f1 \'b6\'d4\'d3\'a6\'b5\'c4
+\f0 value
+\f1 \'a3\'bb
+\f0 \
+2/
+\f1 \'cd\'ac\'ca\'b1\'d0\'e8\'d2\'aa\'b8\'fc\'d0\'c2
+\f0 list
+\f1 \'d6\'d0
+\f0 key
+\f1 \'b5\'c4\'ce\'bb\'d6\'c3\'a3\'ac\'bd\'ab
+\f0 key
+\f1 \'b7\'c5\'d6\'c3\'d4\'da
+\f0 list
+\f1 \'d6\'d0\'d7\'ee\'bd\'fc\'b1\'bb\'b7\'c3\'ce\'ca\'b5\'c4\'ce\'bb\'d6\'c3\'c9\'cf\'a3\'ac\'c4\'c7\'c3\'b4\'bf\'c9\'d2\'d4\'b6\'a8\'d2\'e5
+\f0 list
+\f1 \'d6\'d0\'b5\'c4\'ca\'d7\'b6\'cb
+\f0 (front)
+\f1 \'d4\'aa\'cb\'d8\'ca\'c7\'d7\'ee\'bd\'fc\'b1\'bb\'b7\'c3\'ce\'ca\'b5\'c4\'d4\'aa\'cb\'d8\'a1\'a3\'b8\'fc\'d0\'c2\'b2\'d9\'d7\'f7\'cd\'ac\'d1\'f9\'d0\'e8\'d2\'aa\'c1\'bd\'b2\'bf\'c0\'b4\'cd\'ea\'b3\'c9\'a3\'ba
+\f0 1
+\f1 \'a3\'ba\'c9\'be\'b3\'fd
+\f0 list
+\f1 \'d6\'d0\'d4\'ad\'c0\'b4\'b5\'c4
+\f0 key
+\f1 \'a3\'bb
+\f0 2
+\f1 \'a3\'ba\'bd\'ab
+\f0 key
+\f1 \'b2\'e5\'c8\'eb
+\f0 list
+\f1 \'ca\'d7\'b6\'cb\'a1\'a3
+\f0 \
+\
+set
+\f1 \'b2\'d9\'d7\'f7\'bb\'e1\'b1\'c8\'bd\'cf\'b8\'b4\'d4\'d3\'d2\'bb\'d0\'a9\'a3\'ba
+\f0 \
+1/
+\f1 \'ca\'d7\'cf\'c8\'c5\'d0\'b6\'cf\'d2\'aa\'b2\'e5\'c8\'eb\'b5\'c4
+\f0 key
+\f1 \'ca\'c7\'b7\'f1\'b4\'e6\'d4\'da
+\f0 map
+\f1 \'d6\'d0\'a3\'ac\'c8\'e7\'b9\'fb\'b4\'e6\'d4\'da\'b5\'c4\'bb\'b0\'a3\'ac\'d6\'bb\'d0\'e8\'d2\'aa\'b8\'fc\'d0\'c2
+\f0 map
+\f1 \'d6\'d0\'b6\'d4\'d3\'a6\'b5\'c4
+\f0 value
+\f1 \'a3\'ac\'cd\'ac\'ca\'b1\'d6\'b4\'d0\'d0\'c9\'cf\'c3\'e6
+\f0 get
+\f1 \'d6\'d0\'b5\'c4\'b5\'da\'b6\'fe\'b2\'bd\'b2\'d9\'d7\'f7\'a3\'bb
+\f0 \
+2/
+\f1 \'c8\'e7\'b9\'fb
+\f0 key
+\f1 \'b2\'bb\'b4\'e6\'d4\'da
+\f0 map
+\f1 \'d6\'d0\'a3\'ac\'c4\'c7\'c3\'b4\'d0\'e8\'d2\'aa\'c5\'d0\'b6\'cf
+\f0 map
+\f1 \'c8\'dd\'c1\'bf\'ca\'c7\'b7\'f1\'d2\'d1\'c2\'fa\'a3\'ac\'c8\'e7\'b9\'fb\'c2\'fa\'c1\'cb\'a3\'ac\'be\'cd\'d0\'e8\'d2\'aa\'b4\'d3
+\f0 map
+\f1 \'d6\'d0\'c9\'be\'b3\'fd\'d2\'bb\'b8\'f6\'d4\'aa\'cb\'d8\'a3\'ac\'d5\'e2\'ca\'b1
+\f0 list
+\f1 \'be\'cd\'c5\'c9\'c9\'cf\'d3\'c3\'b3\'a1\'c1\'cb\'a3\'ac\'d2\'f2\'ce\'aa\'d7\'ee\'bd\'fc\'ca\'b9\'d3\'c3\'b5\'c4
+\f0 key
+\f1 \'ce\'bb\'d3\'da
+\f0 list
+\f1 \'b5\'c4\'ca\'d7\'b6\'cb\'a3\'ac\'c4\'c7\'c3\'b4\'d7\'ee\'be\'c3\'ce\'b4\'ca\'b9\'d3\'c3\'b5\'c4\'d4\'aa\'cb\'d8\'be\'cd\'ce\'bb\'d3\'da
+\f0 list
+\f1 \'ce\'b2\'b6\'cb\'a3\'ac\'bf\'c9\'d2\'d4\'b4\'d3
+\f0 list
+\f1 \'d6\'d0\'c8\'a1\'b3\'f6\'d7\'ee\'be\'c3\'ce\'b4\'ca\'b9\'d3\'c3\'b5\'c4
+\f0 key
+\f1 \'a3\'ac\'cd\'ac\'ca\'b1\'c9\'be\'b3\'fd
+\f0 map
+\f1 \'d6\'d0\'b6\'d4\'d3\'a6\'b5\'c4
+\f0 key
+\f1 \'ba\'cd
+\f0 value
+\f1 \'a1\'a3
+\f0 \
+3/
+\f1 \'c8\'bb\'ba\'f3\'bd\'ab\'ca\'fd\'be\'dd\'b2\'e5\'c8\'eb
+\f0 map
+\f1 \'ba\'cd
+\f0 list
+\f1 \'d6\'d0\'a1\'a3
+\f0 \
+\
+\
+
+\f1 \'d7\'a2\'d2\'e2\'d2\'aa\'b5\'e3\'a3\'ba\
+1\'a1\'a2pair\'b5\'c4\'d3\'c3\'b7\'a8   typedef pair<int, list<int>::iterator> PILI;\
+2\'a1\'a2typedef\'b5\'c4\'d3\'c3\'b7\'a8\
+3\'a1\'a2iterator\'b5\'c4\'d3\'c3\'b7\'a8\'a1\'a3\'d6\'bb\'d2\'aa\'b0\'d1\'d2\'bb\'b8\'f6\'d4\'aa\'cb\'d8\'b5\'c4it\'b4\'e6\'cf\'c2\'c0\'b4\'a3\'ac\'d6\'ae\'ba\'f3\'be\'cd\'c4\'dc\'d3\'c3\'d5\'e2\'b8\'f6\'b6\'a8\'ce\'bb\'a1\'a3\'ba\'cd\'ca\'fd\'d7\'e9\'c7\'b0\'c3\'e6\'b2\'e5\'c8\'eb\'a3\'ac\'ba\'f3\'c3\'e6\'b5\'c4\'ba\'f3\'d2\'c6\'ca\'c7\'b2\'bb\'d2\'bb\'d1\'f9\'b5\'c4\'a1\'a3\
+4\'a1\'a2map\'d7\'ee\'ba\'f3\'d2\'bb\'b8\'f6\'d4\'aa\'cb\'d8 s.back()\
+5\'a1\'a2list\'ca\'c7\'b2\'e5\'c8\'eb\'c9\'be\'b3\'fd\'d7\'ee\'bf\'ec\'b5\'c4STL\'a3\'ac\'cc\'d8\'b5\'e3\'ca\'c7\'bf\'c9\'d2\'d4\'c1\'bd\'b6\'cb\'b2\'e5\'c8\'eb\'c9\'be\'b3\'fd\'a1\'a3
+\f0 \
+\
+\
+*/\
+class LRUCache \{\
+public:\
+    LRUCache(int capacity) \
+    \{\
+        this->capacity=capacity;\
+    \}\
+    \
+    int get(int key) \
+    \{\
+        auto it=datas.find(key);\
+        if( it != datas.end() )\
+        \{\
+            update(it);\
+            return it->second.first;\
+        \}\
+        else\
+            return -1;\
+    \}\
+    \
+    void put(int key, int value) \
+    \{\
+        int length=datas.size();  \
+        auto iter=datas.find(key);  \
+        if(iter != datas.end())  \
+        \{  \
+            iter->second.first=value;  \
+            update(iter);  \
+        \}  \
+        else  \
+        \{  \
+            if(length>=capacity)  \
+            \{  \
+                datas.erase(s.back());  \
+                s.pop_back();  \
+            \}  \
+            s.push_front(key);  \
+            datas[key]=PILI(value,s.begin());  \
+        \}\
+    \}\
+    \
+private:\
+    \
+    typedef pair<int,list<int>::iterator> PILI;\
+    map<int,PILI> datas;\
+    int capacity;\
+    list<int> s;\
+    \
+    void update(map<int,PILI>::iterator it)\
+    \{\
+        int key=it->first;   \
+        s.erase(it->second.second);\
+        s.push_front(key);\
+        it->second.second=s.begin();  \
+    \}\
+    \
+\};\
+\
+/**\
+ * Your LRUCache object will be instantiated and called as such:\
+ * LRUCache obj = new LRUCache(capacity);\
+ * int param_1 = obj.get(key);\
+ * obj.put(key,value);\
+ */}

@@ -5,59 +5,59 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a string containing only digits, restore it by returning all possible valid IP address combinations.\
-\
-For example:\
-Given "25525511135",\
-\
-return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)\
-\
+\f0\fs24 \cf0 /*\
+Given a string containing only digits, restore it by returning all possible valid IP address combinations.\
+\
+For example:\
+Given "25525511135",\
+\
+return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)\
+\
 \
 
-\f1 \'bb\'d8\'cb\'dd
+\f1 \'bb\'d8\'cb\'ddbacktracking\'a3\'a1
 \f0 \
-\
-*/\
-class Solution \{\
-public:\
-    void guocheng(vector<string> &result,string m1,string s,int pos)\
-    \{\
+\
+*/\
+class Solution \{\
+public:\
+    void guocheng(vector<string> &result,string m1,string s,int pos)\
+    \{\
         if(s.size()==0)//
 \f1 \'c8\'e7\'b9\'fb
 \f0 s
 \f1 \'b1\'bb\'d3\'c3\'cd\'ea\'c1\'cb
-\f0 \
-        \{\
-            if(pos==4)\
-                result.push_back(m1);\
-            return;\
-        \}   \
-       \
-        if(pos!=0)\
-            m1=m1+".";\
-       \
-        if(s[0]=='0')\
-            guocheng(result,m1+"0",s.substr(1,s.size()-1),pos+1);   \
-        else\
-        \{\
-            int k=1;\
-            while( stoi(s.substr(0,k))<256 && s.size()>=k)\
-            \{\
-                guocheng(result,m1+s.substr(0,k),s.substr(k,s.size()-k),pos+1);\
-                k++;\
-            \}\
-        \}\
-        return; \
-    \}\
-    \
-    vector<string> restoreIpAddresses(string s) \
-    \{\
-        vector<string> result;\
-        string m1="";\
-        if(s.size()<=12)\
-            guocheng(result,m1,s,0);       \
-        \
-        return result; \
-    \}\
+\f0 \
+        \{\
+            if(pos==4)\
+                result.push_back(m1);\
+            return;\
+        \}   \
+       \
+        if(pos!=0)\
+            m1=m1+".";\
+       \
+        if(s[0]=='0')\
+            guocheng(result,m1+"0",s.substr(1,s.size()-1),pos+1);   \
+        else\
+        \{\
+            int k=1;\
+            while( stoi(s.substr(0,k))<256 && s.size()>=k)\
+            \{\
+                guocheng(result,m1+s.substr(0,k),s.substr(k,s.size()-k),pos+1);\
+                k++;\
+            \}\
+        \}\
+        return; \
+    \}\
+    \
+    vector<string> restoreIpAddresses(string s) \
+    \{\
+        vector<string> result;\
+        string m1="";\
+        if(s.size()<=12)\
+            guocheng(result,m1,s,0);       \
+        \
+        return result; \
+    \}\
 \};}
