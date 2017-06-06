@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13700\viewh12880\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.\
+\
+\
+OJ's undirected graph serialization:\
+Nodes are labeled uniquely.\
+\
+We use # as a separator for each node, and , as a separator for node label and each neighbor of the node.\
+As an example, consider the serialized graph \{0,1,2#1,2#2,2\}.\
+\
+The graph has a total of three nodes, and therefore contains three parts as separated by #.\
+\
+First node is labeled as 0. Connect node 0 to both nodes 1 and 2.\
+Second node is labeled as 1. Connect node 1 to node 2.\
+Third node is labeled as 2. Connect node 2 to node 2 (itself), thus forming a self-cycle.\
+Visually, the graph looks like the following:\
+\
+       1\
+      / \\\
+     /   \\\
+    0 --- 2\
+         / \\\
+         \\_/\
+\
+
+\f1 \'bf\'cb\'c2\'a1\'d2\'bb\'b8\'f6\'ca\'b2\'c3\'b4\'a3\'ac\'d0\'e8\'d2\'aa\'b0\'d1\'d0\'c2\'be\'c9\'c1\'aa\'cf\'b5\'c6\'f0\'c0\'b4\'a3\'ac\'be\'cd\'d3\'c3
+\f0 map
+\f1 \'a3\'a1
+\f0 \
+BFS
+\f1 \'c0\'b4\'c9\'a8\'c3\'e8\'d2\'bb\'b8\'f6\'cd\'bc
+\f0 \
+\
+*/\
+/**\
+ * Definition for undirected graph.\
+ * struct UndirectedGraphNode \{\
+ *     int label;\
+ *     vector<UndirectedGraphNode *> neighbors;\
+ *     UndirectedGraphNode(int x) : label(x) \{\};\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) \
+    \{\
+        if (!node)\
+            return NULL;\
+        \
+        vector<UndirectedGraphNode *> graph = get_graph(node);\
+        \
+        //copy point\
+        map<UndirectedGraphNode *,UndirectedGraphNode *> mm;\
+        for(int i = 0; i < graph.size(); i++)\
+        \{\
+            UndirectedGraphNode* p = new UndirectedGraphNode(graph[i]->label);\
+            mm[graph[i]] = p;\
+        \}\
+        \
+        //copy edges\
+        for(int i = 0; i < graph.size(); i++)\
+        \{\
+            UndirectedGraphNode* pNew = mm[graph[i]];    \
+            for(int j = 0; j < graph[i]->neighbors.size(); j++)\
+            \{\
+                UndirectedGraphNode * pp = mm[graph[i]->neighbors[j]];\
+                pNew->neighbors.push_back(pp);\
+            \}\
+        \}\
+        return mm[graph[0]];\
+    \}\
+    \
+    //BFS\
+    vector<UndirectedGraphNode *> get_graph(UndirectedGraphNode * node)\
+    \{\
+        vector<UndirectedGraphNode *> hash;  //
+\f1 \'d5\'e2\'ca\'c7\'ca\'c7\'d3\'c3\'c0\'b4\'b4\'e6\'b1\'e9\'c0\'fa\'b9\'fd\'b5\'c4\'b5\'e3\'a3\'ac\'b1\'dc\'c3\'e2\'d6\'d8\'b8\'b4\'b1\'e9\'c0\'fa\'a3\'ac\'b3\'f6\'cf\'d6\'cb\'c0\'d1\'ad\'bb\'b7\'a1\'a3
+\f0 \
+        queue<UndirectedGraphNode *> Nodes;\
+        Nodes.push(node);\
+        hash.push_back(node);\
+\
+        while (!Nodes.empty())\
+        \{\
+            UndirectedGraphNode *p = Nodes.front();\
+            Nodes.pop();\
+            for(int i = 0; i < p->neighbors.size(); i++)\
+            \{\
+                if(find(hash.begin(), hash.end(), p->neighbors[i]) == hash.end())\
+                \{\
+                    hash.push_back(p->neighbors[i]);\
+                    Nodes.push(p->neighbors[i]);\
+                \}\
+            \}\
+        \}\
+        return hash;\
+    \}    \
+\};}
