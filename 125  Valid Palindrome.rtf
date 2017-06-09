@@ -1,82 +1,56 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww17340\viewh10660\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.\
-\
-For example,\
-"A man, a plan, a canal: Panama" is a palindrome.\
-"race a car" is not a palindrome.\
-\
-Note:\
-Have you consider that the string might be empty? This is a good question to ask during an interview.\
-\
-For the purpose of this problem, we define empty string as valid palindrome.\
-\
-way-1:old way\
-\
-way-2:use reverse\
-\
-*/\
-class Solution \{\
-public:\
-    bool isPalindrome(string s) \
-    \{\
-        //way-1\
-        /*\
-        int l=0;\
-        int r=s.size()-1;\
-        while(l<r)\
+\f0\fs24 \cf0 /*\
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.\
+\
+For example,\
+"A man, a plan, a canal: Panama" is a palindrome.\
+"race a car" is not a palindrome.\
+\
+Note:\
+Have you consider that the string might be empty? This is a good question to ask during an interview.\
+\
+For the purpose of this problem, we define empty string as valid palindrome.\
+\
+way-1: two point\
+\
+*/\
+class Solution \{\
+public:\
+    bool isPalindrome(string s) \
+    \{\
+	int left = 0;\
+        int right = s.size() - 1;\
+        while(left < right)\
         \{\
-            if(s[l]>=65 && s[l]<=90)\
-                s[l]=s[l]+32;\
-            if(s[r]>=65 && s[r]<=90)\
-                s[r]=s[r]+32;\
-            if(!((s[l]>=97 && s[l]<=122) || (s[l]>=48 && s[l]<=57))) \
+            while (left < s.size() && (s[left] < 'a' || s[left] > 'z') && \
+                                      (s[left] < '0' || s[left] > '9'))\
             \{\
-                l++;\
-                continue;\
+                if (s[left] >= 'A' && s[left] <= 'Z')       \
+                    s[left] = s[left] +32;\
+                else\
+                    left++;\
             \}\
-            if(!((s[r]>=97 && s[r]<=122) || (s[r]>=48 && s[r]<=57))) \
+            \
+            while (right >= 0 && (s[right] < 'a' || s[right] > 'z')\
+                              && (s[right] < '0' || s[right] > '9'))\
             \{\
-                r--;\
-                continue;\
+                if (s[right] >= 'A' && s[right] <= 'Z')       \
+                    s[right] = s[right] +32;\
+                else\
+                    right--;\
             \}\
-            if(s[r]==s[l])\
-            \{\
-                l++;\
-                r--;\
-            \}\
-            else\
-                return 0;\
+            \
+            if (left >= right)\
+                break;\
+            else if (s[left++] != s[right--])\
+                return false;\
         \}\
-        return 1;\
-        */\
-        \
-        //way-2\
-        int i=0;\
-        while(i<s.size())\
-        \{\
-            if(s[i]>=65 && s[i]<=90)\
-            \{    \
-                s[i]=s[i]+32;\
-                i++;\
-            \}\
-            else if(!((s[i]>=97 && s[i]<=122) || (s[i]>=48 && s[i]<=57)))\
-            \{\
-                s.erase(s.begin()+i);\
-            \}\
-            else\
-            \{\
-                i++;\
-            \}\
-        \}\
-        string ss=s;\
-        reverse(s.begin(),s.end());\
-        return (ss==s)?1:0;\
-    \}\
+        return true;\
+    \}    \
 \};}

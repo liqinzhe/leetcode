@@ -1,0 +1,287 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17940\viewh12760\viewkind0
+\deftab420
+\pard\pardeftab420\ri0\qj\partightenfactor0
+
+\f0\fs24 \cf0 /*
+\f1 \
+
+\f0 Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue.
+\f1 \
+\
+
+\f0 Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+\f1 \
+\
+
+\f0 Note:
+\f1 \
+
+\f0 You are not suppose to use the library's sort function for this problem.
+\f1 \
+\
+
+\f0 way-2:
+\f1 \
+
+\f2 \'c8\'e7\'b9\'fb\'d6\'bb\'c4\'dc\'c9\'a8\'d2\'bb\'b1\'e9\'a3\'ac\'ba\'dc\'c8\'dd\'d2\'d7\'cf\'eb\'b5\'bd\'b5\'c4\'be\'cd\'ca\'c7\'d7\'f3\'b1\'df\'b4\'e6\'b7\'c5
+\f0 0
+\f2 \'ba\'cd
+\f0 1
+\f2 \'a3\'ac\'d3\'d2\'b1\'df\'b4\'e6\'b7\'c5
+\f0 2.
+\f2 \'c1\'bd\'b1\'df\'cd\'f9\'d6\'d0\'bc\'e4\'bf\'bf\'a1\'a3
+\f1 \
+\
+
+\f2 \'c9\'e8\'d6\'c3\'c1\'bd\'b8\'f6
+\f0 index
+\f2 \'a3\'ac
+\f0 left
+\f2 \'bc\'c7\'c2\'bc\'b5\'da\'d2\'bb\'b8\'f6
+\f0 1
+\f2 \'b5\'c4\'ce\'bb\'d6\'c3\'a3\'ac
+\f0 left
+\f2 \'d7\'f3\'b1\'df\'ce\'aa
+\f0 0
+\f2 \'a3\'ac
+\f0 right
+\f2 \'bc\'c7\'c2\'bc\'b5\'da\'d2\'bb\'b8\'f6\'b7\'c7
+\f0 2
+\f2 \'b5\'c4\'ce\'bb\'d6\'c3\'a3\'ac
+\f0 right
+\f2 \'d3\'d2\'b1\'df\'ce\'aa
+\f0 2.
+\f1 \
+\
+
+\f2 \'c8\'bb\'ba\'f3\'ca\'b9\'d3\'c3
+\f0 i
+\f2 \'b4\'d3\'cd\'b7\'b5\'bd\'ce\'b2\'c9\'a8\'d2\'bb\'b1\'e9\'a3\'ac\'d6\'b1\'b5\'bd\'d3\'eb
+\f0 right
+\f2 \'cf\'e0\'d3\'f6\'a1\'a3
+\f1 \
+\
+
+\f0 i
+\f2 \'d3\'f6\'b5\'bd
+\f0 0
+\f2 \'be\'cd\'bb\'bb\'b5\'bd\'d7\'f3\'b1\'df\'c8\'a5\'a3\'ac\'d3\'f6\'b5\'bd
+\f0 2
+\f2 \'be\'cd\'bb\'bb\'b5\'bd\'d3\'d2\'b1\'df\'c8\'a5\'a3\'ac\'d3\'f6\'b5\'bd
+\f0 1
+\f2 \'be\'cd\'cc\'f8\'b9\'fd\'a1\'a3
+\f1 \
+\
+
+\f2 \'d0\'e8\'d2\'aa\'d7\'a2\'d2\'e2\'b5\'c4\'ca\'c7\'a3\'ba\'d3\'c9\'d3\'da
+\f0 left
+\f2 \'bc\'c7\'c2\'bc\'b5\'da\'d2\'bb\'b8\'f6
+\f0 1
+\f2 \'b5\'c4\'ce\'bb\'d6\'c3\'a3\'ac\'d2\'f2\'b4\'cb
+\f0 A[left]
+\f2 \'d3\'eb
+\f0 A[i]
+\f2 \'bd\'bb\'bb\'bb\'ba\'f3\'a3\'ac
+\f0 A[left]
+\f2 \'ce\'aa
+\f0 0,A[i]
+\f2 \'ce\'aa
+\f0 1
+\f2 \'a3\'ac\'d2\'f2\'b4\'cb
+\f0 i++
+\f2 \'a3\'bb
+\f1 \
+\
+
+\f2 \'b6\'f8
+\f0 right
+\f2 \'bc\'c7\'c2\'bc\'b5\'da\'d2\'bb\'b8\'f6\'b7\'c7
+\f0 2
+\f2 \'b5\'c4\'ce\'bb\'d6\'c3\'a3\'ac\'bf\'c9\'c4\'dc\'ce\'aa
+\f0 0
+\f2 \'bb\'f2
+\f0 1
+\f2 \'a3\'ac\'d2\'f2\'b4\'cb
+\f0 A[right]
+\f2 \'d3\'eb
+\f0 A[i]
+\f2 \'bd\'bb\'bb\'bb\'ba\'f3\'a3\'ac
+\f0 A[right]
+\f2 \'ce\'aa
+\f0 2,A[i]
+\f2 \'ce\'aa
+\f0 0
+\f2 \'bb\'f2
+\f0 1
+\f2 \'a3\'ac
+\f0 i
+\f2 \'b2\'bb\'c4\'dc\'c7\'b0\'bd\'f8\'a3\'ac\'d2\'aa\'ba\'f3\'d0\'f8\'c5\'d0\'b6\'cf\'a1\'a3
+\f1 \
+\
+
+\f2 \'d3\'c9\'b4\'cb\'b8\'c3\'ca\'fd\'d7\'e9\'b7\'d6\'ce\'aa
+\f0 4
+\f2 \'b6\'ce\'a3\'ba
+\f0 [0,left)-->0; [left,i)-->1; [i,right]-->
+\f2 \'c2\'d2\'d0\'f2
+\f0 ; (right,n-1]-->2
+\f1 \
+\
+
+\f0 0  0  0  1  1  1  2  1  0  2  1  2  2  2
+\f1 \
+\
+
+\f0            ^         ^             ^
+\f1 \
+\
+
+\f0           left       i            right
+\f1 \
+\
+\
+
+\f0 way-3:
+\f2 \'a1\'be\'d7\'ee\'d6\'b1\'b9\'db\'a3\'ba\'c6\'bd\'d2\'c6\'b2\'e5\'c8\'eb\'a1\'bf
+\f1 \
+\
+\
+\
+\
+\
+
+\f0 */
+\f1 \
+
+\f0 class Solution \{
+\f1 \
+
+\f0 public:
+\f1 \
+
+\f0     void sortColors(vector<int>& nums) 
+\f1 \
+
+\f0     \{
+\f1 \
+
+\f0         
+\f1 \
+
+\f0        //way-2
+\f1 \
+
+\f0        int zero = 0, two = nums.size() -1;\
+        int i = 0;\
+        while(i <= two)\
+        \{\
+            if (nums[i] == 0)\
+                swap(nums[zero++], nums[i++]); //
+\f2 \'d2\'bb\'b8\'f6\'b9\'d8\'bc\'fc\'d4\'da\'d3\'da\'d5\'e2
+\f0 i++
+\f2 \'a3\'ac\'b2\'bb\'c8\'bb\'bb\'e1\'b1\'a8\'b4\'ed
+\f0 \
+            else if (nums[i] == 2)\
+                swap(nums[two--], nums[i]);\
+            else\
+                i++;\
+        \}
+\f1 \
+
+\f0        
+\f1 \
+
+\f0        
+\f1 \
+
+\f0        //way-3
+\f1 \
+
+\f0        /*
+\f1 \
+
+\f0         int i = -1;
+\f1 \
+
+\f0         int j = -1;
+\f1 \
+
+\f0         int k = -1;
+\f1 \
+
+\f0         int n=nums.size();
+\f1 \
+
+\f0         for(int p = 0; p < n; p ++)
+\f1 \
+
+\f0         \{
+\f1 \
+
+\f0             //
+\f2 \'b8\'f9\'be\'dd\'b5\'da
+\f0 i
+\f2 \'b8\'f6\'ca\'fd\'d7\'d6\'a3\'ac\'c5\'b2\'b6\'af
+\f0 0~i-1
+\f2 \'b4\'ae\'a1\'a3
+\f1 \
+
+\f0             if(nums[p] == 0)
+\f1 \
+
+\f0             \{
+\f1 \
+
+\f0                 nums[++k] = 2;    //2
+\f2 \'cd\'f9\'ba\'f3\'c5\'b2
+\f1 \
+
+\f0                 nums[++j] = 1;    //1
+\f2 \'cd\'f9\'ba\'f3\'c5\'b2
+\f1 \
+
+\f0                 nums[++i] = 0;    //0
+\f2 \'cd\'f9\'ba\'f3\'c5\'b2
+\f1 \
+
+\f0             \}
+\f1 \
+
+\f0             else if(nums[p] == 1)
+\f1 \
+
+\f0             \{
+\f1 \
+
+\f0                 nums[++k] = 2;
+\f1 \
+
+\f0                 nums[++j] = 1;
+\f1 \
+
+\f0             \}
+\f1 \
+
+\f0             else
+\f1 \
+
+\f0                 nums[++k] = 2;
+\f1 \
+
+\f0         \}
+\f1 \
+
+\f0         */
+\f1 \
+
+\f0     \}
+\f1 \
+
+\f0 \};
+\f1 \
+}

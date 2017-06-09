@@ -1,0 +1,74 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab420
+\pard\pardeftab420\ri0\qj\partightenfactor0
+
+\f0\fs24 \cf0 /*
+\f1 \
+
+\f0 Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
+\f1 \
+\
+
+\f0 Do not allocate extra space for another array, you must do this in place with constant memory.
+\f1 \
+\
+
+\f0 For example,
+\f1 \
+
+\f0 Given input array nums = [1,1,2],
+\f1 \
+\
+
+\f0 Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively. It doesn't matter what you leave beyond the new length.
+\f1 \
+\
+
+\f2 \'b7\'bd\'b7\'a8\'d2\'bb\'a3\'ba\'c9\'be\'b3\'fd\'d6\'d8\'b8\'b4
+\f1 \
+\
+
+\f2 \'b7\'bd\'b7\'a8\'b6\'fe\'a3\'ba\'b2\'bb\'c9\'be\'b3\'fd\'d4\'aa\'cb\'d8\'a3\'ac\'b6\'f8\'ca\'c7\'b0\'d1\'b2\'bb\'d6\'d8\'b8\'b4\'b5\'c4\'d4\'aa\'cb\'d8\'b7\'c5\'b5\'bd\'c7\'b0\'c3\'e6\'c8\'a5\'a1\'a3
+\f1 \
+
+\f0   
+\f1 \
+
+\f0 */
+\f1 \
+
+\f0 class Solution \{
+\f1 \
+
+\f0 public:
+\f1 \
+
+\f0     int removeDuplicates(vector<int>& nums)
+\f1 \
+
+\f0     \{\
+	int array_len = nums.size();\
+        int first = 0;\
+        int last;\
+        while (first < nums.size())\
+        \{\
+            last = first + 1;\
+            while(last < nums.size() && nums[last] == nums[first])\
+            \{\
+                nums.erase(nums.begin() + last);\
+                array_len--;\
+            \}\
+            first = last;\
+        \}\
+        return array_len;
+\f1 \
+
+\f0     \}        \
+\};
+\f1 \
+}
