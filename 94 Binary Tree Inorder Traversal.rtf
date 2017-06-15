@@ -1,105 +1,121 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;\f2\fnil\fcharset0 Verdana;
+}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25400\viewh13220\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a binary tree, return the inorder traversal of its nodes' values.\
-\
-For example:\
-Given binary tree [1,null,2,3],\
-   1\
-    \\\
-     2\
-    /\
-   3\
-return [1,3,2].\
-\
-Note: Recursive solution is trivial, could you do it iteratively?\
-\
+\f0\fs24 \cf0 /*\
+Given a binary tree, return the inorder traversal of its nodes' values.\
+\
+For example:\
+Given binary tree [1,null,2,3],\
+   1\
+    \\\
+     2\
+    /\
+   3\
+return [1,3,2].\
+\
+Note: Recursive solution is trivial, could you do it iteratively?\
+\
 
 \f1 \'d6\'d0\'d0\'f2\'b1\'e9\'c0\'fa
-\f0 \
-\
+\f0 \
+\
 way-1:
 \f1 \'b5\'dd\'b9\'e9
-\f0 \
-\
+\f0 \
+\
 way-2:
-\f1 \'b5\'fc\'b4\'fa
-\f0 \
-\
-*/\
-/**\
- * Definition for a binary tree node.\
- * struct TreeNode \{\
- *     int val;\
- *     TreeNode *left;\
- *     TreeNode *right;\
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) \{\}\
- * \};\
- */\
-class Solution \{\
-public:\
-    void inorder(vector<int> &result,TreeNode *p)  \
-    \{\
-       if(p->left)    \
-          inorder(result,p->left);\
-       result.push_back(p->val);\
-       if(p->right)\
-          inorder(result,p->right); \
-    \}\
-    \
-    vector<int> inorderTraversal(TreeNode* root) \
-    \{\
-       //way-1\
-       /*\
-       vector<int> result;\
-       if(root)\
-           inorder(result,root);\
-       return result;\
-       */\
-       \
-       //way-2\
-       vector<int> ret;\
-       if(!root)\
-           return ret;\
-       stack<TreeNode*> mm;\
-       TreeNode*p=root;\
-       bool search_left=false;\
-       while(1)\
-       \{\
-           if(p->left && !search_left)\
-           \{\
-               mm.push(p);\
-               p=p->left;\
-               continue;\
-           \}\
-           search_left=false;\
-           ret.push_back(p->val);\
-           if(p->right)\
-           \{\
-               p=p->right;\
-               continue;\
-           \}\
-           else//
-\f1 \'d7\'f3\'d3\'d2\'d7\'d3\'ca\'f7\'b6\'bc\'c3\'bb\'d3\'d0
-\f0 \
-           \{\
-               if(!mm.empty())\
-               \{\
-                   p=mm.top();\
-                   mm.pop();\
-                   search_left=true;\
-                   continue;\
-               \}\
-               else\
-                   break;\
-           \}\
-           \
-       \}\
-       return ret;\
-    \}\
+\f1 \'b5\'fc\'b4\'fa\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs28 \cf0 \cb2 \expnd0\expndtw0\kerning0
+\'a0
+\f1 \'b6\'d4\'d3\'da\'c8\'ce\'d2\'bb\'bd\'e1\'b5\'e3
+\f2 P
+\f1 \'a3\'ac
+\f2 \cb1 \
+\cb2 \'a0 1)
+\f1 \'c8\'f4\'c6\'e4\'d7\'f3\'ba\'a2\'d7\'d3\'b2\'bb\'ce\'aa\'bf\'d5\'a3\'ac\'d4\'f2\'bd\'ab
+\f2 P
+\f1 \'c8\'eb\'d5\'bb\'b2\'a2\'bd\'ab
+\f2 P
+\f1 \'b5\'c4\'d7\'f3\'ba\'a2\'d7\'d3\'d6\'c3\'ce\'aa\'b5\'b1\'c7\'b0\'b5\'c4
+\f2 P
+\f1 \'a3\'ac\'c8\'bb\'ba\'f3\'b6\'d4\'b5\'b1\'c7\'b0\'bd\'e1\'b5\'e3
+\f2 P
+\f1 \'d4\'d9\'bd\'f8\'d0\'d0\'cf\'e0\'cd\'ac\'b5\'c4\'b4\'a6\'c0\'ed\'a3\'bb
+\f2 \cb1 \
+\cb2 \'a0\'a02)
+\f1 \'c8\'f4\'c6\'e4\'d7\'f3\'ba\'a2\'d7\'d3\'ce\'aa\'bf\'d5\'a3\'ac\'d4\'f2\'c8\'a1\'d5\'bb\'b6\'a5\'d4\'aa\'cb\'d8\'b2\'a2\'bd\'f8\'d0\'d0\'b3\'f6\'d5\'bb\'b2\'d9\'d7\'f7\'a3\'ac\'b7\'c3\'ce\'ca\'b8\'c3\'d5\'bb\'b6\'a5\'bd\'e1\'b5\'e3\'a3\'ac\'c8\'bb\'ba\'f3\'bd\'ab\'b5\'b1\'c7\'b0\'b5\'c4
+\f2 P
+\f1 \'d6\'c3\'ce\'aa\'d5\'bb\'b6\'a5\'bd\'e1\'b5\'e3\'b5\'c4\'d3\'d2\'ba\'a2\'d7\'d3\'a3\'bb
+\f2 \cb1 \
+\cb2 \'a0 3)
+\f1 \'d6\'b1\'b5\'bd
+\f2 P
+\f1 \'ce\'aa
+\f2 NULL
+\f1 \'b2\'a2\'c7\'d2\'d5\'bb\'ce\'aa\'bf\'d5\'d4\'f2\'b1\'e9\'c0\'fa\'bd\'e1\'ca\'f8
+\f0\fs24 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+*/\
+/**\
+ * Definition for a binary tree node.\
+ * struct TreeNode \{\
+ *     int val;\
+ *     TreeNode *left;\
+ *     TreeNode *right;\
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    void inorder(vector<int> &result, TreeNode *p)  \
+    \{\
+        if (p->left)    \
+            inorder(result, p->left);\
+            \
+        result.push_back(p->val);\
+        \
+        if (p->right)\
+            inorder(result, p->right); \
+    \}\
+    \
+    vector<int> inorderTraversal(TreeNode* root) \
+    \{\
+        //way-1\
+        /*\
+        vector<int> result;\
+        if (root)\
+            inorder(result, root);\
+        return result;\
+        */\
+\
+        //way-2\
+        vector<int> ret;\
+        stack<TreeNode *> s;\
+        TreeNode * p = root;\
+        \
+        while (p != NULL || !s.empty())\
+        \{\
+            while ( p != NULL)\
+            \{\
+                s.push(p);\
+                p = p->left;\
+            \}\
+            if (!s.empty())\
+            \{\
+                p = s.top();\
+                ret.push_back(p->val);\
+                s.pop();\
+                p = p->right;\
+            \}\
+        \} \
+        return ret;\
+    \}\
 \};}

@@ -1,0 +1,102 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww38200\viewh21600\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Implement a basic calculator to evaluate a simple expression string.\
+\
+The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .\
+\
+You may assume that the given expression is always valid.\
+\
+Some examples:\
+"1 + 1" = 2\
+" 2-1 + 2 " = 3\
+"(1+(4+5+2)-3)+(6+8)" = 23\
+"2-(5-6)" = 3 !!!\
+\
+Note: Do not use the eval built-in library function.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 "2-(5-6)" = 3 !!!
+\f1 \'d3\'c9\'d3\'da\'d3\'d0\'d5\'e2\'d6\'d6\'c7\'e9\'bf\'f6\'a3\'ac\'cb\'f9\'d2\'d4\'d6\'bb\'c4\'dc\'d3\'c3\'d5\'bb\'a3\'ac\'c8\'bb\'ba\'f3\'d3\'f6\'b5\'bd\'a1\'af)\'a1\'af\'b5\'af\'b3\'f6\'ca\'b1\'a3\'ac\'ca\'c7\'b7\'b4\'d7\'c5\'b5\'c4\'a3\'ac\'cb\'f9\'d2\'d4\'d0\'e8\'d2\'aa\'d2\'bb\'b8\'f6temp\'c0\'b4\'b7\'b4\'d7\'c5\'b4\'e6
+\f0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 */\
+class Solution \{\
+public:\
+    int calculate(string s) \
+    \{\
+        stack<int> value;    \
+        stack<char> fuhao;\
+        for (int i = 0; i < s.size(); i++)\
+        \{\
+            if (s[i] == ' ')\
+                continue;\
+            else if (s[i] == '+' || s[i] == '-' || s[i] == '(')\
+                fuhao.push(s[i]);\
+            else if (s[i] >= '0' && s[i] <= '9')\
+            \{\
+                int ii = i;    \
+                while (s[ii] >= '0' && s[ii] <= '9')\
+                    ii++;\
+                value.push( atoi(s.substr(i, ii - i).c_str()) );\
+                i = ii - 1;\
+            \}\
+            else if (s[i] == ')')\
+            \{\
+                stack<int> value_temp;\
+                value_temp.push(value.top());\
+                value.pop();\
+                stack<char> fuhao_temp;\
+                \
+                while (fuhao.top() != '(')\
+                \{\
+                    value_temp.push(value.top());\
+                    value.pop();  \
+                    fuhao_temp.push(fuhao.top());\
+                    fuhao.pop();\
+                \}\
+                fuhao.pop();\
+                value.push(getvalue(value_temp, fuhao_temp));\
+            \}\
+            \
+        \}\
+        stack<int> value_temp;\
+        while (!value.empty())\
+        \{\
+            value_temp.push(value.top());\
+            value.pop();\
+        \}\
+        stack<char> fuhao_temp;\
+        while (!fuhao.empty())\
+        \{\
+            fuhao_temp.push(fuhao.top());\
+            fuhao.pop();\
+        \}\
+        \
+        return getvalue(value_temp, fuhao_temp);\
+    \}\
+    \
+    int getvalue(stack<int> &value, stack<char> &fuhao)\
+    \{\
+        while (!fuhao.empty())\
+        \{\
+            int a = value.top(); \
+            value.pop();\
+            int b = value.top(); \
+            value.pop();\
+            if (fuhao.top() == '+')\
+                value.push(a + b);\
+            else\
+                value.push(a - b);\
+            fuhao.pop();\
+        \}\
+        return value.top();\
+    \}\
+    \
+\};}
