@@ -1,0 +1,41 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Write a program to find the n-th ugly number.\
+\
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.\
+\
+Note that 1 is typically treated as an ugly number, and n does not exceed 1690.\
+\
+set 
+\f1 \'bf\'c9\'d2\'d4\'c8\'a5\'d6\'d8\'c5\'c5\'d0\'f2\'a3\'a1
+\f0 \
+\
+*/\
+class Solution \{\
+public:\
+    int nthUglyNumber(int n) \
+    \{\
+        int count = 0;\
+        set<long long> se;\
+        se.insert(1);\
+        \
+        while (1)\
+        \{\
+            long long key = *se.begin();    \
+            se.erase(key);\
+            if ( ++count == n)\
+                return key;\
+                \
+            se.insert(key * 2);    \
+            se.insert(key * 3);  \
+            se.insert(key * 5);  \
+        \}\
+        return -1;\
+    \}\
+\};}

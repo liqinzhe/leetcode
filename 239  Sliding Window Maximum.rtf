@@ -1,0 +1,115 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.\
+\
+For example,\
+Given nums = [1,3,-1,-3,5,3,6,7], and k = 3.\
+\
+Window position                Max\
+---------------               -----\
+[1  3  -1] -3  5  3  6  7       3\
+ 1 [3  -1  -3] 5  3  6  7       3\
+ 1  3 [-1  -3  5] 3  6  7       5\
+ 1  3  -1 [-3  5  3] 6  7       5\
+ 1  3  -1  -3 [5  3  6] 7       6\
+ 1  3  -1  -3  5 [3  6  7]      7\
+Therefore, return the max sliding window as [3,3,5,5,6,7].\
+\
+Note: \
+You may assume k is always valid, ie: 1 \uc0\u8804  k \u8804  input array's size for non-empty array.\
+\
+heap!\
+\
+\
+*/\
+class Solution \{\
+public:\
+    vector<int> heap;\
+\
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) \
+    \{\
+        vector<int> ret;\
+        if (nums.empty())\
+            return ret;\
+        \
+        for (int i = 0; i < k; i++)\
+            heap_insert(nums[i]);\
+        ret.push_back(heap[0]);\
+        for (int j = k; j < nums.size(); j++)\
+        \{\
+            heap_pop(nums[j - k]);\
+            heap_insert(nums[j]);\
+            ret.push_back(heap[0]);\
+        \}\
+        return ret;\
+    \}\
+    \
+    void heap_insert(int key)\
+    \{\
+        heap.push_back(key);\
+        int k = heap.size() - 1;\
+        while ( k != 0)\
+        \{\
+            if (heap[k] > heap[ (k - 1) / 2])\
+            \{\
+                swap(heap[k], heap[ (k - 1) / 2]);\
+                k = (k - 1) / 2 ;\
+            \}\
+            else\
+                break;\
+        \}\
+    \}\
+    \
+    void heap_pop(int key)\
+    \{\
+        int k;\
+        for (k = 0; k < heap.size(); k++)    \
+        \{\
+            if (heap[k] == key)\
+                break;\
+        \}\
+        swap( heap[k] , heap[heap.size() - 1]);\
+        heap.pop_back();\
+        \
+        while (k < heap.size())\
+        \{\
+            if ((2 * k + 1) >= heap.size())\
+                break;\
+            else if ((2 * k + 2) >= heap.size())\
+            \{\
+                if ( heap[k] < heap[2 * k + 1] )\
+                \{\
+                    swap(heap[k] , heap[2 * k + 1]);\
+                    k = 2 * k + 1;\
+                \}\
+                else\
+                    break;\
+            \}\
+            else\
+            \{\
+                int maxchild = max(heap[2 * k + 1],heap[2 * k + 2]);\
+                if (heap[k] >= maxchild)\
+                    break;\
+                else\
+                \{\
+                    if (heap[2 * k + 1] == maxchild)\
+                    \{\
+                        swap(heap[k] , heap[2 * k + 1]);\
+                        k = 2 * k + 1;\
+                    \}\
+                    else\
+                    \{\
+                        swap(heap[k] , heap[2 * k + 2]);\
+                        k = 2 * k + 2;\
+                    \}\
+                \}\
+            \}\
+        \}\
+    \}\
+\};}
