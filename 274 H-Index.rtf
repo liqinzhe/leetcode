@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -21,37 +21,35 @@ For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5
 \
 Note: If there are several possible values for h, the maximum one is taken as the h-index.\
 \
-\
 */\
 class Solution \{\
 public:\
     int hIndex(vector<int>& citations) \
     \{\
-        int n=citations.size();\
+        int n = citations.size();\
         multimap<int,int> mm;\
-        for(int i=0;i<n;i++)\
-            mm.insert(pair<int,int>(citations[i],1));\
+        for (int i = 0; i < n ;i ++)\
+            mm.insert(pair<int,int>(citations[i], 1));\
         \
-        int lastvalue=-1;\
-        int ret=0;\
-        int i=0;\
-        for(auto it=mm.begin();it!=mm.end();it++)\
+        int lastvalue = -1;\
+        int ret = 0;\
+        int i = 0;\
+        for (auto it = mm.begin(); it != mm.end(); it++)\
         \{\
-            if((n-i)==it->first)\
-                ret=max(ret,it->first);\
-            else if((n-i)<it->first && (n-i)>lastvalue)\
+            if ((n-i) == it->first)\
+                ret = max(ret,it->first);\
+            else if ((n-i) < it->first && (n-i) > lastvalue)\
             \{    \
-                ret=max(ret,(n-i));\
+                ret = max(ret, (n-i));\
                 return ret;\
             \}\
-            else if((n-i-1)==it->first) //point is that others no more than it->first\
-                ret=max(ret,it->first);\
+            else if ((n-i-1) == it->first) //point is that others no more than it->first\
+                ret = max(ret, it->first);\
             \
-            lastvalue=it->first;    \
+            lastvalue = it->first;    \
             i++;\
         \}\
         \
-        return ret;\
-        \
+        return ret\
     \}\
 \};}
