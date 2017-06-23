@@ -1,0 +1,79 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a binary tree\
+\
+    struct TreeLinkNode \{\
+      TreeLinkNode *left;\
+      TreeLinkNode *right;\
+      TreeLinkNode *next;\
+    \}\
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.\
+\
+Initially, all next pointers are set to NULL.\
+\
+Note:\
+\
+You may only use constant extra space.\
+You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).\
+For example,\
+Given the following perfect binary tree,\
+         1\
+       /  \\\
+      2    3\
+     / \\  / \\\
+    4  5  6  7\
+After calling your function, the tree should look like:\
+         1 -> NULL\
+       /  \\\
+      2 -> 3 -> NULL\
+     / \\  / \\\
+    4->5->6->7 -> NULL\
+    \
+
+\f1 \'d3\'c3\'d2\'bb\'b8\'f6\'ca\'fd\'d7\'e9\'c0\'b4\'c5\'c5\'d0\'f2\'a3\'ac\'d5\'e2\'d1\'f9\'b7\'bd\'b1\'e3\'d5\'d2\'cf\'c2\'d2\'bb\'b8\'f6\'a3\'a1
+\f0 \
+\
+*/\
+/**\
+ * Definition for binary tree with next pointer.\
+ * struct TreeLinkNode \{\
+ *  int val;\
+ *  TreeLinkNode *left, *right, *next;\
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    void guocheng(vector<TreeLinkNode*> &nums, TreeLinkNode *root, int pos)\
+    \{\
+        if(!root)\
+            return;\
+          \
+        guocheng(nums, root->right, pos * 2 + 1); \
+          \
+        nums[pos] = root; \
+        root->next = (root->next == root) ? NULL : nums[pos+1];\
+          \
+        guocheng(nums, root->left, pos * 2); \
+    \}\
+    \
+    void connect(TreeLinkNode *root) \
+    \{\
+        int num = 0;\
+        TreeLinkNode *p = root;\
+        while(p)\
+        \{\
+            p->next = p;\
+            p = p->right;\
+            num = num * 2 + 1;\
+        \}    \
+        vector<TreeLinkNode*> nums(num + 1, NULL);\
+        guocheng(nums, root, 1);\
+    \}\
+\};}

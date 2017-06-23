@@ -1,0 +1,44 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given an array where elements are sorted in ascending order, convert it to a height balanced BST.\
+\
+\
+*/\
+/**\
+ * Definition for a binary tree node.\
+ * struct TreeNode \{\
+ *     int val;\
+ *     TreeNode *left;\
+ *     TreeNode *right;\
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) \{\}\
+ * \};\
+ */\
+class Solution \{\
+public:\
+    \
+    TreeNode* guocheng(vector<int>& nums,int begin,int end)\
+    \{\
+        if (begin == end)\
+            return new TreeNode(nums[begin]);\
+        else if (begin > end)    \
+            return NULL;\
+           \
+        int mid = (begin + end) / 2;\
+        TreeNode *p = new TreeNode(nums[mid]);\
+        p->left = guocheng(nums, begin, mid-1);\
+        p->right = guocheng(nums, mid + 1, end);\
+        return p;    \
+    \}\
+    TreeNode* sortedArrayToBST(vector<int>& nums) \
+    \{\
+        if (nums.size() > 0)\
+            return guocheng(nums, 0, nums.size() - 1);\
+        return NULL;\
+    \}\
+\};}
