@@ -1,0 +1,160 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.\
+\
+A region is captured by flipping all 'O's into 'X's in that surrounded region.\
+\
+For example,\
+X X X X\
+X O O X\
+X X O X\
+X O X X\
+After running your function, the board should be:\
+\
+X X X X\
+X X X X\
+X X X X\
+X O X X\
+\
+\
+
+\f1 \'cb\'bc\'c2\'b7\'ca\'c7\'b4\'d3\'cd\'e2\'ce\'a7\'bf\'aa\'ca\'bc\'d5\'d2
+\f0 O
+\f1 \'a3\'ac\'bd\'ab\'d5\'d2\'b5\'bd\'b5\'c4\'b8\'c4\'ce\'aa
+\f0 '*'
+\f1 \'a3\'ac\'d7\'ee\'ba\'f3\'b1\'e9\'c0\'fa\'bd\'ab
+\f0 0
+\f1 \'b8\'c4\'ce\'aa
+\f0 1
+\f1 \'a3\'ac\'bd\'ab
+\f0 *
+\f1 \'b8\'c4\'ce\'aa
+\f0 0
+\f1 \'a1\'a3
+\f0 \
+
+\f1 \'b7\'d6\'b1\'f0\'bf\'c9\'d2\'d4\'d3\'c3
+\f0 BFS
+\f1 \'ba\'cd
+\f0 DFS
+\f1 \'c0\'b4\'d7\'f6\'a1\'a3
+\f0 \
+*/\
+struct POS\
+\{\
+    int x;  \
+    int y;\
+    POS(int xx,int yy):x(xx),y(yy)\{\}\
+\};\
+\
+class Solution \{\
+public:\
+    int row;\
+    int col;\
+    \
+    void DFS(vector<vector<char>>& board, int i, int j)  //
+\f1 \'c9\'ee\'b6\'c8\'b1\'e9\'c0\'fa
+\f0  
+\f1 \'d5\'bb
+\f0 \
+    \{\
+        int a[4] = \{1, 0, -1, 0\};\
+        int b[4] = \{0, 1, 0, -1\};\
+        stack<POS*> pos;\
+        pos.push(new POS(i,j));\
+        board[i][j] = '*';\
+        bool isfind;\
+        \
+        while (!pos.empty())\
+        \{\
+            POS *front = pos.top(); \
+            int i;\
+            isfind = false;\
+            for (i = 0; i < 4; i++)\
+            \{\
+                if (isvalid(front->x + a[i], front->y + b[i]) && board[front->x + a[i]][front->y + b[i]] == 'O')\
+                \{\
+                    pos.push(new POS(front->x + a[i], front->y + b[i]));    \
+                    board[front->x + a[i]][front->y + b[i]] = '*';\
+                    isfind = true;\
+                    break;\
+                \}\
+            \}\
+            if (isfind)\
+                continue;\
+            pos.pop();\
+        \}\
+    \}\
+    \
+    void BFS(vector<vector<char>>& board, int i, int j)  //
+\f1 \'b9\'e3\'b6\'c8\'b1\'e9\'c0\'fa
+\f0  
+\f1 \'b6\'d3\'c1\'d0
+\f0 \
+    \{\
+        int a[4] = \{1, 0, -1, 0\};\
+        int b[4] = \{0, 1, 0, -1\};\
+        \
+        queue<POS*> pos;\
+        pos.push(new POS(i,j));\
+        board[i][j] = '*';\
+        \
+        while(!pos.empty())\
+        \{\
+            POS *front = pos.front();\
+            pos.pop();\
+            for (int i = 0; i < 4; i++)\
+            \{\
+                if (isvalid(front->x + a[i], front->y + b[i]) && board[front->x + a[i]][front->y + b[i]] == 'O')\
+                \{\
+                    pos.push(new POS(front->x + a[i], front->y + b[i]));    \
+                    board[front->x + a[i]][front->y + b[i]] = '*';\
+                \}\
+            \}\
+        \}\
+    \}\
+    \
+    bool isvalid(int i, int j)\
+    \{\
+        return i >= 0 && i < row && j >=0 && j < col;\
+    \}\
+    \
+    void solve(vector<vector<char>>& board) \
+    \{\
+        row = board.size();\
+        if (row == 0)\
+            return;\
+        col = board[0].size();\
+        if (col == 0)\
+            return;\
+        \
+        for (int i = 0; i < row; i++)\
+        \{\
+            for (int j = 0; j < col; j++)\
+            \{\
+                if(board[i][j] == 'O' && (i == 0 || j == 0 || i == row - 1 || j == col - 1) )\
+                \{\
+                    //BFS(board, i, j);\
+                    DFS(board, i, j);\
+                \}\
+            \}\
+        \}\
+\
+        for (int i = 0; i < row; i++)\
+        \{\
+            for (int j = 0; j < col; j++)\
+            \{\
+                if (board[i][j] == 'O')\
+                    board[i][j] = 'X';\
+                else if (board[i][j] == '*')\
+                    board[i][j] = 'O';\
+            \}\
+        \}\
+    \}\
+\};}

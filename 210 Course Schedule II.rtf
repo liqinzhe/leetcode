@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+There are a total of n courses you have to take, labeled from 0 to n - 1.\
+\
+Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]\
+\
+Given the total number of courses and a list of prerequisite pairs, return the ordering of courses you should take to finish all courses.\
+\
+There may be multiple correct orders, you just need to return one of them. If it is impossible to finish all courses, return an empty array.\
+\
+For example:\
+\
+2, [[1,0]]\
+There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1]\
+\
+4, [[1,0],[2,0],[3,1],[3,2]]\
+There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0. So one correct course order is [0,1,2,3]. Another correct ordering is[0,2,1,3].\
+\
+   
+\f1 \'cd\'d8\'c6\'cb\'b1\'e9\'c0\'fa\'a3\'a1
+\f0 \
+   \
+*/\
+class Solution \{\
+public:\
+    int findpoint(vector<int> &indegree,int num)\
+    \{\
+        for(int i=0;i<num;i++)\
+        \{\
+            if(indegree[i]==0)\
+            \{\
+                indegree[i]--;\
+                return i;\
+            \}\
+        \}\
+        return -1;\
+    \}\
+    \
+    vector<int> findOrder(int num, vector<pair<int, int>>& prer) \
+    \{\
+        sort(prer.begin(), prer.end());\
+        auto it = unique(prer.begin(), prer.end());\
+        prer.resize(it - prer.begin());\
+        \
+        //
+\f1 \'d0\'ce\'b3\'c9\'c1\'da\'bd\'d3\'be\'d8\'d5\'f3
+\f0 \
+        vector<int> indegree(num, 0);\
+        vector<vector<int>> p(num, indegree);\
+       \
+        for (auto it : prer)\
+        \{\
+            p[it.first][it.second] = 1;\
+            indegree[it.second]++;\
+        \}\
+       \
+        //
+\f1 \'be\'cd\'ca\'c7\'bf\'b4\'d2\'bb\'b8\'f6\'d3\'d0\'cf\'f2\'cd\'bc\'ca\'c7\'b7\'f1\'d0\'ce\'b3\'c9\'bb\'b7\'a3\'ac
+\f0 return 0
+\f1 \'a1\'a3
+\f0 \
+        int taken = 0;\
+        vector<int> ret;\
+        while (taken != num)\
+        \{\
+            int k = findpoint(indegree, num);\
+            if(k == -1)    //
+\f1 \'c3\'bb\'d3\'d0\'c8\'eb\'b6\'c8\'ce\'aa
+\f0 0
+\f1 \'b5\'c4\'b5\'e3
+\f0 \
+            \{\
+                ret.clear();\
+                return ret;\
+            \}\
+            else\
+                ret.push_back(k);\
+            \
+            for (int i = 0; i < num; i++)        \
+            \{  \
+                if( p[k][i] == 1)\
+                    indegree[i]--;\
+            \}\
+            taken++;    \
+        \}\
+        reverse(ret.begin(),ret.end());\
+        return ret;\
+    \}\
+\};}
