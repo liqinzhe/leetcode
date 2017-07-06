@@ -1,0 +1,180 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh15020\viewkind0
+\deftab420
+\pard\pardeftab420\ri0\qj\partightenfactor0
+
+\f0\fs24 \cf0 /*
+\f1 \
+
+\f0 Given a string, find the length of the longest substring without repeating characters.
+\f1 \
+\
+
+\f0 Examples:
+\f1 \
+\
+
+\f0 Given "abcabcbb", the answer is "abc", which the length is 3.
+\f1 \
+\
+
+\f0 Given "bbbbb", the answer is "b", with the length of 1.
+\f1 \
+\
+
+\f0 Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+\f1 \
+\
+
+\f0 way-1:
+\f2 \'b4\'f3\'d1\'ad\'bb\'b7\'ca\'c7\'c3\'bf\'d2\'bb\'ce\'bb\'bf\'aa\'ca\'bc\'a3\'ac\'d0\'a1\'d1\'ad\'bb\'b7\'ca\'c7\'cd\'f9\'ba\'f3\'d5\'d2\'d3\'d0\'c3\'bb\'d3\'d0\'d6\'d8\'b8\'b4\'b5\'c4
+\f0 .
+\f1 \
+\
+
+\f0 way-2:
+\f2 \'d3\'c3
+\f0 map
+\f2 \'a3\'ac\'b1\'e9\'c0\'fa
+\f0 s
+\f2 \'c3\'bf\'d2\'bb\'ce\'bb\'a3\'ac
+\f1 \
+
+\f2 \'c8\'e7\'b9\'fb\'d5\'d2\'b5\'bd\'d6\'d8\'b8\'b4\'b5\'c4\'a3\'ac\'be\'cd\'cd\'b3\'bc\'c6
+\f0 map
+\f2 \'b3\'a4\'b6\'c8\'a3\'ac\'c8\'bb\'ba\'f3\'b0\'d1
+\f0 begin
+\f2 \'b5\'bd\'d6\'d8\'b8\'b4\'cf\'ee\'b5\'c4
+\f0 s_count
+\f2 \'c9\'be\'b3\'fd
+\f1 \
+
+\f2 \'c8\'e7\'b9\'fb\'c3\'bb\'d3\'d0\'a3\'ac\'be\'cd\'bc\'d3\'c8\'eb
+\f0 map
+\f1 \
+\
+
+\f0 */
+\f1 \
+
+\f0 class Solution \{
+\f1 \
+
+\f0 public:
+\f1 \
+
+\f0     int lengthOfLongestSubstring(string s) 
+\f1 \
+
+\f0     \{
+\f1 \
+
+\f0         //way-1
+\f1 \
+
+\f0         /*\
+	  int ret = 0;\
+        int i = 0;\
+        string kk = "";\
+        while (i < s.size())\
+        \{\
+            while (i < s.size() && kk.find(s[i]) == -1)\
+            \{\
+                kk += s[i++];\
+            \}\
+            int kksize = kk.size();\
+            ret = max(ret, kksize);\
+            int pos = kk.find(s[i]);\
+            kk = kk.substr(pos + 1, kk.size() - pos - 1) + s[i++];\
+        \}\
+        return ret;
+\f1 \
+
+\f0         */
+\f1 \
+
+\f0         
+\f1 \
+
+\f0         //way-2
+\f1 \
+
+\f0         map<char,int> s_count;
+\f1 \
+
+\f0         int maxlength=0;
+\f1 \
+
+\f0         int begin=0;
+\f1 \
+
+\f0         int i=0;
+\f1 \
+
+\f0         while(i<s.size())
+\f1 \
+
+\f0         \{
+\f1 \
+
+\f0             map<char,int>::iterator it=s_count.find(s[i]);
+\f1 \
+
+\f0             if(it==s_count.end())
+\f1 \
+
+\f0             \{
+\f1 \
+
+\f0                 s_count[s[i]]=i;
+\f1 \
+
+\f0             \}
+\f1 \
+
+\f0             else
+\f1 \
+
+\f0             \{
+\f1 \
+
+\f0                 maxlength=max(maxlength,i-begin);
+\f1 \
+
+\f0                 for(int j=begin;j<it->second;j++)
+\f1 \
+
+\f0                     s_count.erase(s[j]);
+\f1 \
+
+\f0                 begin=it->second+1;
+\f1 \
+
+\f0                 s_count[s[i]]=i;
+\f1 \
+
+\f0             \}
+\f1 \
+
+\f0             i++;
+\f1 \
+
+\f0         \}
+\f1 \
+
+\f0         maxlength=max(maxlength,i-begin);
+\f1 \
+
+\f0         return maxlength;
+\f1 \
+
+\f0     \}
+\f1 \
+
+\f0 \};
+\f1 \
+}

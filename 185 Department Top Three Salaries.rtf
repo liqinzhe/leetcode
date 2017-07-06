@@ -1,0 +1,93 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Regular;\f2\fswiss\fcharset0 Helvetica;
+\f3\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red184\green14\blue61;\red247\green238\blue241;
+\red242\green242\blue242;\red255\green249\blue89;\red134\green205\blue77;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c78039\c14510\c30588;\cssrgb\c97647\c94902\c95686;
+\cssrgb\c96078\c96078\c96078;\csgenericrgb\c100000\c97647\c34902;\csgenericrgb\c52549\c80392\c30196;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14700\viewh14680\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \expnd0\expndtw0\kerning0
+The 
+\f1\fs25\fsmilli12600 \cf3 \cb4 Employee
+\f0\fs28 \cf2 \cb1  table holds all employees. Every employee has an Id, and there is also a column for the department Id.\
+
+\f1\fs26 \cb5 +----+-------+--------+--------------+\
+| Id | Name  | Salary | DepartmentId |\
++----+-------+--------+--------------+\
+| 1  | Joe   | 70000  | 1            |\
+| 2  | Henry | 80000  | 2            |\
+| 3  | Sam   | 60000  | 2            |\
+| 4  | Max   | 90000  | 1            |\
+| 5  | Janet | 69000  | 1            |\
+| 6  | Randy | 85000  | 1            |\
++----+-------+--------+--------------+\
+
+\f0\fs28 \cb1 The 
+\f1\fs25\fsmilli12600 \cf3 \cb4 Department
+\f0\fs28 \cf2 \cb1  table holds all departments of the company.\
+
+\f1\fs26 \cb5 +----+----------+\
+| Id | Name     |\
++----+----------+\
+| 1  | IT       |\
+| 2  | Sales    |\
++----+----------+\
+
+\f0\fs28 \cb1 Write a SQL query to find employees who earn the top three salaries in each of the department. For the above tables, your SQL query should return the following rows.\
+
+\f1\fs26 \cb5 +------------+----------+--------+\
+| Department | Employee | Salary |\
++------------+----------+--------+\
+| IT         | Max      | 90000  |\
+| IT         | Randy    | 85000  |\
+| IT         | Joe      | 70000  |\
+| Sales      | Henry    | 80000  |\
+| Sales      | Sam      | 60000  |\
++------------+----------+--------+
+\f2\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+#way-1 
+\f3 \'bc\'c6\'cb\'e3\'cd\'ac\'d2\'bb\'b2\'bf\'c3\'c5\'d6\'d0\'b9\'a4\'d7\'ca\'b1\'c8\'c4\'b3\'b8\'f6\'c8\'cb\'b4\'f3\'b5\'c4\'b8\'f6\'ca\'fd\'a3\'ac\'d1\'a1\'c8\'a1\'d5\'e2\'b8\'f6\'b8\'f6\'ca\'fd\'d0\'a1\'d3\'da
+\f2 3
+\f3 \'b5\'c4\'bc\'c7\'c2\'bc\'a3\'ac\'d4\'d9\'b6\'d4\'bc\'c7\'c2\'bc\'c8\'a5\'d6\'d8
+\f2 \
+SELECT dep.Name as Department,\
+       emp.Name as Employee,\
+       emp.Salary\
+FROM Department dep,\
+     Employee emp\
+WHERE emp.DepartmentId=dep.Id\
+  AND\
+    (SELECT count(distinct \cb6 Salary\cb1 )\
+     FROM Employee\
+     WHERE DepartmentId=dep.Id\
+       AND Salary>emp.Salary)<3\
+#
+\f3 \'ba\'f3\'c3\'e6\'b0\'d1\'a3\'a8
+\f2 select
+\f3 \'d3\'ef\'be\'e4\'a3\'a9\'bc\'d3\'c8\'eb\'b5\'bd
+\f2 where
+\f3 \'cc\'f5\'bc\'fe\'ba\'f3\'a3\'ac\'c6\'e4\'ca\'b5\'ca\'c7\'b6\'d4\'d6\'ae\'c7\'b0\'b5\'c4\'c3\'bf\'d0\'d0\'bc\'c7\'c2\'bc\'b2\'fa\'c9\'fa\'d2\'bb\'b8\'f6\'d6\'b5\'a3\'ac\'b6\'d4\'d5\'e2\'b8\'f6\'d6\'b5\'d7\'f6\'cc\'f5\'bc\'fe\'c9\'b8\'d1\'a1\'a1\'a3
+\f2 \
+#
+\f3 \'d0\'b4
+\f2 sql
+\f3 \'b5\'c4\'cb\'b3\'d0\'f2\'ca\'c7\'a3\'ac
+\f2 from
+\f3 \'a3\'ac
+\f2 where
+\f3 \'a3\'ac
+\f2 select
+\f3 \'d7\'d6\'b6\'ce\
+select d.Name as Department, e.Name as Employee, e.Salary\
+from Employee as e, Department d\
+where e.DepartmentId=d.Id and\
+(\
+    select count(distinct \cb7 s.Name\cb1 )\
+	from Employee as s		\
+    where s.DepartmentId=d.Id and s.Salary>e.Salary\
+)<3;}
