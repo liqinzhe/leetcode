@@ -1,0 +1,249 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset134 PingFangSC-Regular;
+\f3\froman\fcharset0 Times-Roman;\f4\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red184\green14\blue61;
+\red57\green57\blue57;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\csgenericrgb\c100000\c100000\c100000;\cssrgb\c78039\c14510\c30588;
+\cssrgb\c28627\c28627\c28627;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22940\viewh11740\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+/*\
+\
+Given an 
+\f1\fs25\fsmilli12600 \cf4 m x n
+\f0\fs28 \cf2  matrix of positive integers representing the height of each unit cell in a 2D elevation map, compute the volume of water it is able to trap after raining.\
+\pard\pardeftab720\partightenfactor0
+
+\b \cf2 Note:
+\b0 \
+Both 
+\i m
+\i0  and 
+\i n
+\i0  are less than 110. The height of each unit cell is greater than 0 and is less than 20,000.\
+
+\b Example:
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf2 Given the following 3x6 height map:\
+[\
+  [1,4,3,1,3,2],\
+  [3,2,1,3,2,4],\
+  [2,3,3,2,3,1]\
+]\
+\
+Return 4.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs28 \cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs32 \cf0 {{\NeXTGraphic rainwater_empty.png \width10000 \height6000 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+
+\f4\fs28 \cf5 \
+The above image represents the elevation map 
+\f2 [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]
+\f4  before the rain.\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs32 \cf0 {{\NeXTGraphic rainwater_fill.png \width10000 \height6000 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+
+\f4\fs28 \cf5 \
+After the rain, water are trapped between the blocks. The total volume of water trapped is 4.\
+\'a0\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'d5\'e2\'b5\'c0\'cc\'e2\'ca\'c7\'d6\'ae\'c7\'b0\'c4\'c7\'b5\'c0{\field{\*\fldinst{HYPERLINK "http://www.cnblogs.com/grandyang/p/4402392.html"}}{\fldrslt 
+\f4 \ul Trapping Rain Water}}\'b5\'c4\'cd\'d8\'d5\'b9\'a3\'ac\'d3\'c9
+\f4 2D
+\f2 \'b1\'e4
+\f4 3D
+\f2 \'c1\'cb\'a3\'ac\'b8\'d0\'be\'f5\'ba\'dc\'b5\'f0\'a1\'a3\'b5\'ab\'c6\'e4\'ca\'b5\'bd\'e2\'b7\'a8\'b8\'fa\'d6\'ae\'c7\'b0\'b5\'c4\'cd\'ea\'c8\'ab\'b2\'bb\'cd\'ac\'c1\'cb\'a3\'ac\'d6\'ae\'c7\'b0\'c4\'c7\'b5\'c0\'cc\'e2\'d3\'c9\'d3\'da\'ca\'c7\'b6\'fe\'ce\'ac\'b5\'c4\'a3\'ac\'ce\'d2\'c3\'c7\'bf\'c9\'d2\'d4\'d3\'c3\'cb\'ab\'d6\'b8\'d5\'eb\'c0\'b4\'d7\'f6\'a3\'ac\'b6\'f8\'d5\'e2\'b5\'c0\'c8\'fd\'ce\'ac\'b5\'c4\'a3\'ac\'ce\'d2\'c3\'c7\'d0\'e8\'d2\'aa\'d3\'c3
+\f4 BFS
+\f2 \'c0\'b4\'d7\'f6\'a3\'ac\'bd\'e2\'b7\'a8\'cb\'bc\'c2\'b7\'ba\'dc\'c7\'c9\'c3\'ee\'a3\'ac\'cf\'c2\'c3\'e6\'ce\'d2\'c3\'c7\'be\'cd\'d2\'d4\'cc\'e2\'c4\'bf\'d6\'d0\'b5\'c4\'c0\'fd\'d7\'d3\'c0\'b4\'bd\'f8\'d0\'d0\'b7\'d6\'ce\'f6\'bd\'b2\'bd\'e2\'a3\'ac\'b6\'e0\'cd\'bc\'d4\'a4\'be\'af\'a3\'ac\'ca\'d6\'bb\'fa\'c1\'f7\'c1\'bf\'b5\'b3\'c9\'f7\'c8\'eb\'a3\'ba
+\f4 \
+
+\f2 \'ca\'d7\'cf\'c8\'ce\'d2\'c3\'c7\'d3\'a6\'b8\'c3\'c4\'dc\'b7\'d6\'ce\'f6\'b3\'f6\'a3\'ac\'c4\'dc\'d7\'b0\'cb\'ae\'b5\'c4\'b5\'d7\'c3\'e6\'bf\'cf\'b6\'a8\'b2\'bb\'c4\'dc\'d4\'da\'b1\'df\'bd\'e7\'c9\'cf\'a3\'ac\'d2\'f2\'ce\'aa\'b1\'df\'bd\'e7\'c9\'cf\'b5\'c4\'b5\'e3\'ce\'de\'b7\'a8\'b7\'e2\'b1\'d5\'a3\'ac\'c4\'c7\'c3\'b4\'cb\'f9\'d3\'d0\'b1\'df\'bd\'e7\'c9\'cf\'b5\'c4\'b5\'e3\'b6\'bc\'bf\'c9\'d2\'d4\'bc\'d3\'c8\'eb
+\f4 queue
+\f2 \'a3\'ac\'b5\'b1\'d7\'f7
+\f4 BFS
+\f2 \'b5\'c4\'c6\'f4\'b6\'af\'b5\'e3\'a3\'ac\'cd\'ac\'ca\'b1\'ce\'d2\'c3\'c7\'d0\'e8\'d2\'aa\'d2\'bb\'b8\'f6\'b6\'fe\'ce\'ac\'ca\'fd\'d7\'e9\'c0\'b4\'b1\'ea\'bc\'c7\'b7\'c3\'ce\'ca\'b9\'fd\'b5\'c4\'b5\'e3\'a3\'ac\'b7\'c3\'ce\'ca\'b9\'fd\'b5\'c4\'b5\'e3\'ce\'d2\'c3\'c7\'d3\'c3\'ba\'ec\'c9\'ab\'c0\'b4\'b1\'ed\'ca\'be\'a3\'ac\'c4\'c7\'c3\'b4\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003120051785-2137527353.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'ce\'d2\'c3\'c7\'d4\'d9\'cf\'eb\'cf\'eb\'a3\'ac\'d4\'f5\'c3\'b4\'d1\'f9\'bf\'c9\'d2\'d4\'b3\'c9\'b9\'a6\'b5\'c4\'d7\'b0\'bd\'f8\'c8\'a5\'cb\'ae\'c4\'d8\'a3\'ac\'ca\'c7\'b2\'bb\'ca\'c7\'d6\'dc\'ce\'a7\'b5\'c4\'b8\'df\'b6\'c8\'b6\'bc\'d3\'a6\'b8\'c3\'b1\'c8\'b5\'b1\'c7\'b0\'b5\'c4\'b8\'df\'b6\'c8\'b8\'df\'a3\'ac\'d0\'ce\'b3\'c9\'d2\'bb\'b8\'f6\'b0\'bc\'b2\'db\'b2\'c5\'c4\'dc\'d7\'b0\'cb\'ae\'a3\'ac\'b6\'f8\'c7\'d2\'d7\'b0\'cb\'ae\'c1\'bf\'c8\'a1\'be\'f6\'d3\'da\'d6\'dc\'ce\'a7\'d7\'ee\'d0\'a1\'b5\'c4\'c4\'c7\'b8\'f6\'b8\'df\'b6\'c8\'a3\'ac\'d3\'d0\'b5\'e3\'cf\'f1\'c4\'be\'cd\'b0\'d4\'ad\'c0\'ed\'b5\'c4\'b8\'d0\'be\'f5\'a3\'ac\'c4\'c7\'c3\'b4\'ce\'aa\'c1\'cb\'c4\'a3\'c4\'e2\'d5\'e2\'d6\'d6\'b7\'bd\'b7\'a8\'a3\'ac\'ce\'d2\'c3\'c7\'b2\'c9\'d3\'c3\'c4\'a3\'c4\'e2\'ba\'a3\'c6\'bd\'c3\'e6\'c9\'cf\'c9\'fd\'b5\'c4\'b7\'bd\'b7\'a8\'c0\'b4\'d7\'f6\'a3\'ac\'ce\'d2\'c3\'c7\'ce\'ac\'bb\'a4\'d2\'bb\'b8\'f6\'ba\'a3\'c6\'bd\'c3\'e6\'b8\'df\'b6\'c8
+\f4 mx
+\f2 \'a3\'ac\'b3\'f5\'ca\'bc\'bb\'af\'ce\'aa\'d7\'ee\'d0\'a1\'d6\'b5\'a3\'ac\'b4\'d3
+\f4 1
+\f2 \'bf\'aa\'ca\'bc\'cd\'f9\'c9\'cf\'c9\'fd\'a3\'ac\'c4\'c7\'c3\'b4\'ce\'d2\'c3\'c7
+\f4 BFS
+\f2 \'b1\'e9\'c0\'fa\'b5\'c4\'ca\'b1\'ba\'f2\'be\'cd\'d0\'e8\'d2\'aa\'b4\'d3\'b8\'df\'b6\'c8\'d7\'ee\'d0\'a1\'b5\'c4\'b8\'f1\'d7\'d3\'bf\'aa\'ca\'bc\'b1\'e9\'c0\'fa\'a3\'ac\'c4\'c7\'c3\'b4\'ce\'d2\'c3\'c7\'b5\'c4
+\f4 queue
+\f2 \'be\'cd\'b2\'bb\'c4\'dc\'ca\'b9\'d3\'c3\'c6\'d5\'cd\'a8\'b6\'d3\'c1\'d0\'c1\'cb\'a3\'ac\'b6\'f8\'ca\'c7\'ca\'b9\'d3\'c3\'d3\'c5\'cf\'c8\'bc\'b6\'b6\'d3\'c1\'d0\'a3\'ac\'bd\'ab\'b8\'df\'b6\'c8\'d0\'a1\'b5\'c4\'b7\'c5\'d4\'da\'b6\'d3\'ca\'d7\'a3\'ac\'d7\'ee\'cf\'c8\'c8\'a1\'b3\'f6\'a3\'ac\'d5\'e2\'d1\'f9\'ce\'d2\'c3\'c7\'be\'cd\'bf\'c9\'d2\'d4\'b1\'e9\'c0\'fa\'b8\'df\'b6\'c8\'ce\'aa
+\f4 1
+\f2 \'b5\'c4\'c8\'fd\'b8\'f6\'b8\'f1\'d7\'d3\'a3\'ac\'d3\'c3\'c2\'cc\'c9\'ab\'b1\'ea\'bc\'c7\'b3\'f6\'c0\'b4\'c1\'cb\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003120900692-314831597.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'cf\'f2\'d6\'dc\'ce\'a7
+\f4 BFS
+\f2 \'cb\'d1\'cb\'f7\'b5\'c4\'cc\'f5\'bc\'fe\'ca\'c7\'b2\'bb\'c4\'dc\'d4\'bd\'bd\'e7\'a3\'ac\'c7\'d2\'d6\'dc\'ce\'a7\'b8\'f1\'d7\'d3\'ce\'b4\'b1\'bb\'b7\'c3\'ce\'ca\'a3\'ac\'c4\'c7\'c3\'b4\'bf\'c9\'d2\'d4\'bf\'b4\'b3\'f6\'c9\'cf\'c3\'e6\'b5\'c4\'b5\'da\'d2\'bb\'b8\'f6\'ba\'cd\'d7\'ee\'ba\'f3\'d2\'bb\'b8\'f6\'c2\'cc\'b8\'f1\'d7\'d3\'ce\'de\'b7\'a8\'bd\'f8\'d0\'d0\'bd\'f8\'d2\'bb\'b2\'bd\'cb\'d1\'cb\'f7\'a3\'ac\'d6\'bb\'d3\'d0\'b5\'da\'d2\'bb\'d0\'d0\'d6\'d0\'bc\'e4\'c4\'c7\'b8\'f6\'c2\'cc\'b8\'f1\'d7\'d3\'bf\'c9\'d2\'d4\'cb\'d1\'cb\'f7\'a3\'ac\'c6\'e4\'d6\'dc\'ce\'a7\'d3\'d0\'d2\'bb\'b8\'f6\'bb\'d2\'b8\'f1\'d7\'d3\'ce\'b4\'b1\'bb\'b7\'c3\'ce\'ca\'b9\'fd\'a3\'ac\'bd\'ab\'c6\'e4\'bc\'d3\'c8\'eb\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'a3\'ac\'c8\'bb\'ba\'f3\'b1\'ea\'bc\'c7\'ce\'aa\'ba\'ec\'c9\'ab\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003121601785-791353712.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'c4\'c7\'c3\'b4\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'b8\'df\'b6\'c8\'ce\'aa
+\f4 1
+\f2 \'b5\'c4\'b8\'f1\'d7\'d3\'b1\'e9\'c0\'fa\'cd\'ea\'c1\'cb\'a3\'ac\'b4\'cb\'ca\'b1\'ba\'a3\'c6\'bd\'c3\'e6\'c9\'cf\'c9\'fd
+\f4 1
+\f2 \'a3\'ac\'b1\'e4\'ce\'aa
+\f4 2
+\f2 \'a3\'ac\'b4\'cb\'ca\'b1\'ce\'d2\'c3\'c7\'b1\'e9\'c0\'fa\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'b8\'df\'b6\'c8\'ce\'aa
+\f4 2
+\f2 \'b5\'c4\'b8\'f1\'d7\'d3\'a3\'ac\'d3\'d0
+\f4 3
+\f2 \'b8\'f6\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'c2\'cc\'c9\'ab\'b1\'ea\'bc\'c7\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003121753379-2129390635.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'ce\'d2\'c3\'c7\'b7\'a2\'cf\'d6\'d5\'e2\'c8\'fd\'b8\'f6\'c2\'cc\'b8\'f1\'d7\'d3\'d6\'dc\'ce\'a7\'b5\'c4\'b8\'f1\'d7\'d3\'be\'f9\'d2\'d1\'b1\'bb\'b7\'c3\'ce\'ca\'b9\'fd\'c1\'cb\'a3\'ac\'cb\'f9\'d2\'d4\'b2\'bb\'d7\'f6\'c8\'ce\'ba\'ce\'b2\'d9\'d7\'f7\'a3\'ac\'ba\'a3\'c6\'bd\'c3\'e6\'bc\'cc\'d0\'f8\'c9\'cf\'c9\'fd\'a3\'ac\'b1\'e4\'ce\'aa
+\f4 4
+\f2 \'a3\'ac\'b1\'e9\'c0\'fa\'cb\'f9\'d3\'d0\'b8\'df\'b6\'c8\'ce\'aa
+\f4 4
+\f2 \'b5\'c4\'b8\'f1\'d7\'d3\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'c2\'cc\'c9\'ab\'b1\'ea\'bc\'c7\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003121905207-4147516.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'d3\'c9\'d3\'da\'ce\'d2\'c3\'c7\'c3\'bb\'d3\'d0\'cc\'d8\'b1\'f0\'c9\'f9\'c3\'f7\'b8\'df\'b6\'c8\'cf\'e0\'cd\'ac\'b5\'c4\'b8\'f1\'d7\'d3\'d4\'da\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'b5\'c4\'cb\'b3\'d0\'f2\'a3\'ac\'cb\'f9\'d2\'d4\'d3\'a6\'b8\'c3\'ca\'c7\'cb\'e6\'bb\'fa\'b5\'c4\'a3\'ac\'c6\'e4\'ca\'b5\'cb\'ad\'cf\'c8\'b1\'e9\'c0\'fa\'b5\'bd\'b6\'bc\'d2\'bb\'d1\'f9\'a3\'ac\'b6\'d4\'bd\'e1\'b9\'fb\'c3\'bb\'c9\'b6\'d3\'b0\'cf\'ec\'a3\'ac\'ce\'d2\'c3\'c7\'be\'cd\'bc\'d9\'c9\'e8\'b5\'da\'d2\'bb\'d0\'d0\'b5\'c4\'c1\'bd\'b8\'f6\'c2\'cc\'b8\'f1\'d7\'d3\'cf\'c8\'b1\'e9\'c0\'fa\'b5\'bd\'a3\'ac\'c4\'c7\'c3\'b4\'c4\'c7\'c3\'b4\'d6\'dc\'ce\'a7\'b8\'f7\'d3\'d0\'d2\'bb\'b8\'f6\'bb\'d2\'b8\'f1\'d7\'d3\'bf\'c9\'d2\'d4\'b1\'e9\'c0\'fa\'a3\'ac\'d5\'e2\'c1\'bd\'b8\'f6\'bb\'d2\'b8\'f1\'d7\'d3\'b1\'c8\'ba\'a3\'c6\'bd\'c3\'e6\'b5\'cd\'c1\'cb\'a3\'ac\'bf\'c9\'d2\'d4\'b4\'e6\'cb\'ae\'c1\'cb\'a3\'ac\'b0\'d1\'b4\'e6\'cb\'ae\'c1\'bf\'cb\'e3\'b3\'f6\'c0\'b4\'bc\'d3\'c8\'eb\'bd\'e1\'b9\'fb
+\f4 res
+\f2 \'d6\'d0\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003122502614-299103818.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'c9\'cf\'cd\'bc\'d6\'d0\'d5\'e2\'c1\'bd\'b8\'f6\'b1\'e9\'c0\'fa\'b5\'bd\'b5\'c4\'c0\'b6\'b8\'f1\'d7\'d3\'bb\'e1\'b1\'bb\'bc\'d3\'c8\'eb\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'a3\'ac\'d3\'c9\'d3\'da\'cb\'fc\'c3\'c7\'b5\'c4\'b8\'df\'b6\'c8\'d0\'a1\'a3\'ac\'cb\'f9\'d2\'d4\'cf\'c2\'d2\'bb\'b4\'ce\'b4\'d3\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'c8\'a1\'b8\'f1\'d7\'d3\'ca\'b1\'a3\'ac\'cb\'fc\'c3\'c7\'bb\'e1\'b1\'bb\'d3\'c5\'cf\'c8\'b1\'e9\'c0\'fa\'b5\'bd\'a3\'ac\'c4\'c7\'c3\'b4\'d7\'f3\'b1\'df\'b5\'c4\'c4\'c7\'b8\'f6\'c0\'b6\'b8\'f1\'d7\'d3\'bd\'f8\'d0\'d0
+\f4 BFS
+\f2 \'cb\'d1\'cb\'f7\'a3\'ac\'be\'cd\'bb\'e1\'b1\'e9\'c0\'fa\'b5\'bd\'c6\'e4\'d7\'f3\'b1\'df\'b5\'c4\'c4\'c7\'b8\'f6\'bb\'d2\'b8\'f1\'d7\'d3\'a3\'ac\'d3\'c9\'d3\'da\'c6\'e4\'b8\'df\'b6\'c8\'d0\'a1\'d3\'da\'ba\'a3\'c6\'bd\'c3\'e6\'a3\'ac\'d2\'b2\'bf\'c9\'d2\'d4\'b4\'e6\'cb\'ae\'a3\'ac\'bd\'ab\'b4\'e6\'cb\'ae\'c1\'bf\'cb\'e3\'b3\'f6\'c0\'b4\'bc\'d3\'c8\'eb\'bd\'e1\'b9\'fb
+\f4 res
+\f2 \'d6\'d0\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003122735129-1777610725.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'b5\'c8\'c1\'bd\'b8\'f6\'c2\'cc\'b8\'f1\'d7\'d3\'b1\'e9\'c0\'fa\'bd\'e1\'ca\'f8\'c1\'cb\'a3\'ac\'cb\'fc\'c3\'c7\'bb\'e1\'b1\'bb\'b1\'ea\'bc\'c7\'ce\'aa\'ba\'ec\'c9\'ab\'a3\'ac\'c0\'b6\'b8\'f1\'d7\'d3\'b1\'e9\'c0\'fa\'bb\'e1\'cf\'c8\'b1\'bb\'b1\'ea\'bc\'c7\'ba\'ec\'c9\'ab\'a3\'ac\'c8\'bb\'ba\'f3\'bc\'d3\'c8\'eb\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'a3\'ac\'d3\'c9\'d3\'da\'c6\'e4\'d6\'dc\'ce\'a7\'b8\'f1\'d7\'d3\'c8\'ab\'b1\'e4\'b3\'c9\'ba\'ec\'c9\'ab\'c1\'cb\'a3\'ac\'cb\'f9\'d3\'d0\'b2\'bb\'bb\'e1\'d3\'d0\'c8\'ce\'ba\'ce\'b2\'d9\'d7\'f7\'a3\'ac\'c8\'e7\'cf\'c2\'cd\'bc\'cb\'f9\'ca\'be\'a3\'ba
+\f4 \
+\pard\pardeftab720\partightenfactor0
+\cf5 {{\NeXTGraphic 391947-20161003122909770-1492433975.jpg \width9000 \height6105 \noorient
+}¬}\pard\pardeftab720\partightenfactor0
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf5 \'b4\'cb\'ca\'b1\'cb\'f9\'d3\'d0\'b5\'c4\'b8\'f1\'d7\'d3\'b6\'bc\'b1\'ea\'bc\'c7\'ce\'aa\'ba\'ec\'c9\'ab\'c1\'cb\'a3\'ac\'ba\'a3\'c6\'bd\'c3\'e6\'bc\'cc\'d0\'f8\'c9\'cf\'c9\'fd\'a3\'ac\'bc\'cc\'d0\'f8\'b1\'e9\'c0\'fa\'cd\'ea\'d3\'c5\'cf\'c8\'b6\'d3\'c1\'d0
+\f4 queue
+\f2 \'d6\'d0\'b5\'c4\'b8\'f1\'d7\'d3\'a3\'ac\'b2\'bb\'b9\'fd\'d2\'d1\'be\'ad\'b2\'bb\'bb\'e1\'b6\'d4\'bd\'e1\'b9\'fb\'d3\'d0\'c8\'ce\'ba\'ce\'d3\'b0\'cf\'ec\'c1\'cb\'a3\'ac\'d2\'f2\'ce\'aa\'cb\'f9\'d3\'d0\'b5\'c4\'b8\'f1\'d7\'d3\'b6\'bc\'d2\'d1\'be\'ad\'b7\'c3\'ce\'ca\'b9\'fd\'c1\'cb\'a3\'ac\'b4\'cb\'ca\'b1\'b5\'c8\'d1\'ad\'bb\'b7\'bd\'e1\'ca\'f8\'ba\'f3\'b7\'b5\'bb\'d8
+\f4 res
+\f2 \'bc\'b4\'bf\'c9
+\f1\fs26 \cf2 \
+\
+*/\
+\
+class Solution \{\
+public:\
+    int trapRainWater(vector<vector<int>>& heightMap) \
+    \{   \
+        multimap<int, pair<int,int>> A;\
+        int row = heightMap.size();\
+        if (row == 0) return 0;\
+        int col = heightMap[0].size();\
+        if (col == 0) return 0;\
+        \
+        vector<vector<bool>> flag(row, vector<bool>(col, false));\
+        for (int i = 0; i < row; i++)\
+        \{\
+            for (int j = 0; j < col; j++)\
+            \{\
+                if (i == 0 || j == 0 || i == row - 1 || j == col - 1)\
+                \{    \
+                    A.insert(make_pair(heightMap[i][j], make_pair(i, j)));\
+                    flag[i][j] = true;\
+                \}\
+            \}\
+        \}\
+        \
+        int haiba = INT_MIN;\
+        int a[4] = \{0, 1, 0, -1\};\
+        int b[4] = \{1, 0, -1, 0\};\
+        int ret = 0;\
+        while (!A.empty())\
+        \{\
+            auto it = A.begin();    \
+            int h = it->first, x = it->second.first, y = it->second.second;\
+            A.erase(it);\
+            haiba = max(haiba, h);\
+            \
+            for (int i = 0; i < 4; i++)\
+            \{\
+                int _x = x + a[i], _y = y + b[i];\
+                if (!isvaild(_x, _y, row, col) || flag[_x][_y])\
+                    continue;\
+                flag[_x][_y] = true;\
+                if (heightMap[_x][_y] < haiba)\
+                    ret += haiba - heightMap[_x][_y];\
+                A.insert(make_pair(heightMap[_x][_y], make_pair(_x, _y)));\
+            \}\
+            \
+        \}\
+        return ret;\
+    \}\
+    \
+    bool isvaild(int x, int y, int row, int col)\
+    \{\
+        return x >= 0 && x < row && y >= 0 && y < col;\
+    \} \
+\};}

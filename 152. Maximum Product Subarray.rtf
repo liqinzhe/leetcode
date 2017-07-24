@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+Find the contiguous subarray within an array (containing at least one number) which has the largest product.\
+\
+For example, given the array [2,3,-2,4],\
+the contiguous subarray [2,3] has the largest product = 6.\
+\
+\
+
+\f1 \'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae
+\f0 \
+\
+
+\f1 \'bd\'e2\'cc\'e2\'cb\'bc\'c2\'b7\'a3\'ba\'b3\'cb\'b7\'a8\'d3\'eb\'bc\'d3\'b7\'a8\'d7\'ee\'b4\'f3\'b2\'ee\'b1\'f0\'d4\'da\'d3\'da\'a3\'ac\'b5\'b1\'c7\'b0\'d4\'aa\'cb\'d8\'b5\'c4\'b7\'fb\'ba\'c5\'be\'df\'d3\'d0\'c8\'ab\'be\'d6\'d0\'d4\'b5\'c4\'d7\'f7\'d3\'c3\'a1\'a3
+\f0 \
+\
+
+\f1 \'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'d4\'aa\'cb\'d8\'ce\'aa\'b8\'ba\'a3\'ac\'c4\'c7\'c3\'b4\'c1\'ac\'b3\'cb\'b5\'bd\'c9\'cf\'b8\'f6\'d4\'aa\'cb\'d8\'b5\'c4\'d7\'ee\'b4\'f3\'b3\'cb\'bb\'fd\'a3\'ac\'d4\'d9\'b3\'cb\'d2\'d4\'b5\'b1\'c7\'b0\'d4\'aa\'cb\'d8\'a3\'ac\'be\'cd\'b1\'e4\'b3\'c9\'b8\'ba\'ca\'fd\'a3\'ac\'c9\'f5\'d6\'c1\'bf\'c9\'c4\'dc\'b3\'c9\'ce\'aa\'d7\'ee\'d0\'a1\'b3\'cb\'bb\'fd\'a1\'a3
+\f0 \
+\
+
+\f1 \'cd\'ac\'d1\'f9\'a3\'ac\'c1\'ac\'b3\'cb\'b5\'bd\'c9\'cf\'b8\'f6\'d4\'aa\'cb\'d8\'b5\'c4\'d7\'ee\'d0\'a1\'b3\'cb\'bb\'fd\'c8\'e7\'ce\'aa\'b8\'ba\'a3\'ac\'d4\'d9\'b3\'cb\'d2\'d4\'b5\'b1\'c7\'b0\'d4\'aa\'cb\'d8\'a3\'ac\'be\'cd\'b1\'e4\'b3\'c9\'d5\'fd\'ca\'fd\'a3\'ac\'c9\'f5\'d6\'c1\'bf\'c9\'c4\'dc\'b3\'c9\'ce\'aa\'d7\'ee\'b4\'f3\'b3\'cb\'bb\'fd\'a1\'a3
+\f0 \
+\
+\
+
+\f1 \'d2\'f2\'b4\'cb\'ca\'b9\'d3\'c3\'b6\'af\'cc\'ac\'b9\'e6\'bb\'ae\'b5\'c4\'b7\'bd\'b7\'a8\'a3\'ba
+\f0 \
+\
+
+\f1 \'bc\'c7
+\f0 maxLast/minLast
+\f1 \'ce\'aa\'c1\'ac\'b3\'cb\'b5\'bd\'c9\'cf\'b8\'f6\'d4\'aa\'cb\'d8\'b5\'c4\'d7\'ee\'b4\'f3
+\f0 /
+\f1 \'d0\'a1\'b3\'cb\'bb\'fd
+\f0 \
+\
+
+\f1 \'bc\'c7
+\f0 maxCur/minCur
+\f1 \'ce\'aa\'c1\'ac\'b3\'cb\'b5\'bd\'b5\'b1\'c7\'b0\'d4\'aa\'cb\'d8\'b5\'c4\'d7\'ee\'b4\'f3
+\f0 /
+\f1 \'d0\'a1\'b3\'cb\'bb\'fd
+\f0 \
+\
+
+\f1 \'bc\'c7
+\f0 maxAll
+\f1 \'ce\'aa\'c8\'ab\'be\'d6\'d7\'ee\'b4\'f3\'b3\'cb\'bb\'fd
+\f0 \
+\
+*/\
+class Solution \{\
+public:\
+    int maxProduct(vector<int>& nums) \
+    \{\
+       if(nums.size()==0)\
+            return 0;    \
+       if(nums.size()==1)\
+            return nums[0];\
+       \
+       int all=nums[0];\
+       int lastmax=nums[0];\
+       int lastmin=nums[0];\
+       int curmax=nums[0];\
+       int curmin=nums[0];\
+      \
+       for(int i=1;i<nums.size();i++)\
+       \{\
+          curmax=max(nums[i],max(lastmax*nums[i],lastmin*nums[i]));\
+          curmin=min(nums[i],min(lastmax*nums[i],lastmin*nums[i]));  \
+          lastmax=curmax;\
+          lastmin=curmin;\
+          all=max(all,curmax);\
+       \}\
+      \
+       return all;\
+    \}\
+\};}

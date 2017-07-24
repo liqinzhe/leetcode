@@ -1,0 +1,150 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red184\green14\blue61;\red247\green238\blue241;
+\red242\green242\blue242;\red211\green98\blue6;\red210\green29\blue5;\red210\green0\blue5;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c78039\c14510\c30588;\cssrgb\c97647\c94902\c95686;
+\cssrgb\c96078\c96078\c96078;\cssrgb\c86667\c46667\c0;\cssrgb\c86667\c20000\c0;\cssrgb\c86667\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf2 \expnd0\expndtw0\kerning0
+Given a 2D board and a list of words from the dictionary, find all words in the board.\
+Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.\
+For example,\
+Given 
+\b words
+\b0  = 
+\f2\fs25\fsmilli12600 \cf3 \cb4 ["oath","pea","eat","rain"]
+\f1\fs28 \cf2 \cb1  and 
+\b board
+\b0  =\
+
+\f2\fs26 \cb5 [\
+  ['\cf6 o\cf2 ','\cf6 a\cf2 ','a','n'],\
+  ['e','\cf7 t\cf2 ','\cf8 a\cf2 ','\cf8 e\cf2 '],\
+  ['i','\cf6 h\cf2 ','k','r'],\
+  ['i','f','l','v']\
+]\
+
+\f1\fs28 \cb1 Return 
+\f2\fs25\fsmilli12600 \cf3 \cb4 ["eat","oath"]
+\f1\fs28 \cf2 \cb1 .\
+\
+
+\b Note:
+\b0 \
+You may assume that all inputs are consist of lowercase letters 
+\f2\fs25\fsmilli12600 \cf3 \cb4 a-z
+\f1\fs28 \cf2 \cb1 .\
+\
+
+\f3 \'b0\'d1\'c4\'bf\'b1\'ea\'b5\'a5\'b4\'ca\'b9\'b9\'bd\'a8\'d2\'bb\'b8\'f6\'d7\'d6\'b5\'e4\'ca\'f7\
+\'d7\'d6\'b7\'fb\'b1\'ed\'c0\'b4DFS\'a3\'ac\'b8\'f9\'be\'dd\'d5\'e2\'b8\'f6\'d7\'d6\'b5\'e4\'ca\'e9\'c0\'b4\'d7\'df\'a1\'a3
+\f1 \
+\
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 */\
+class TrieNode\{\
+public:\
+    string words;\
+    TrieNode* child[26];\
+    \
+    TrieNode()\
+    \{\
+        words = "";\
+        memset(child , 0, sizeof(TrieNode*) * 26);\
+    \}\
+\};\
+\
+class Solution \{\
+public:\
+    vector<string> findWords(vector<vector<char> > &board, vector<string> &words)\
+    \{\
+        root = new TrieNode();\
+        for (int i = 0; i < words.size(); i++)\
+        \{\
+            wordinsert(words[i]);\
+        \}\
+        \
+        int row = board.size();\
+        int col = board[0].size();\
+        \
+        vector<vector<bool>> mask(row, vector<bool>(col, true));\
+        \
+        for (int i = 0; i < row; i++)\
+        \{\
+            for (int j = 0; j < col; j++)\
+            \{\
+                if (root->child[board[i][j]-'a'] != 0)\
+                \{\
+                    search(i, j, board, mask, root->child[board[i][j]-'a']);\
+                \}\
+            \}\
+        \}\
+        \
+        return ret;\
+    \}\
+    \
+    void search(int x,\
+                int y,\
+                vector<vector<char> > &board,\
+                vector<vector<bool> > &mask,\
+                TrieNode *p)\
+    \{\
+        int a[4] = \{0, 1, 0, -1\};\
+        int b[4] = \{1, 0, -1, 0\};\
+        int row = board.size();\
+        int col = board[0].size();\
+        \
+        if (p->words != "")\
+        \{\
+            ret.push_back(p->words);\
+            p->words = "";\
+        \}\
+        \
+        mask[x][y] = false;\
+        for (int i = 0; i < 4; i++)\
+        \{\
+            int _x = x + a[i];\
+            int _y = y + b[i];\
+            \
+            if (!isvaild(_x, _y, row, col) ||\
+                !mask[_x][_y] ||\
+                p->child[board[_x][_y] - 'a'] == 0)\
+                continue;\
+            \
+            search(_x, _y, board, mask, p->child[board[_x][_y] - 'a']);\
+        \}\
+        mask[x][y] = true;\
+    \}\
+    \
+    bool isvaild(int x,int y,int row,int col)\
+    \{\
+        return x >= 0 && x < row && y >= 0 && y < col;\
+    \}\
+    \
+    void wordinsert(string s)\
+    \{\
+        TrieNode *p = root;\
+        for (int i = 0; i < s.size(); i++)\
+        \{\
+            if (p->child[s[i] - 'a'] == 0)\
+            \{\
+                p->child[s[i] - 'a'] = new TrieNode();\
+            \}\
+            p = p->child[s[i] - 'a'];\
+        \}\
+        p->words = s;\
+    \}\
+    \
+    TrieNode *root;\
+    vector<string> ret;\
+\};\
+\
+}
