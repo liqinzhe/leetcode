@@ -77,20 +77,20 @@
 \f1 \
 
 \f0         /*\
-	  int ret = 0;\
-        int i = 0;\
-        string kk = "";\
-        while (i < s.size())\
-        \{\
-            while (i < s.size() && kk.find(s[i]) == -1)\
-            \{\
-                kk += s[i++];\
-            \}\
-            int kksize = kk.size();\
-            ret = max(ret, kksize);\
-            int pos = kk.find(s[i]);\
-            kk = kk.substr(pos + 1, kk.size() - pos - 1) + s[i++];\
-        \}\
+	  int ret = 0;\
+        int i = 0;\
+        string kk = "";\
+        while (i < s.size())\
+        \{\
+            while (i < s.size() && kk.find(s[i]) == -1)\
+            \{\
+                kk += s[i++];\
+            \}\
+            int kksize = kk.size();\
+            ret = max(ret, kksize);\
+            int pos = kk.find(s[i]);\
+            kk = kk.substr(pos + 1, kk.size() - pos - 1) + s[i++];\
+        \}\
         return ret;
 \f1 \
 
@@ -177,4 +177,29 @@
 
 \f0 \};
 \f1 \
-}
+\
+python:\
+\
+class Solution(object):\
+    def lengthOfLongestSubstring(self, s):\
+        """\
+        :type s: str\
+        :rtype: int\
+        """\
+        ret = 0\
+        d = \{\}\
+        now_len = 0\
+        last_begin = 0\
+        for i in range(0, len(s)):\
+            if not s[i] in d:\
+                d[s[i]] = i\
+                now_len += 1\
+            else:\
+                for j in range(last_begin, d[s[i]]):\
+                    del d[s[j]]\
+                now_len = i - d[s[i]]\
+                last_begin = d[s[i]] + 1\
+                d[s[i]] = i\
+                 \
+            ret = max(ret, now_len)\
+        return ret}

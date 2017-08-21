@@ -1,97 +1,92 @@
-{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww16360\viewh15080\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.\
-\
-Below is one possible representation of s1 = "great":\
-\
-    great\
-   /    \\\
-  gr    eat\
- / \\    /  \\\
-g   r  e   at\
-           / \\\
-          a   t\
-To scramble the string, we may choose any non-leaf node and swap its two children.\
-\
-For example, if we choose the node "gr" and swap its two children, it produces a scrambled string "rgeat".\
-\
-    rgeat\
-   /    \\\
-  rg    eat\
- / \\    /  \\\
-r   g  e   at\
-           / \\\
-          a   t\
-We say that "rgeat" is a scrambled string of "great".\
-\
-Similarly, if we continue to swap the children of nodes "eat" and "at", it produces a scrambled string "rgtae".\
-\
-    rgtae\
-   /    \\\
-  rg    tae\
- / \\    /  \\\
-r   g  ta  e\
-       / \\\
-      t   a\
-We say that "rgtae" is a scrambled string of "great".\
-\
-Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.\
-\
-\
-*/\
-class Solution \{\
-public:\
-    bool iscontain(string s1,string s2)\
-    \{\
-        sort(s1.begin(),s1.end());\
-        sort(s2.begin(),s2.end());\
-        if(s1==s2)\
-            return 1;\
-        else\
-            return 0;\
-    \}\
+\f0\fs24 \cf0 /*\
+Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.\
+\
+Below is one possible representation of s1 = "great":\
+\
+    great\
+   /    \\\
+  gr    eat\
+ / \\    /  \\\
+g   r  e   at\
+           / \\\
+          a   t\
+To scramble the string, we may choose any non-leaf node and swap its two children.\
+\
+For example, if we choose the node "gr" and swap its two children, it produces a scrambled string "rgeat".\
+\
+    rgeat\
+   /    \\\
+  rg    eat\
+ / \\    /  \\\
+r   g  e   at\
+           / \\\
+          a   t\
+We say that "rgeat" is a scrambled string of "great".\
+\
+Similarly, if we continue to swap the children of nodes "eat" and "at", it produces a scrambled string "rgtae".\
+\
+    rgtae\
+   /    \\\
+  rg    tae\
+ / \\    /  \\\
+r   g  ta  e\
+       / \\\
+      t   a\
+We say that "rgtae" is a scrambled string of "great".\
+\
+Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.\
+\
+\
+*/\
+class Solution \{\
+public:\
+    bool iscontain(string s1,string s2)\
+    \{\
+        sort(s1.begin(),s1.end());\
+        sort(s2.begin(),s2.end());\
+        return s1 == s2;\
+    \}\
     bool ischeck(string s1,string s2)//
 \f1 \'b5\'da
 \f0 i
 \f1 \'b8\'f6\'b5\'c4\'c7\'b0\'c3\'e6\'b7\'d6\'b8\'ee\'a3\'ac
 \f0 s2
 \f1 \'d7\'f7\'ce\'aa
-\f0 target\
-    \{\
-        if(s1==s2)\
-            return 1;\
-        if(!iscontain(s1,s2))      \
-            return 0;\
-        int tsize=s2.size();\
-        for(int i=1;i<tsize;i++)    \
-        \{    \
+\f0 target\
+    \{\
+        if(s1==s2)\
+            return 1;\
+        if(!iscontain(s1,s2))      \
+            return 0;\
+        int tsize=s2.size();\
+        for(int i=1;i<tsize;i++)    \
+        \{    \
              
 \f1 //\'b0\'d1\'d7\'d6\'b7\'fb\'b4\'ae\'b2\'f0\'b7\'d6\'b3\'c9\'c1\'bd\'b2\'bf\'b7\'d6\'a3\'ac\'c4\'a3\'c4\'e2\'ca\'f7\'b5\'c4\'d7\'d3\'bd\'da\'b5\'e3\'bd\'bb\'bb\'bb\'b9\'fd\'b3\'cc
 \f0 \
-	    if(ischeck(s1.substr(0,i),s2.substr(0,i)) && ischeck(s1.substr(i,tsize-i),s2.substr(i,tsize-i)))\
-                return 1;\
+	    if(ischeck(s1.substr(0,i),s2.substr(0,i)) && ischeck(s1.substr(i,tsize-i),s2.substr(i,tsize-i)))\
+                return 1;\
             if(ischeck(s1.substr(0,i),s2.substr(tsize-i,i)) && ischeck(s1.substr(i,tsize-i),s2.substr(0,tsize-i)))//
 \f1 \'bd\'bb\'bb\'bb
-\f0 \
-                return 1;\
-        \} \
-        return 0;\
-    \}\
-    \
+\f0 \
+                return 1;\
+        \} \
+        return 0;\
+    \}\
+    \
     bool isScramble(string s1, string s2) //
 \f1 \'d2\'aa\'d3\'d0\'d2\'bb\'b8\'f6
-\f0 target\
-    \{\
-        if(s1.size()!=s2.size())\
-            return 0;\
-        if(ischeck(s1,s2))\
-            return 1;\
-        return 0; \
-    \}\
+\f0 target\
+    \{\
+        if(s1.size()!=s2.size())\
+            return 0;\
+        return ischeck(s1,s2);\
+    \}\
 \};}
