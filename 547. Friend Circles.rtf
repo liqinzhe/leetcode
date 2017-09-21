@@ -1,0 +1,140 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red242\green242\blue242;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c96078\c96078\c96078;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \expnd0\expndtw0\kerning0
+There are 
+\b N
+\b0  students in a class. Some of them are friends, while some are not. Their friendship is transitive in nature. For example, if A is a 
+\b direct
+\b0  friend of B, and B is a 
+\b direct
+\b0  friend of C, then A is an 
+\b indirect
+\b0  friend of C. And we defined a friend circle is a group of students who are direct or indirect friends.\
+Given a 
+\b N*N
+\b0  matrix 
+\b M
+\b0  representing the friend relationship between students in the class. If M[i][j] = 1, then the i
+\fs21 th
+\fs28  and j
+\fs21 th
+\fs28  students are 
+\b direct
+\b0  friends with each other, otherwise not. And you have to output the total number of friend circles among all the students.\
+
+\b Example 1:
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b\fs26 \cf2 \cb3 Input:
+\f2\b0  \
+[[1,1,0],\
+ [1,1,0],\
+ [0,0,1]]\
+
+\f1\b Output:
+\f2\b0  2\
+
+\f1\b Explanation:
+\f2\b0 The 0
+\fs19\fsmilli9750 th
+\fs26  and 1
+\fs19\fsmilli9750 st
+\fs26  students are direct friends, so they are in a friend circle. \cb1 \
+\cb3 The 2
+\fs19\fsmilli9750 nd
+\fs26  student himself is in a friend circle. So return 2.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb1 \
+
+\b Example 2:
+\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b\fs26 \cf2 \cb3 Input:
+\f2\b0  \
+[[1,1,0],\
+ [1,1,1],\
+ [0,1,1]]\
+
+\f1\b Output:
+\f2\b0  1\
+
+\f1\b Explanation:
+\f2\b0 The 0
+\fs19\fsmilli9750 th
+\fs26  and 1
+\fs19\fsmilli9750 st
+\fs26  students are direct friends, the 1
+\fs19\fsmilli9750 st
+\fs26  and 2
+\fs19\fsmilli9750 nd
+\fs26  students are direct friends, \cb1 \
+\cb3 so the 0
+\fs19\fsmilli9750 th
+\fs26  and 2
+\fs19\fsmilli9750 nd
+\fs26  students are indirect friends. All of them are in the same friend circle, so return 1.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb1 \
+
+\b Note:
+\b0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	1	}\expnd0\expndtw0\kerning0
+N is in range [1,200].\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2	}\expnd0\expndtw0\kerning0
+M[i][i] = 1 for all students.\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3	}\expnd0\expndtw0\kerning0
+If M[i][j] = 1, then M[j][i] = 1.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\
+class Solution \{\
+public:\
+    int findCircleNum(vector<vector<int>>& M) \
+    \{  \
+        int ret = M.size();\
+        for (int i = 0; i < M.size(); i++)\
+            head.push_back(i);\
+        \
+        for (int i = 0; i < M.size(); i++)\
+        \{\
+            for (int j = i + 1; j < M.size(); j++)\
+            \{\
+                if (M[i][j] == 1)\
+                \{\
+                    int head_i = find_head(i);    \
+                    int head_j = find_head(j);\
+                    if (head_i != head_j)  //
+\f3 \'b1\'be\'c0\'b4\'b2\'bb\'ca\'c7\'d2\'bb\'b8\'f6\'bc\'af\'cc\'e5\'a3\'ac\'cf\'d6\'d4\'da\'c1\'ac\'c9\'cf\'c1\'cb\'a3\'ac\'cb\'f9\'d2\'d4\'bc\'af\'cc\'e5\'ca\'fd\'bc\'f5\'d2\'bb
+\f0 \
+                    \{\
+                        head[head_j] = head_i; \
+                        ret--;\
+                    \}\
+                \} \
+            \}\
+        \}\
+        return ret;\
+    \}\
+private:\
+    vector<int> head;\
+    int find_head(int x)\
+    \{\
+        if (head[x] == x)\
+            return x;\
+        return head[x] = find_head(head[x]);\
+    \}\
+\};}

@@ -5,25 +5,25 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 /*\
-Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\
-\
-Example 1:\
-\
-11110\
-11010\
-11000\
-00000\
-Answer: 1\
-\
-Example 2:\
-\
-11000\
-11000\
-00100\
-00011\
-Answer: 3\
- \
+\f0\fs24 \cf0 /*\
+Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\
+\
+Example 1:\
+\
+11110\
+11010\
+11000\
+00000\
+Answer: 1\
+\
+Example 2:\
+\
+11000\
+11000\
+00100\
+00011\
+Answer: 3\
+ \
   
 \f1 \'cb\'bc\'c2\'b7\'be\'cd\'ca\'c7\'d7\'f3\'c9\'cf\'bd\'c7\'bf\'aa\'ca\'bc\'d5\'d2\'b5\'e3\'a3\'ac\'c8\'e7\'b9\'fb\'ca\'c7
 \f0 1
@@ -36,125 +36,128 @@ Answer: 3\
 \f1 \'b5\'c4\'b5\'e3\'a3\'ac\'c8\'ab\'b2\'bf\'c9\'e8\'ce\'aa
 \f0 2
 \f1 \'a1\'a3
-\f0 \
+\f0 \
   
 \f1 \'c8\'bb\'ba\'f3
-\f0 ret++;\
-  \
-*/\
-struct POS\
-\{\
-    int x;\
-    int y;\
-    POS(int xx,int yy):x(xx),y(yy)\{\}\
-\};\
-\
-\
-class Solution \{\
-public:\
-    \
-    int row;\
-    int col;\
-    \
+\f0 ret++;\
+  \
+*/\
+struct POS\
+\{\
+    int x;\
+    int y;\
+    POS(int xx, int yy):x(xx), y(yy)\{\}\
+\};\
+\
+class Solution \
+\{\
+public:\
     void BFS(vector<vector<char>>& board, int i, int j)  //
 \f1 \'b9\'e3\'b6\'c8\'b1\'e9\'c0\'fa
 \f0  
 \f1 \'b6\'d3\'c1\'d0
-\f0 \
-    \{\
-        int a[4] = \{1, 0, -1, 0\};\
-        int b[4] = \{0, 1, 0, -1\};\
-        \
-        queue<POS*> pos;\
-        pos.push(new POS(i,j));\
-        board[i][j] = '2';\
-        \
-        while(!pos.empty())\
-        \{\
-            POS *front = pos.front();\
-            pos.pop();\
-            for (int i = 0; i < 4; i++)\
-            \{\
-                if (isvalid(front->x + a[i], front->y + b[i]) && board[front->x + a[i]][front->y + b[i]] == '1')\
-                \{\
-                    pos.push(new POS(front->x + a[i], front->y + b[i]));    \
-                    board[front->x + a[i]][front->y + b[i]] = '2';\
-                \}\
-            \}\
-        \}\
-    \}\
-    \
-    void DFS(vector<vector<char>>& grid,int i,int j,int row,int col)\
-    \{\
-        stack<POS*> pos;\
-        POS* a=new POS(i,j);\
-        pos.push(a);\
-        grid[i][j]='2';\
-        \
-        while(!pos.empty())\
-        \{\
-            POS *b=pos.top();\
-            \
-            if(b->x>0 && grid[b->x-1][b->y]=='1')\
-            \{\
-                POS *c=new POS(b->x-1,b->y);\
-                pos.push(c);\
-                grid[b->x-1][b->y]='2';\
-                continue;\
-            \}\
-            if(b->x<row-1 && grid[b->x+1][b->y]=='1')\
-            \{\
-                POS *c=new POS(b->x+1,b->y);\
-                pos.push(c);\
-                grid[b->x+1][b->y]='2';\
-                continue;\
-            \}\
-            if(b->y>0 && grid[b->x][b->y-1]=='1')\
-            \{\
-                POS *c=new POS(b->x,b->y-1);\
-                pos.push(c);\
-                grid[b->x][b->y-1]='2';\
-                continue;\
-            \}\
-            if(b->y<col-1 && grid[b->x][b->y+1]=='1')\
-            \{\
-                POS *c=new POS(b->x,b->y+1);\
-                pos.push(c);\
-                grid[b->x][b->y+1]='2';\
-                continue;\
-            \}\
-            pos.pop();\
-        \}\
-        \
-    \}\
-    \
-    bool isvalid(int i, int j)\
-    \{\
-        return i >= 0 && i < row && j >=0 && j < col;\
-    \}\
-    \
-    int numIslands(vector<vector<char>>& grid) \
-    \{\
-        int ret = 0;\
-        \
-        row = grid.size();\
-        if (row == 0)\
-          return ret;\
-          \
-        col = grid[0].size();\
-          \
-        for(int i=0;i<row;i++)\
-        \{\
-            for(int j=0;j<col;j++)\
-            \{\
-                if(grid[i][j]=='1')\
-                \{\
-                    ret++;\
-                    BFS(grid,i,j);\
-                    //DFS(grid,i,j);\
-                \}\
-            \}\
-        \}\
-        return ret; \
-    \}\
+\f0 \
+    \{\
+        int a[4] = \{1, 0, -1, 0\};\
+        int b[4] = \{0, 1, 0, -1\};\
+        \
+        queue<POS*> pos;\
+        pos.push(new POS(i,j));\
+        board[i][j] = '2';\
+        \
+        while(!pos.empty())\
+        \{\
+            POS *front = pos.front();\
+            pos.pop();\
+            for (int i = 0; i < 4; i++)\
+            \{\
+                if (isvalid(front->x + a[i], front->y + b[i]) && board[front->x + a[i]][front->y + b[i]] == '1')\
+                \{\
+                    pos.push(new POS(front->x + a[i], front->y + b[i]));    \
+                    board[front->x + a[i]][front->y + b[i]] = '2';\
+                \}\
+            \}\
+        \}\
+    \}\
+    \
+    void DFS(vector<vector<char>>& board, int i, int j)  //
+\f1 \'c9\'ee\'b6\'c8\'b1\'e9\'c0\'fa
+\f0  
+\f1 \'d5\'bb
+\f0 \
+    \{\
+        int a[4] = \{1, 0, -1, 0\};\
+        int b[4] = \{0, 1, 0, -1\};\
+        \
+        stack<POS*> pos;\
+        pos.push(new POS(i, j));\
+        board[i][j] = '2';\
+        bool isfind;  //
+\f1 \'d3\'c9\'d3\'da\'d4\'da\'b5\'b1\'c7\'b0\'b5\'e3\'d6\'dc\'b1\'df\'d5\'d2\'b5\'bd\'d0\'c2\'b5\'c4\'b7\'fb\'ba\'cf\'d2\'aa\'c7\'f3\'b5\'c4\'b5\'e3\'be\'cd\'d3\'a6\'b8\'c3
+\f0 continue
+\f1 \'a3\'ac\'b5\'ab\'ca\'c7\'d4\'da
+\f0 while
+\f1 \'c0\'ef\'c3\'e6\'bb\'b9\'d3\'d0\'d2\'bb\'b2\'e3
+\f0 for
+\f1 \'a3\'ac
+\f0 continue
+\f1 \'ce\'de\'b7\'a8\'bf\'aa\'ca\'bc\'d0\'c2\'b5\'c4
+\f0 while
+\f1 \'a3\'ac\'cb\'f9\'d2\'d4\'d0\'e8\'d2\'aa\'d2\'bb\'b8\'f6
+\f0 isfind
+\f1 \'b5\'bd\'cd\'e2\'c3\'e6\'c8\'a5
+\f0 continue\
+        \
+        while (!pos.empty())\
+        \{\
+            POS *front = pos.top(); \
+            isfind = false;\
+            for (int i = 0; i < 4; i++)\
+            \{\
+                if (isvalid(front->x + a[i], front->y + b[i]) && board[front->x + a[i]][front->y + b[i]] == '1')\
+                \{\
+                    pos.push(new POS(front->x + a[i], front->y + b[i]));    \
+                    board[front->x + a[i]][front->y + b[i]] = '2';\
+                    isfind = true;\
+                    break;\
+                \}\
+            \}\
+            if (isfind)\
+                continue;\
+            pos.pop();\
+        \}\
+    \}\
+    \
+    bool isvalid(int i, int j)\
+    \{\
+        return i >= 0 && i < row && j >=0 && j < col;\
+    \}\
+    \
+    int numIslands(vector<vector<char>>& grid) \
+    \{\
+        int ret = 0;\
+        row = grid.size();\
+        if (row == 0)\
+          return ret;\
+          \
+        col = grid[0].size();\
+          \
+        for (int i = 0; i < row; i++)\
+        \{\
+            for (int j = 0; j < col; j++)\
+            \{\
+                if (grid[i][j] == '1')\
+                \{\
+                    ret++;\
+                    //BFS(grid, i, j);\
+                    DFS(grid, i, j);\
+                \}\
+            \}\
+        \}\
+        return ret; \
+    \}\
+    \
+private:\
+    int row;\
+    int col;\
 \};}
